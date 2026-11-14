@@ -86,6 +86,7 @@ export default function App() {
     setMaxNodes(nodes)
     setFormError("")
     setChecking(true)
+    setReport(null)
       try {
         const next = await checkEquivalence({
           circuit1: left,
@@ -137,6 +138,7 @@ export default function App() {
         </a>
       </header>
 
+      <fieldset disabled={checking} className="contents">
       <section className="mb-6" aria-label="Examples">
         <div className="mb-2 flex items-baseline justify-between gap-3">
           <h2 className="font-heading text-xl font-medium">Examples</h2>
@@ -265,6 +267,8 @@ export default function App() {
           </div>
         </CardContent>
       </Card>
+
+      </fieldset>
 
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
         <Button type="button" size="lg" disabled={!wasmReady || checking} onClick={onCheck}>
