@@ -6,7 +6,7 @@ manifest=json.loads((base/'PROVENANCE.json').read_text())
 checked=[]
 for name,cfg in manifest.items():
  for group in ['sha256','source_sha256']:
-  for file,expected in cfg[group].items():
+  for file,expected in cfg.get(group,{}).items():
    h=hashlib.sha256()
    with (base/file).open('rb') as f:
     for chunk in iter(lambda:f.read(1024*1024),b''):h.update(chunk)

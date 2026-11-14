@@ -24,7 +24,7 @@ The PathsumWMC-build directory has the scripts/ and ports/ layout expected by
 the build scripts. All source, original GNU tarballs and notices are retained.
 GPMC's exact-rational adapter replaces only the numeric class and CLI entry;
 Ganak's CMake shared-library override is removed and GMP C++ is linked explicitly.
-No model-counter search algorithm is replaced by a built-in counter.
+No model-counter search algorithm is replaced by a built-in counter.\nBrowserTime.cc supplies a monotonic wall-time / allocated-linear-memory proxy\nfor browser resource budgets; it does not claim OS CPU/RSS measurements.\nThe C++ runtime uses a 16 MiB stack with overflow checks.
 
 For GANAK, point PATHSUM_GANAK_SOURCE to the extracted ganak-corresponding-source
 directory, set PATHSUM_PORT_BUILD and PATHSUM_PORT_OUT to new absolute scratch
@@ -42,7 +42,7 @@ with emconfigure ./configure --disable-assembly --disable-shared --enable-cxx
 and emmake make install. Configure gpmc-patched with emcmake cmake, adding
 -I/absolute/prefix/include -std=c++14 -sUSE_ZLIB=1 to CMAKE_CXX_FLAGS, and
 -L/absolute/prefix/lib -sUSE_ZLIB=1 -sALLOW_MEMORY_GROWTH=1
--sMAXIMUM_MEMORY=536870912 -sENVIRONMENT=worker
+-sMAXIMUM_MEMORY=536870912 -sINITIAL_MEMORY=33554432\n-sSTACK_SIZE=16777216 -sSTACK_OVERFLOW_CHECK=2 -sENVIRONMENT=worker
 -sEXPORTED_RUNTIME_METHODS=FS,callMain -sEXIT_RUNTIME=1 to the executable linker
 flags. Use CMAKE_BUILD_TYPE=Release and CMAKE_POLICY_VERSION_MINIMUM=3.5.
 The complete automated clean-source recipe is build-gpmc-wasm.sh.
