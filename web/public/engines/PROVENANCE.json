@@ -18,7 +18,12 @@
     "stack": "16 MiB, STACK_OVERFLOW_CHECK=2",
     "initial_memory_mib": 32,
     "maximum_memory_mib": 512,
-    "mode": "-mode=1 -cs=64"
+    "mode": "-mode=1 -cs=64",
+    "release": "https://github.com/guluchen/PathsumWMC/releases/tag/counter-wasm-20261114-v2",
+    "source_sha256": {
+      "sources/gpmc-port-source.tar.gz": "3cb15564d74e726eeb458abe0d5eae1a79df868b6928d0b20cd35dc5e36717e8",
+      "sources/gmp-6.3.0.tar.xz": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+    }
   },
   "ganak": {
     "repository": "https://github.com/meelgroup/ganak",
@@ -42,6 +47,10 @@
     "port_resource_clock": "Worker-local monotonic elapsed wall time and allocated linear memory proxy; not OS CPU time/RSS.",
     "stack": "16 MiB, STACK_OVERFLOW_CHECK=2",
     "initial_memory_mib": 32,
-    "maximum_memory_mib": 512
+    "maximum_memory_mib": 512,
+    "release": "https://github.com/guluchen/PathsumWMC/releases/tag/counter-wasm-20261114-v2",
+    "source_sha256": {
+      "sources/ganak-static-port-source.tar.gz": "91249febfdac727e07af53ea5a405376d19e5289d4572baf9ea4a81d349d68ba"
+    }
   }
 }
