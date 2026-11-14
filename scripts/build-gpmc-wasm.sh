@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
+# Run on the CI builder, never on the timing Mac.
+mkdir -p .port-build
+c++ -std=c++14 -Iports/gpmc ports/gpmc/test_dyadic.cc -lgmpxx -lgmp -o .port-build/test-dyadic
+.port-build/test-dyadic
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 BUILD=${PATHSUM_PORT_BUILD:-$ROOT/.port-build}
 OUT=${PATHSUM_PORT_OUT:-$ROOT/web/public/engines}
