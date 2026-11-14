@@ -605,19 +605,67 @@ fn dimension_report(left: &Circuit, right: &Circuit) -> Report {
 
 // Browser-worker bridge. The request is revalidated and its CNF reconstructed
 // at finalization; a caller cannot inject a radius or a normalization factor.
-pub fn prepare_external(req:&CheckRequest)->Result<serde_json::Value,EqError> {
-    let (left,right,ps,before,after,prec)=external_setup(req)?;
-    if left.qubits!=right.qubits { return Ok(serde_json::json!({"report":dimension_report(&left,&right)})); }
-    let mode=parse_mode(&req.mode)?;
-    if mode!=Mode::Wmc {
-        if let Some(angle)=syntactic_global_phase(&ps) {
-            return Ok(serde_json::json!({"report":symbolic_report(&left,&right,&ps,before,after,&angle)}));
-        }
+/// Opaque owned preparation. The public job contains no authoritative radius
+/// or normalization fields; finalization uses this immutable Rust context.
+pub struct PreparedExternal {
+    immediate:Option<Report>,
+    work:Option<ExternalWork>,
+}
+struct ExternalWork {
+    left:Circuit,right:Circuit,ps:PathSum,before:u32,after:u32,prec:u32,
+    engine:String,jobs:Vec<String>,radius:num_rational::BigRational,
+}
+impl PreparedExternal {
+    pub fn new(req:&CheckRequest)->Result<Self,EqError> {
+        let (left,right,ps,before,after,prec)=external_setup(req)?;
+        let mode=parse_mode(&req.mode)?;
+        let immediate=if left.qubits!=right.qubits {Some(dimension_report(&left,&right))}
+            else if mode!=Mode::Wmc {
+                if let Some(angle)=syntactic_global_phase(&ps) {Some(symbolic_report(&left,&right,&ps,before,after,&angle))}
+                else if mode==Mode::Reduction {Some(unknown_report(&left,&right,&ps,before,after))} else {None}
+            } else {None};
+        if immediate.is_some(){return Ok(Self{immediate,work:None})}
+        let enc=encode::encode(&ps)?;
+        let (jobs,radius)=crate::external::cnf(&enc,prec,&req.counter);
+        Ok(Self{immediate:None,work:Some(ExternalWork{left,right,ps,before,after,prec,engine:req.counter.clone(),jobs,radius})})
     }
-    if mode==Mode::Reduction { return Ok(serde_json::json!({"report":unknown_report(&left,&right,&ps,before,after)})); }
-    let enc=encode::encode(&ps)?;
-    let (cnfs,_)=crate::external::cnf(&enc,prec,&req.counter);
-    Ok(serde_json::json!({"cnfs":cnfs,"precision":prec,"engine":req.counter}))
+    pub fn job(&self)->serde_json::Value {
+        if let Some(report)=&self.immediate {return serde_json::json!({"report":report})}
+        let w=self.work.as_ref().expect("prepared work");
+        serde_json::json!({"cnfs":w.jobs,"precision":w.prec,"engine":w.engine})
+    }
+    pub fn finish(&self,stdout:&str,elapsed_ms:u64)->Result<Report,EqError> {
+        if let Some(report)=&self.immediate {return Ok(report.clone())}
+        let ExternalWork{left,right,ps,before,after,prec,engine,jobs,radius}=self.work.as_ref().expect("prepared work");
+    let outputs:Vec<String>=serde_json::from_str(stdout).map_err(|_|EqError("Invalid counter result envelope.".into()))?;
+    if outputs.len()!=jobs.len() {return Err(EqError("Incomplete algebraic counter jobs.".into()))}
+    let values:Vec<_>=outputs.iter().map(|s|crate::external::count(s)).collect::<Result<_,_>>()?;
+    let mid=ExactAmp {re0:values[0].0.clone(),im0:values[0].1.clone(),re1:values.get(1).map(|v|v.0.clone()).unwrap_or_default(),im1:values.get(1).map(|v|v.1.clone()).unwrap_or_default()};
+    let value=if radius.is_zero() {AmpValue::Exact(mid)} else {
+        let b=mid.to_ball(*prec);
+        let (rl,rh)=b.re.rational_bounds();let (il,ih)=b.im.rational_bounds();
+        AmpValue::Ball(ComplexBall {re:RealBall::span_rationals(&(rl-radius),&(rh+radius),*prec),im:RealBall::span_rationals(&(il-radius),&(ih+radius),*prec)})
+    };
+    let j=finalize(&ps,value,*prec);
+    // An exact counter result that cannot intersect the physically possible
+    // normalized trace is an adapter/counter failure, not a valid distance.
+    if j.frobenius_distance.is_none() { return Err(EqError("The counter result violates the unitary trace bound.".into())); }
+    let counter=CounterReport { name:engine.clone(),kind:"wmc".into(),verdict:j.verdict.clone(),value:j.value.clone(),magnitude_squared:j.magnitude_squared,frobenius_distance:j.frobenius_distance.clone(),elapsed_ms,error:String::new() };
+    let arithmetic=arithmetic_from(&counter);
+    let dimensions:Vec<_>=jobs[0].lines().find(|l|l.starts_with("p cnf ")).unwrap().split_whitespace().collect();
+    let submitted_variables=dimensions[2].parse::<u32>().unwrap();
+    let submitted_clauses=dimensions[3].parse::<u32>().unwrap();
+    Ok(Report {
+        verdict:j.verdict.clone(),headline:headline_for(&j.verdict),detail:j.value.clone(),phase:j.value,
+        arithmetic,
+        qubits:left.qubits as u32,gates1:left.len() as u32,gates2:right.len() as u32,
+        path_variables_before:*before,path_variables_after:*after,monomials:ps.phase.terms.len() as u32,
+        variables:submitted_variables,clauses:submitted_clauses,frobenius_distance:j.frobenius_distance,
+        precision_bits:*prec,reduction_steps:ps.steps.clone(),counters:vec![counter],
+        notes:vec!["The selected exact counter computed exact complex-rational midpoint sums; a parity/carry extension preserves pi/4 weights exactly in Q(i,sqrt(2)). Ball arithmetic encloses all phase-weight approximation error using a telescoping product bound; no floating-point acceptance band is used.".into()],
+    })
+}
+
 }
 fn external_setup(req:&CheckRequest)->Result<(Circuit,Circuit,PathSum,u32,u32,u32),EqError> {
     if req.counter!="gpmc" && req.counter!="ganak" { return Err(EqError("Expected GPMC or GANAK.".into())); }
@@ -634,36 +682,24 @@ fn external_setup(req:&CheckRequest)->Result<(Circuit,Circuit,PathSum,u32,u32,u3
     let after=ps.path_var_count();
     Ok((left,right,ps,before,after,req.precision.clamp(32,4096)))
 }
+pub fn prepare_external(req:&CheckRequest)->Result<serde_json::Value,EqError> {
+    Ok(PreparedExternal::new(req)?.job())
+}
 pub fn finish_external(req:&CheckRequest,stdout:&str,elapsed_ms:u64)->Result<Report,EqError> {
-    let (left,right,ps,before,after,prec)=external_setup(req)?;
-    if left.qubits!=right.qubits { return Ok(dimension_report(&left,&right)); }
-    let enc=encode::encode(&ps)?;
-    let (jobs,radius)=crate::external::cnf(&enc,prec,&req.counter);
-    let outputs:Vec<String>=serde_json::from_str(stdout).map_err(|_|EqError("Invalid counter result envelope.".into()))?;
-    if outputs.len()!=jobs.len() {return Err(EqError("Incomplete algebraic counter jobs.".into()))}
-    let values:Vec<_>=outputs.iter().map(|s|crate::external::count(s)).collect::<Result<_,_>>()?;
-    let mid=ExactAmp {re0:values[0].0.clone(),im0:values[0].1.clone(),re1:values.get(1).map(|v|v.0.clone()).unwrap_or_default(),im1:values.get(1).map(|v|v.1.clone()).unwrap_or_default()};
-    let value=if radius.is_zero() {AmpValue::Exact(mid)} else {
-        let b=mid.to_ball(prec);
-        let (rl,rh)=b.re.rational_bounds();let (il,ih)=b.im.rational_bounds();
-        AmpValue::Ball(ComplexBall {re:RealBall::span_rationals(&(rl-&radius),&(rh+&radius),prec),im:RealBall::span_rationals(&(il-&radius),&(ih+&radius),prec)})
-    };
-    let j=finalize(&ps,value,prec);
-    // An exact counter result that cannot intersect the physically possible
-    // normalized trace is an adapter/counter failure, not a valid distance.
-    if j.frobenius_distance.is_none() { return Err(EqError("The counter result violates the unitary trace bound.".into())); }
-    let counter=CounterReport { name:req.counter.clone(),kind:"wmc".into(),verdict:j.verdict.clone(),value:j.value.clone(),magnitude_squared:j.magnitude_squared,frobenius_distance:j.frobenius_distance.clone(),elapsed_ms,error:String::new() };
-    let arithmetic=arithmetic_from(&counter);
-    let dimensions:Vec<_>=jobs[0].lines().find(|l|l.starts_with("p cnf ")).unwrap().split_whitespace().collect();
-    let submitted_variables=dimensions[2].parse::<u32>().unwrap();
-    let submitted_clauses=dimensions[3].parse::<u32>().unwrap();
-    Ok(Report {
-        verdict:j.verdict.clone(),headline:headline_for(&j.verdict),detail:j.value.clone(),phase:j.value,
-        arithmetic,
-        qubits:left.qubits as u32,gates1:left.len() as u32,gates2:right.len() as u32,
-        path_variables_before:before,path_variables_after:after,monomials:ps.phase.terms.len() as u32,
-        variables:submitted_variables,clauses:submitted_clauses,frobenius_distance:j.frobenius_distance,
-        precision_bits:prec,reduction_steps:ps.steps,counters:vec![counter],
-        notes:vec!["The selected WebAssembly counter computed exact complex-rational midpoint sums; a parity/carry extension preserves pi/4 weights exactly in Q(i,sqrt(2)). Ball arithmetic encloses all phase-weight approximation error using a telescoping product bound; no floating-point acceptance band is used.".into()],
-    })
+    PreparedExternal::new(req)?.finish(stdout,elapsed_ms)
+}
+
+#[cfg(test)]
+mod prepared_tests {
+    use super::*;
+    #[test] fn owned_preparation_matches_stateless_and_rejects_bad_counts() {
+        let req=CheckRequest{circuit1:"OPENQASM 2.0; qreg q[1]; t q[0];".into(),circuit2:"OPENQASM 2.0; qreg q[1]; t q[0];".into(),mode:"wmc".into(),counter:"gpmc".into(),precision:128,max_precision:128,..CheckRequest::default()};
+        let prepared=PreparedExternal::new(&req).unwrap();assert_eq!(prepared.job()["cnfs"].as_array().unwrap().len(),1);
+        let output=r#"["c s exact arb frac 2+0i"]"#;
+        let a=prepared.finish(output,7).unwrap();let b=finish_external(&req,output,7).unwrap();assert_eq!(serde_json::to_value(a).unwrap(),serde_json::to_value(b).unwrap());
+        assert!(prepared.finish("[]",0).is_err());assert!(prepared.finish(r#"["c s exact quadruple float 2+0i"]"#,0).is_err());
+        let mut untrusted=prepared.job();untrusted["radius"]=serde_json::json!("0");untrusted["cnfs"]=serde_json::json!([]);
+        assert_eq!(prepared.finish(output,7).unwrap().frobenius_distance.unwrap().upper_exact,"0");
+        assert!(!prepared.job()["cnfs"].as_array().unwrap().is_empty());
+    }
 }

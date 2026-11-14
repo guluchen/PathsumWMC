@@ -1,4 +1,4 @@
-import init, {check_equivalence, prepare_external, finish_external} from './pkg/pathsum_wasm.js'
+import init, {check_equivalence, ExternalJob} from './pkg/pathsum_wasm.js'
 
 const ready=init()
 let sequence=0
@@ -26,7 +26,9 @@ self.onmessage=async ({data})=>{
     const maxPrec=Math.min(4096,Math.max(prec,request.max_precision))
     for(;;) {
       request.precision=prec
-      const job=JSON.parse(prepare_external(JSON.stringify(request)))
+      const prepared=new ExternalJob(JSON.stringify(request))
+      try {
+      const job=JSON.parse(prepared.job())
       if(job.error) throw new Error(job.error)
       if(job.report) { self.postMessage({report:job.report}); return }
       const outputs:string[]=[]
@@ -36,13 +38,14 @@ self.onmessage=async ({data})=>{
       outputs.push(part.stdout);result.elapsed_ms+=part.elapsed_ms;result.load_ms+=part.load_ms
       result.heap_bytes=Math.max(result.heap_bytes,part.heap_bytes||0)
       }
-      const report=JSON.parse(finish_external(JSON.stringify(request),JSON.stringify(outputs),Math.ceil(result.elapsed_ms)))
+      const report=JSON.parse(prepared.finish(JSON.stringify(outputs),Math.ceil(result.elapsed_ms)))
       if(report.error) throw new Error(report.error)
       report.engine_timing={load_ms:result.load_ms,solve_ms:result.elapsed_ms,heap_bytes:result.heap_bytes}
       if(report.verdict==='inconclusive' && prec<maxPrec) {
         prec=Math.min(maxPrec,prec*2);continue
       }
       self.postMessage({report,...(data.diagnostics?{diagnostics:{cnfs:job.cnfs,stdout:outputs}}:{})});return
+      } finally { prepared.free() }
     }
   } catch(e) { self.postMessage({error:e instanceof Error?e.message:String(e)}) }
 }

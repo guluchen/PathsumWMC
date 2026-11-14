@@ -79,12 +79,69 @@ impl PathSum {
                 left.qubits, right.qubits
             )));
         }
-        let mut ps = Self::from_circuit_eager(&left.dagger(), eager)?;
-        for gate in &right.gates {
-            ps.apply(gate)?;
+        if !eager { return Self::compose_sequential(left,right,false); }
+        if left.qubits>u16::MAX as usize { return Err(EqError("path-sum variable capacity exceeded (65535 IDs)".into())); }
+        let mut ps=Self::identity(left.qubits);ps.eager=true;
+        let (mut i,mut j)=(0usize,0usize);
+        while i<left.len() || j<right.len() {
+            // Left and right matrix actions commute. Balance progress through
+            // the two original gate lists without reordering either circuit.
+            if i<left.len() && (j==right.len() || (i as u128+1)*right.len() as u128 <= (j as u128+1)*left.len() as u128) {
+                ps.apply_input(&left.gates[i].dagger())?;i+=1;
+            } else {ps.apply(&right.gates[j])?;j+=1;}
         }
-        ps.phase.normalize();
-        Ok(ps)
+        ps.phase.normalize();Ok(ps)
+    }
+
+    pub fn compose_sequential(left:&Circuit,right:&Circuit,eager:bool)->Result<Self,EqError> {
+        if left.qubits!=right.qubits {return Err(EqError("qubit counts differ".into()));}
+        let mut ps=Self::from_circuit_eager(&left.dagger(),eager)?;
+        for gate in &right.gates {ps.apply(gate)?;}
+        ps.phase.normalize();Ok(ps)
+    }
+
+    fn substitute_input(&mut self,q:usize,replacement:&Anf)->Result<(),EqError> {
+        let old=std::mem::take(&mut self.phase);
+        self.phase=crate::reduce::substitute_phase(old.terms,q as u16,replacement)?;
+        for (anf,angle) in old.packed {self.phase.add_packed(anf.substitute(q as u16,replacement),angle);}
+        for output in &mut self.outputs {*output=output.substitute(q as u16,replacement);}
+        Ok(())
+    }
+
+    /// Append a gate on the input side: V <- V G. Written independently from
+    /// output application; input symbols remain the original basis variables.
+    fn apply_input(&mut self,gate:&Gate)->Result<(),EqError> {
+        let operands=gate.qubits();
+        if operands.iter().enumerate().any(|(i,q)|operands[..i].contains(q)) || operands.iter().any(|&q|q>=self.qubits) {
+            return Err(EqError("invalid input gate operands".into()));
+        }
+        let pi=|n:i64,d:i64|Angle::from_pi(BigRational::new(n.into(),d.into()));
+        let x=|q:usize|Anf::var(q as u16);
+        match gate {
+            Gate::H(q)=>{let y=self.fresh()?;self.substitute_input(*q,&Anf::var(y))?;self.phase.add_mono(crate::anf::Mono::var(*q as u16).union(&crate::anf::Mono::var(y)),pi(1,1));},
+            Gate::X(q)=>self.substitute_input(*q,&x(*q).not())?,
+            Gate::Y(q)=>{self.substitute_input(*q,&x(*q).not())?;self.add_phase_anf(&x(*q),&pi(1,1))?;self.add_constant(pi(1,2));},
+            Gate::Z(q)=>self.add_phase_anf(&x(*q),&pi(1,1))?,
+            Gate::S(q)=>self.add_phase_anf(&x(*q),&pi(1,2))?,
+            Gate::Sdg(q)=>self.add_phase_anf(&x(*q),&pi(-1,2))?,
+            Gate::T(q)=>self.add_phase_anf(&x(*q),&pi(1,4))?,
+            Gate::Tdg(q)=>self.add_phase_anf(&x(*q),&pi(-1,4))?,
+            Gate::Cx(c,t)=>self.substitute_input(*t,&x(*t).xor(&x(*c)))?,
+            Gate::Ccx(a,b,t)=>self.substitute_input(*t,&x(*t).xor(&x(*a).and(&x(*b))))?,
+            Gate::Cz(c,t)=>self.add_phase_anf(&x(*c).and(&x(*t)),&pi(1,1))?,
+            Gate::Ccz(a,b,c)=>self.add_phase_anf(&x(*a).and(&x(*b)).and(&x(*c)),&pi(1,1))?,
+            Gate::Swap(a,b)=>{self.apply_input(&Gate::Cx(*a,*b))?;self.apply_input(&Gate::Cx(*b,*a))?;self.apply_input(&Gate::Cx(*a,*b))?;},
+            Gate::P(q,a)=>self.add_phase_anf(&x(*q),a)?,
+            Gate::Rz(q,a)=>{self.add_phase_anf(&x(*q),a)?;self.add_constant(a.scale(&BigRational::new((-1).into(),2.into())));},
+            Gate::Rx(q,a)=>{self.apply_input(&Gate::H(*q))?;self.apply_input(&Gate::Rz(*q,a.clone()))?;self.apply_input(&Gate::H(*q))?;},
+            Gate::Ry(q,a)=>{self.apply_input(&Gate::Rz(*q,pi(1,2)))?;self.apply_input(&Gate::Rx(*q,a.clone()))?;self.apply_input(&Gate::Rz(*q,pi(-1,2)))?;},
+            Gate::Cp(c,t,a)=>self.add_phase_anf(&x(*c).and(&x(*t)),a)?,
+            Gate::Crz(c,t,a)=>{self.add_phase_anf(&x(*c).and(&x(*t)),a)?;self.add_phase_anf(&x(*c),&a.scale(&BigRational::new((-1).into(),2.into())))?;},
+            Gate::Crx(c,t,a)=>{self.apply_input(&Gate::H(*t))?;self.apply_input(&Gate::Crz(*c,*t,a.clone()))?;self.apply_input(&Gate::H(*t))?;},
+            Gate::Cry(c,t,a)=>{self.apply_input(&Gate::Rz(*t,pi(1,2)))?;self.apply_input(&Gate::Crx(*c,*t,a.clone()))?;self.apply_input(&Gate::Rz(*t,pi(-1,2)))?;},
+        }
+        if self.eager {crate::reduce::reduce(self)?;}
+        Ok(())
     }
 
     pub fn apply(&mut self, gate: &Gate) -> Result<(), EqError> {
@@ -415,5 +472,54 @@ mod capacity_tests {
         for source in ["qreg q[65536];", "qreg a[32768]; qreg b[32768];", "qreg q[1]; qreg q[1];"] {
             assert!(crate::parse_qasm(&format!("OPENQASM 2.0; {source}")).is_err());
         }
+    }
+}
+
+#[cfg(test)]
+mod interleaved_tests {
+    use super::*;
+    use num_traits::Zero;
+    fn overlap(a:&crate::ball::RealBall,b:&crate::ball::RealBall)->bool {
+        let (al,ah)=a.rational_bounds();let (bl,bh)=b.rational_bounds();al<=bh && bl<=ah
+    }
+    fn trace(ps:&PathSum)->ComplexBall {
+        match ps.diagonal_sum_direct(160).unwrap(){AmpValue::Exact(z)=>z.to_ball(160),AmpValue::Ball(z)=>z}
+    }
+    fn agrees(left:&Circuit,right:&Circuit) {
+        let ps=PathSum::compose(left,right,true).unwrap();
+        let actual=trace(&ps);let reference=crate::matrix::matrix_diagonal(left,right,160).unwrap();
+        assert!(overlap(&actual.re,&reference.re)&&overlap(&actual.im,&reference.im),"interleaved trace mismatch: {:?} / {:?}",left.gates,right.gates);
+        let seq=trace(&PathSum::compose_sequential(left,right,true).unwrap());
+        assert!(overlap(&actual.re,&seq.re)&&overlap(&actual.im,&seq.im));
+    }
+    fn pool()->Vec<Gate>{
+        let a=Angle::from_pi(BigRational::new(1.into(),4.into()));
+        vec![Gate::H(0),Gate::H(1),Gate::X(0),Gate::Y(1),Gate::Z(2),Gate::S(0),Gate::Sdg(1),Gate::T(0),Gate::Tdg(2),Gate::Cx(0,1),Gate::Cz(1,2),Gate::Swap(0,2),Gate::Ccx(0,1,2),Gate::Ccz(0,1,2),Gate::P(0,a.clone()),Gate::Rz(1,a.clone()),Gate::Rx(2,a.clone()),Gate::Ry(0,a.clone()),Gate::Cp(0,1,a.clone()),Gate::Crz(1,2,a.clone()),Gate::Crx(0,2,a.clone()),Gate::Cry(2,1,a)]
+    }
+    #[test] fn every_input_gate_and_balanced_schedule_match_matrix() {
+        for gate in pool(){
+            let mut left=Circuit::new(3);left.gates=vec![Gate::H(0),Gate::T(1),gate,Gate::Cx(0,2),Gate::Ry(1,Angle::from_pi(BigRational::new(1.into(),4.into())))];
+            agrees(&left,&left);
+            let mut right=Circuit::new(3);right.gates=vec![Gate::Y(0),Gate::H(2),Gate::Ccx(0,1,2),Gate::Tdg(1)];agrees(&left,&right);
+            agrees(&left,&Circuit::new(3));agrees(&Circuit::new(3),&left);
+        }
+    }
+    #[test] fn independent_random_ladder_and_rational_angles() {
+        let pool=pool();let mut seed=0x5a178c93u64;
+        for _ in 0..96 {
+            let mut pair=[Circuit::new(3),Circuit::new(3)];
+            for c in &mut pair {for _ in 0..6 {seed=seed.wrapping_mul(6364136223846793005).wrapping_add(1);c.push(pool[(seed>>32) as usize%pool.len()].clone());}}
+            agrees(&pair[0],&pair[1]);
+        }
+        let mut left=Circuit::new(2);left.gates=vec![Gate::H(0),Gate::Ry(1,Angle::from_rad(BigRational::new(1.into(),7.into()))),Gate::Cry(1,0,Angle::from_pi(BigRational::new(1.into(),3.into())))];
+        agrees(&left,&left);
+    }
+    #[test] fn missing_input_y_flip_mutant_is_detected() {
+        let mut c=Circuit::new(1);c.push(Gate::Y(0));let correct=trace(&PathSum::compose(&c,&c,true).unwrap());assert!(correct.re.contains_rational(&BigRational::from_integer(2.into())));
+        let mut mutant=PathSum::identity(1);
+        // Incorrect input-Y implementation: phase only, omitting x -> !x.
+        mutant.add_phase_anf(&Anf::var(0),&Angle::from_pi(BigRational::from_integer(1.into()))).unwrap();
+        mutant.add_constant(Angle::from_pi(BigRational::new(1.into(),2.into())));mutant.apply(&Gate::Y(0)).unwrap();
+        let bad=trace(&mutant);assert!(!overlap(&bad.re,&correct.re));assert!(bad.re.contains_rational(&BigRational::zero()));
     }
 }

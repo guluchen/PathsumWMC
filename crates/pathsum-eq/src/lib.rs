@@ -29,7 +29,7 @@ mod wmc;
 mod zpoly;
 
 pub use ball::{ComplexBall, RealBall};
-pub use check::{prepare_external, finish_external,check, CheckRequest, CounterReport, Report};
+pub use check::{prepare_external, finish_external,check, CheckRequest, CounterReport, Report, PreparedExternal};
 pub use circuit::{Circuit, Gate};
 pub use distance::DistanceBounds;
 pub use error::EqError;

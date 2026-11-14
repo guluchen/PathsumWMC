@@ -51,3 +51,23 @@ pub fn finish_external(request_json:&str,stdout:&str,elapsed_ms:u32)->String {
         .and_then(|r|pathsum_eq::finish_external(&r,stdout,elapsed_ms as u64).map_err(|e|e.to_string()));
     match result { Ok(v)=>serde_json::to_string(&v).unwrap(),Err(e)=>serde_json::json!({"error":e}).to_string() }
 }
+
+/// An immutable Rust-owned job; JavaScript cannot supply the error bound.
+#[wasm_bindgen]
+pub struct ExternalJob { inner:pathsum_eq::PreparedExternal }
+#[wasm_bindgen]
+impl ExternalJob {
+    #[wasm_bindgen(constructor)]
+    pub fn new(request_json:&str)->Result<ExternalJob,JsValue> {
+        let req:CheckRequest=serde_json::from_str(request_json).map_err(|e|JsValue::from_str(&e.to_string()))?;
+        let inner=pathsum_eq::PreparedExternal::new(&req).map_err(|e|JsValue::from_str(&e.to_string()))?;
+        Ok(ExternalJob{inner})
+    }
+    pub fn job(&self)->String {self.inner.job().to_string()}
+    pub fn finish(&self,stdout:&str,elapsed_ms:u32)->String {
+        match self.inner.finish(stdout,elapsed_ms as u64) {
+            Ok(report)=>serde_json::to_string(&report).unwrap(),
+            Err(e)=>serde_json::json!({"error":e.to_string()}).to_string(),
+        }
+    }
+}

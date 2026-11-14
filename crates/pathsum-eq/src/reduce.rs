@@ -183,7 +183,7 @@ fn apply_hh(ps: &mut PathSum) -> Result<bool, EqError> {
     Ok(false)
 }
 
-fn substitute_phase(
+pub(crate) fn substitute_phase(
     terms: std::collections::BTreeMap<Mono, Angle>,
     var: u16,
     repl: &Anf,

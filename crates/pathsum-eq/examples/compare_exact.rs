@@ -1,6 +1,6 @@
 //! Benchmark-only native frontend for the same certified external API as the web.
 //! This deliberately does not use the legacy floating-point CLI integration.
-use pathsum_eq::{prepare_external, finish_external, CheckRequest};
+use pathsum_eq::{PreparedExternal, CheckRequest};
 use serde_json::{json,Value};
 use std::{env,fs,io::{self,Read},process::Command,time::Instant};
 fn run()->Result<Value,Box<dyn std::error::Error>> {
@@ -8,7 +8,8 @@ fn run()->Result<Value,Box<dyn std::error::Error>> {
     let mut input=String::new();io::stdin().read_to_string(&mut input)?;
     let req:CheckRequest=serde_json::from_str(&input)?;
     let start=Instant::now();
-    let job=prepare_external(&req)?;
+    let prepared=PreparedExternal::new(&req)?;
+    let job=prepared.job();
     if let Some(report)=job.get("report") {return Ok(json!({"report":report,"request_ms":start.elapsed().as_secs_f64()*1000.0}));}
     let dir=env::temp_dir().join(format!("pathsum-native-compare-{}",std::process::id()));
     fs::create_dir(&dir)?;
@@ -21,7 +22,7 @@ fn run()->Result<Value,Box<dyn std::error::Error>> {
             if !output.status.success(){return Err(format!("Native counter failed {}: {}",output.status,String::from_utf8_lossy(&output.stderr)).into());}
             outputs.push(String::from_utf8(output.stdout)?);
         }
-        let report=finish_external(&req,&serde_json::to_string(&outputs)?,solve_ms.ceil() as u64)?;
+        let report=prepared.finish(&serde_json::to_string(&outputs)?,solve_ms.ceil() as u64)?;
         Ok(json!({"report":report,"request_ms":start.elapsed().as_secs_f64()*1000.0,"counter_ms":solve_ms}))
     })();
     let _=fs::remove_dir_all(&dir);result
