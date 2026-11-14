@@ -30,6 +30,7 @@ jobs:
           path: web/public/engines
 
   ganak:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[build-ganak]')
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:

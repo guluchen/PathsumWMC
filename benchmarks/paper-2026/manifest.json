@@ -744,5 +744,9 @@
         "transpiled": "dd8689c2d7f4dc5b21a01586101763041ec85f401867143b900d1254b64722eb"
       }
     }
-  ]
+  ],
+  "cohort_settings": {
+    "MQTBench": "Hybrid and WMC, GPMC and GANAK, 200 s whole-request screen",
+    "Feynman": "Reduction-only, 80 s paper RR reference; this browser screen uses the common 200 s whole-request cap"
+  }
 }

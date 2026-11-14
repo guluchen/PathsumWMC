@@ -1,5 +1,6 @@
 // One exact upstream counter invocation per disposable classic worker.
 // MIT licensed adapter; the loaded engines retain their own licenses.
+self.addEventListener('unhandledrejection',e=>{self.postMessage({error:`Counter initialization failed: ${e.reason}`});e.preventDefault()});
 self.onmessage = async ({data}) => {
   if (!['gpmc','ganak'].includes(data.engine) || typeof data.cnf !== 'string') {
     self.postMessage({error:'Invalid counter request.'}); return;

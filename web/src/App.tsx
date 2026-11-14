@@ -72,7 +72,7 @@ export default function App() {
     setFormError("")
   }
 
-  function onCheck() {
+  async function onCheck() {
     if (!left.trim() || !right.trim()) {
       setReport(null)
       setFormError("Paste an OpenQASM 2 program into both editors. Each one needs a qreg.")
@@ -86,7 +86,6 @@ export default function App() {
     setMaxNodes(nodes)
     setFormError("")
     setChecking(true)
-    window.setTimeout(async () => {
       try {
         const next = await checkEquivalence({
           circuit1: left,
@@ -107,7 +106,6 @@ export default function App() {
       } finally {
         setChecking(false)
       }
-    }, 30)
   }
 
   return (

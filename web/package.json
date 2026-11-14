@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 4317",
-    "build:wasm": "cd .. && cargo build --locked --release --target wasm32-unknown-unknown -p pathsum-wasm && wasm-bindgen target/wasm32-unknown-unknown/release/pathsum_wasm.wasm --out-dir web/src/pkg --target web",
+    "build:wasm": "cd .. && RUSTFLAGS=\"-C link-arg=--max-memory=536870912\" cargo build --locked --release --target wasm32-unknown-unknown -p pathsum-wasm && wasm-bindgen target/wasm32-unknown-unknown/release/pathsum_wasm.wasm --out-dir web/src/pkg --target web",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview --host 127.0.0.1 --port 4317"

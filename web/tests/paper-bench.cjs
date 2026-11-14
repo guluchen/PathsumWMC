@@ -33,6 +33,7 @@ const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
   assert(filename,'Compiled solver worker is missing');
   const workerUrl=new URL('assets/'+filename,base).href;
   const metadata={revision:process.env.GITHUB_SHA,artifact_run:process.env.PATHSUM_BUILD_RUN,source_revision:manifest.revision,
+   binary_sha256:Object.fromEntries(['engines/gpmc.wasm','engines/ganak.wasm',...fs.readdirSync(path.join(dist,'assets')).filter(n=>n.endsWith('.wasm')).map(n=>'assets/'+n)].map(n=>[n,sha(fs.readFileSync(path.join(dist,n)))])),
    shard,shards,cpu:os.cpus()[0].model,logical_cpus:os.cpus().length,total_memory:os.totalmem(),browser:browser.version(),
    scope:'Serial fresh browser workers on one pinned CPU; local HTTP assets, not Internet download latency. Whole-request 200 s cap. One screening trial, plus four repeat trials only when the first finite bound completes under 2 s. Timings are not paper-hardware speedup claims.'};
   fs.writeFileSync(path.join(out,'metadata.json'),JSON.stringify(metadata,null,2));

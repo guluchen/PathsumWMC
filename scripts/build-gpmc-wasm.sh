@@ -7,8 +7,8 @@ mkdir -p "$BUILD" "$OUT/sources"
 cd "$BUILD"
 if [ ! -f gmp-6.3.0.tar.xz ]; then curl -fL --retry 3 https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz -o gmp-6.3.0.tar.xz; fi
 echo 'a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898  gmp-6.3.0.tar.xz' | sha256sum -c -
+if [ ! -d gmp-6.3.0 ]; then tar xf gmp-6.3.0.tar.xz; fi
 if [ ! -f prefix/lib/libgmp.a ]; then
-  tar xf gmp-6.3.0.tar.xz
   (cd gmp-6.3.0 && emconfigure ./configure --disable-assembly --disable-shared --enable-cxx --host=wasm32 --prefix="$BUILD/prefix" CFLAGS='-O2' CXXFLAGS='-O2' && emmake make -j2 && emmake make install)
 fi
 if [ ! -d gpmc/.git ]; then git clone https://github.com/System-Verification-Lab/GPMC gpmc; fi
