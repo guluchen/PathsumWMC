@@ -1,0 +1,82 @@
+# PathsumWMC
+
+**A reimplementation of our paper, built with Cursor, using ball arithmetic.**
+
+PathsumWMC reimplements our paper, *Equivalence Checking of Quantum Circuits via Path-Sum and Weighted Model Counting* (Huang, Chareton, Chen, Chung, Hsieh, Laarman, and Mei; TACAS 2026; [arXiv:2604.24504](https://arxiv.org/abs/2604.24504)). It checks quantum-circuit equivalence up to a global phase with a Rust library and a browser workbench. Quarter-turn weights use exact arithmetic; general angles use complex ball arithmetic.
+
+- [Browser workbench](https://guluchen.github.io/PathsumWMC/)
+- [Source code](https://github.com/guluchen/PathsumWMC)
+- [MIT license](LICENSE)
+
+The decision procedure follows Huang, Chareton, Chen, Chung, Hsieh, Laarman, and Mei, “Equivalence Checking of Quantum Circuits via Path-Sum and Weighted Model Counting” ([arXiv:2604.24504](https://arxiv.org/abs/2604.24504), TACAS 2026). It builds the path-sum of \(U_2 U_1^\dagger\), applies the [HH] and [ω] reductions, and encodes whatever remains as a weighted model counting problem. The circuits are equivalent up to a global phase when the sum of the diagonal amplitudes has magnitude \(2^n\).
+
+Three counters solve that problem inside the library:
+
+- **enumerate** — backtracking over the CNF, pruning conflicts
+- **dpll** — unit propagation with activity branching
+- **bucket** — variable elimination on clause and weight factors
+
+`--counter gpmc` calls the complex-weight [GPMC](https://github.com/System-Verification-Lab/GPMC) binary. `--counter ganak` calls [GANAK](https://github.com/meelgroup/ganak) in complex MPFR mode (`--mode 6`), with probabilistic caching turned off. Set `PATHSUM_GPMC` and `PATHSUM_GANAK` to those executables. The browser cannot spawn either program, so the site keeps the three built-in counters and reports that when an external engine is selected. Their floating-point results are displayed with a heuristic error slack. These optional external integrations do not provide a certified accumulated-error bound, so their verdict is inconclusive; their numerical counts remain available for inspection.
+
+A direct path enumeration and, for at most three qubits, a state-vector product are reference checks. If a weighted counter and a reference disagree, the verdict is inconclusive.
+
+## Exact values and ball arithmetic
+
+Angles are rational. `pi/2` and `0.3*pi` are exact (`0.3` is `3/10`). When every weight is a multiple of \(\pi/4\), the amplitude lives in \(\mathbb{Q}(i, \sqrt{2})\) and the decision is exact.
+
+Any other angle is enclosed by a complex ball. \(\pi\) comes from Machin’s formula, and sine and cosine are Taylor polynomials with an explicit remainder. A ball that is disjoint from the equivalence threshold proves the circuits differ. An interval that still contains the threshold is inconclusive, however narrow it is. The checker raises the working precision until the maximum you set. More precision can separate close but unequal circuits; interval overlap alone cannot prove exact equality. Symbolic reduction or exact arithmetic can still establish equivalence. A ball with nonzero radius is never treated as an exact proof.
+
+Qiskit’s `rz(θ)` is \(\mathrm{diag}(e^{-i\theta/2}, e^{i\theta/2})\). It differs from `p(θ)` by the global phase \(e^{-i\theta/2}\).
+
+## Supported gates
+
+`id`, `h`, `x`, `y`, `z`, `s`, `sdg`, `t`, `tdg`, `cx` / `cnot`, `cz`, `swap`, `ccx` / `toffoli`, `ccz`, `rx`, `ry`, `rz`, `p` / `u1` / `phase`, `crx`, `cry`, `crz`, `cp` / `cphase` / `cu1`.
+
+OpenQASM 2 `qreg` declarations are required. Measurement, reset, and custom `gate` definitions are rejected.
+
+## Command line
+
+```bash
+cargo run -p pathsum-eq -- examples/cz.qasm examples/hcxh.qasm
+cargo run -p pathsum-eq -- left.qasm right.qasm --mode hybrid --counter all --precision 72
+```
+
+`--mode` is `hybrid` (default), `reduction`, or `wmc`. `--counter` is `all`, `enumerate`, `dpll`, `bucket`, `gpmc`, or `ganak`. The program prints a JSON report.
+
+Rust 1.76 or newer is enough. Tests:
+
+```bash
+cargo test --manifest-path crates/pathsum-eq/Cargo.toml
+```
+
+## Browser
+
+The site is a static Vite app. The checker is WebAssembly, so nothing is sent to a server.
+
+```bash
+# once: Rust target and the bindgen CLI that matches the crate
+rustup target add wasm32-unknown-unknown
+cargo install wasm-bindgen-cli --locked --version 0.2.100
+
+cd web
+npm install
+npm run build:wasm
+npm run dev
+```
+
+The dev server listens on port 4317. `npm run build` writes `web/dist` with a relative base, so the same files work at a domain root or under `/PathsumWMC/`. GitHub Actions rebuilds the WASM from Rust, runs the Rust and browser checks, and deploys only after they pass. Generated WASM bindings are not checked into source.
+
+## Layout
+
+- `crates/pathsum-eq` — path-sums, reductions, encoding, the three counters, exact arithmetic, and balls
+- `crates/pathsum-wasm` — the `check_equivalence` export
+- `web` — the English workbench
+- `examples` — the CZ versus H–CX–H pair from the paper
+
+## Precision experiment
+
+`cargo run --release -p pathsum-eq --example precision_probe` writes JSONL for 32, 64, 128, 256, and 512 bits, with automatic escalation disabled in each cell. Cases include known equivalent circuits, forced WMC on general-angle identities, and phase differences of 10^-6, 10^-12, and 10^-30 radians. CI preserves complete reports as the `validation` artifact. Timing repetitions are not proofs; a finite-precision overlap remains inconclusive.
+
+## License
+
+Our implementation is licensed under the [MIT License](LICENSE). Dependencies and bundled fonts retain their own licenses; the deployed site includes third-party license notices.

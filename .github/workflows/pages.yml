@@ -1,0 +1,87 @@
+name: Validate and publish
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Test Rust workspace
+        run: |
+          mkdir -p validation
+          cargo test --workspace --locked 2>&1 | tee validation/rust-tests.log
+      - name: Fixed-precision experiment
+        run: |
+          cargo run --locked --release -p pathsum-eq --example precision_probe > validation/precision.jsonl
+          python3 scripts/summarize_precision.py validation/precision.jsonl validation/PRECISION.md
+          cat validation/PRECISION.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation
+          path: validation
+
+  build:
+    needs: native
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Install wasm-bindgen
+        run: cargo install wasm-bindgen-cli --locked --version 0.2.100
+      - name: Build from source
+        working-directory: web
+        run: |
+          npm ci
+          npm run build:wasm
+          npm run build
+          node ../scripts/collect-licenses.cjs
+      - name: Browser checks at the deployed subpath
+        working-directory: web
+        run: |
+          npm install --prefix "$RUNNER_TEMP/pathsum-qa" --no-save playwright@1.65.1
+          "$RUNNER_TEMP/pathsum-qa/node_modules/.bin/playwright" install --with-deps chromium
+          PATHSUM_PLAYWRIGHT_MODULE="$RUNNER_TEMP/pathsum-qa/node_modules/playwright" node tests/smoke.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-validation
+          path: web/test-results
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
