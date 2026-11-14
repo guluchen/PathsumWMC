@@ -38,8 +38,11 @@ pub fn parse_qasm(src: &str) -> Result<Circuit, EqError> {
         }
         if lower.starts_with("qreg ") || lower.starts_with("qubit[") {
             let (name, n) = parse_reg(&lower)?;
+            if regs.iter().any(|(r,_,_)|r==&name) {return Err(EqError("duplicate quantum register name".into()))}
+            let end=next_q.checked_add(n).filter(|&v|v<=u16::MAX as usize)
+                .ok_or_else(||EqError("path-sum variable capacity exceeded (65535 IDs)".into()))?;
             regs.push((name, next_q, n));
-            next_q += n;
+            next_q = end;
             saw_reg = true;
             continue;
         }

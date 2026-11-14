@@ -36,6 +36,7 @@ pub struct PathSum {
 
 impl PathSum {
     pub fn identity(qubits: usize) -> Self {
+        assert!(qubits<=u16::MAX as usize,"path-sum variable capacity exceeded");
         let outputs = (0..qubits).map(|i| Anf::var(i as u16)).collect();
         Self {
             qubits,
@@ -54,6 +55,7 @@ impl PathSum {
     }
 
     fn from_circuit_eager(circuit: &Circuit, eager: bool) -> Result<Self, EqError> {
+        if circuit.qubits>u16::MAX as usize {return Err(EqError("path-sum variable capacity exceeded (65535 IDs)".into()))}
         let mut ps = Self::identity(circuit.qubits);
         ps.eager = eager;
         for gate in &circuit.gates {
@@ -86,7 +88,11 @@ impl PathSum {
     }
 
     pub fn apply(&mut self, gate: &Gate) -> Result<(), EqError> {
-        for q in gate.qubits() {
+        let operands=gate.qubits();
+        if operands.iter().enumerate().any(|(i,q)|operands[..i].contains(q)) {
+            return Err(EqError("gate operands must refer to distinct qubits".into()));
+        }
+        for q in operands {
             if q >= self.qubits {
                 return Err(EqError(format!(
                     "qubit {q} is outside a circuit of {} qubits",
@@ -199,7 +205,7 @@ impl PathSum {
     }
 
     fn apply_h(&mut self, q: usize) -> Result<(), EqError> {
-        let y = self.fresh();
+        let y = self.fresh()?;
         let current = self.outputs[q].clone();
         let ymono = crate::anf::Mono::var(y);
         // π y f with f in {0,1}. The integer cross terms are multiples of 2π.
@@ -254,11 +260,11 @@ impl PathSum {
         self.phase.add_mono(crate::anf::Mono::empty(), angle);
     }
 
-    fn fresh(&mut self) -> u16 {
+    fn fresh(&mut self) -> Result<u16, EqError> {
         let y = self.next_var;
-        self.next_var += 1;
+        self.next_var=self.next_var.checked_add(1).ok_or_else(||EqError("path-sum variable capacity exceeded (65535 IDs)".into()))?;
         self.path_vars.insert(y);
-        y
+        Ok(y)
     }
 
     pub fn path_var_count(&self) -> u32 {
@@ -388,4 +394,26 @@ pub fn syntactic_global_phase(ps: &PathSum) -> Option<Angle> {
         }
     }
     Some(constant)
+}
+
+#[cfg(test)]
+mod capacity_tests {
+    use super::*;
+    #[test] fn rejects_capacity_before_ids_can_alias() {
+        assert!(PathSum::from_circuit(&Circuit::new(65536)).is_err());
+        let mut ps=PathSum::identity(1);ps.next_var=u16::MAX;
+        assert!(ps.apply(&Gate::H(0)).is_err());
+        assert_eq!(ps.next_var,u16::MAX);assert!(ps.path_vars.is_empty());
+        assert_eq!(ps.outputs[0],Anf::var(0));
+    }
+    #[test] fn rejects_repeated_gate_operands() {
+        for gate in [Gate::Cx(0,0),Gate::Ccx(0,0,1),Gate::Cz(1,1),Gate::Swap(0,0)] {
+            assert!(PathSum::identity(2).apply(&gate).is_err());
+        }
+    }
+    #[test] fn rejects_oversized_or_ambiguous_registers() {
+        for source in ["qreg q[65536];", "qreg a[32768]; qreg b[32768];", "qreg q[1]; qreg q[1];"] {
+            assert!(crate::parse_qasm(&format!("OPENQASM 2.0; {source}")).is_err());
+        }
+    }
 }
