@@ -1,0 +1,366 @@
+case,mode,counter,trials,status,stable_status,verdict,whole_request_median_s,timing_kind,distance_lower,distance_upper,width_gt_1e_6,actual_counter_invoked,counter_median_s,load_median_s,max_wasm_heap_bytes,native_gpmc_process_s,native_error,error_heap_bytes,abort_at_heap_ceiling,error
+Feynman/adder_8,reduction,dpll,1,TIMEOUT,True,,200.00030000000004,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+Feynman/barenco_tof_10,reduction,dpll,5,BOUND,True,proven_equivalent,0.096,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/barenco_tof_3,reduction,dpll,5,BOUND,True,proven_equivalent,0.04309999999997672,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/barenco_tof_4,reduction,dpll,5,BOUND,True,proven_equivalent,0.06340000000002328,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/barenco_tof_5,reduction,dpll,5,BOUND,True,proven_equivalent,0.03740000000002328,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/csla_mux_3,reduction,dpll,5,BOUND,True,proven_equivalent,0.13139999999990687,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/csum_mux_9,reduction,dpll,5,BOUND,True,proven_equivalent,0.11210000000009314,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/gf2^10_mult,reduction,dpll,5,BOUND,True,proven_equivalent,0.18639999999990686,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/gf2^16_mult,reduction,dpll,5,BOUND,True,proven_equivalent,1.6676000000000932,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/gf2^32_mult,reduction,dpll,1,BOUND,True,proven_equivalent,24.800399999999907,one screening trial,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/gf2^4_mult,reduction,dpll,5,BOUND,True,proven_equivalent,0.05779999999993015,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/gf2^5_mult,reduction,dpll,5,BOUND,True,proven_equivalent,0.08390000000002329,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/gf2^64_mult,reduction,dpll,1,TIMEOUT,True,,200.0002999999998,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+Feynman/gf2^6_mult,reduction,dpll,5,BOUND,True,proven_equivalent,0.09940000000002329,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/gf2^7_mult,reduction,dpll,5,BOUND,True,proven_equivalent,0.11310000000009313,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/gf2^8_mult,reduction,dpll,5,BOUND,True,proven_equivalent,0.17580000000004656,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/gf2^9_mult,reduction,dpll,5,BOUND,True,proven_equivalent,0.205,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/grover_5,reduction,dpll,1,UNKNOWN,True,unknown,1.4406000000000931,one screening trial,,,,False,0.0,0.0,0,,,,,
+Feynman/ham15-high,reduction,dpll,1,TIMEOUT,True,,200.00220000000007,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+Feynman/ham15-low,reduction,dpll,1,TIMEOUT,True,,200.0006000000001,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+Feynman/ham15-med,reduction,dpll,1,TIMEOUT,True,,200.00030000000004,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+Feynman/hwb6,reduction,dpll,1,UNKNOWN,True,unknown,0.5229000000001397,one screening trial,,,,False,0.0,0.0,0,,,,,
+Feynman/mod5_4,reduction,dpll,5,BOUND,True,proven_global_phase,0.0425,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/mod_adder_1024,reduction,dpll,1,TIMEOUT,True,,200.00029999999992,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+Feynman/mod_mult_55,reduction,dpll,5,BOUND,True,proven_equivalent,0.039200000000186266,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/mod_red_21,reduction,dpll,1,UNKNOWN,True,unknown,0.47820000000006985,one screening trial,,,,False,0.0,0.0,0,,,,,
+Feynman/qcla_adder_10,reduction,dpll,1,UNKNOWN,True,unknown,0.3491000000000931,one screening trial,,,,False,0.0,0.0,0,,,,,
+Feynman/qcla_com_7,reduction,dpll,1,UNKNOWN,True,unknown,12.938199999999954,one screening trial,,,,False,0.0,0.0,0,,,,,
+Feynman/qcla_mod_7,reduction,dpll,1,TIMEOUT,True,,200.00030000000004,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+Feynman/qft_4,reduction,dpll,1,UNKNOWN,True,unknown,0.5371999999999534,one screening trial,,,,False,0.0,0.0,0,,,,,
+Feynman/rc_adder_6,reduction,dpll,1,UNKNOWN,True,unknown,4.914900000000023,one screening trial,,,,False,0.0,0.0,0,,,,,
+Feynman/tof_10,reduction,dpll,1,UNKNOWN,True,unknown,0.17960000000009313,one screening trial,,,,False,0.0,0.0,0,,,,,
+Feynman/tof_3,reduction,dpll,5,BOUND,True,proven_equivalent,0.03330000000004656,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/tof_4,reduction,dpll,5,BOUND,True,proven_equivalent,0.03939999999990687,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/tof_5,reduction,dpll,5,BOUND,True,proven_equivalent,0.05120000000006985,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+Feynman/vbe_adder_3,reduction,dpll,1,UNKNOWN,True,unknown,0.1434000000000233,one screening trial,,,,False,0.0,0.0,0,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_128,hybrid,ganak,5,BOUND,True,proven_global_phase,0.04369999999999709,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_128,hybrid,gpmc,5,BOUND,True,proven_global_phase,0.04989999999999418,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_128,wmc,ganak,5,BOUND,True,proven_global_phase,0.315,5-repeat median,0,0,False,True,0.165,0.073,33554432,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_128,wmc,gpmc,5,BOUND,True,proven_global_phase,0.2681999999999971,5-repeat median,0,0,False,True,0.1268000000000029,0.03230000000000291,40304640,0.04080547800000022,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_32,hybrid,ganak,5,BOUND,True,proven_global_phase,0.04389999999999418,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_32,hybrid,gpmc,5,BOUND,True,proven_global_phase,0.0385,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_32,wmc,ganak,5,BOUND,True,proven_global_phase,0.20830000000001747,5-repeat median,0,0,False,True,0.07829999999998837,0.06469999999998254,33554432,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_32,wmc,gpmc,5,BOUND,True,proven_global_phase,0.17039999999999417,5-repeat median,0,0,False,True,0.056700000000011644,0.031099999999976716,40304640,0.027595163999999842,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_64,hybrid,ganak,5,BOUND,True,proven_global_phase,0.045,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_64,hybrid,gpmc,5,BOUND,True,proven_global_phase,0.04289999999999418,5-repeat median,0,0,False,False,0.0,0.0,0,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_64,wmc,ganak,5,BOUND,True,proven_global_phase,0.27580000000000293,5-repeat median,0,0,False,True,0.11969999999999709,0.07259999999999854,33554432,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_64,wmc,gpmc,5,BOUND,True,proven_global_phase,0.24790000000000145,5-repeat median,0,0,False,True,0.08109999999999855,0.03540000000000146,40304640,0.04361385199999995,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_16,hybrid,ganak,5,BOUND,True,proven_not_equivalent,0.35439999999999416,5-repeat median,2.14294e-15,2.14295e-15,False,True,0.03019999999999709,0.06239999999999418,33554432,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_16,hybrid,gpmc,5,BOUND,True,proven_not_equivalent,0.29839999999999417,5-repeat median,2.14294e-15,2.14295e-15,False,True,0.01169999999999709,0.02030000000000291,33554432,0.009666960999999901,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_16,wmc,ganak,5,BOUND,True,inconclusive,1.0772000000000117,5-repeat median,0,4.9681e-5,True,True,0.7248999999999942,0.06760000000000582,33554432,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_16,wmc,gpmc,5,BOUND,True,inconclusive,0.5184000000000087,5-repeat median,0,4.9681e-5,True,True,0.19810000000000583,0.02129999999998836,40304640,0.034327574000000825,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32,hybrid,ganak,5,BOUND,True,proven_not_equivalent,0.6613999999999942,5-repeat median,3.01932e-15,3.01933e-15,False,True,0.040099999999998547,0.0705,33554432,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32,hybrid,gpmc,5,BOUND,True,proven_not_equivalent,0.5993000000000029,5-repeat median,3.01932e-15,3.01933e-15,False,True,0.021099999999998544,0.02219999999999709,33554432,0.0061938310000000454,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32,wmc,ganak,1,BOUND,True,inconclusive,2.281699999999997,one screening trial,0,1.41422e0,True,True,1.759800000000003,0.07269999999999709,33554432,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32,wmc,gpmc,5,BOUND,True,inconclusive,0.83,5-repeat median,0,1.41422e0,True,True,0.3583000000000029,0.02319999999999709,40304640,0.052110359000000245,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_64,hybrid,ganak,5,BOUND,True,proven_not_equivalent,1.2136999999999825,5-repeat median,4.27569e-15,4.2757e-15,False,True,0.03720000000001164,0.05919999999998254,33554432,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_64,hybrid,gpmc,5,BOUND,True,proven_not_equivalent,1.19,5-repeat median,4.27569e-15,4.2757e-15,False,True,0.019200000000011642,0.02,33554432,0.011956884999999601,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_64,wmc,ganak,1,BOUND,True,inconclusive,3.7367000000000115,one screening trial,0,1.41422e0,True,True,3.1057000000000117,0.05609999999997672,40304640,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_64,wmc,gpmc,5,BOUND,True,inconclusive,0.9592999999999884,5-repeat median,0,1.41422e0,True,True,0.36880000000001745,0.019300000000017463,48365568,0.07639023400000042,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_4,hybrid,ganak,1,BOUND,True,proven_not_equivalent,2.9601999999999826,one screening trial,1.67758e-15,1.81068e-15,False,True,1.7123999999999941,0.1663999999999942,33554432,,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_4,hybrid,gpmc,5,BOUND,True,proven_not_equivalent,1.7703999999999942,5-repeat median,1.67758e-15,1.81068e-15,False,True,0.6415999999999767,0.04809999999997672,40304640,0.10868774799999846,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_4,wmc,ganak,1,BOUND,True,inconclusive,2.8868000000000027,one screening trial,0,1.31904e-10,False,True,2.377,0.16990000000000874,33554432,,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_4,wmc,gpmc,5,BOUND,True,inconclusive,1.6281000000000059,5-repeat median,0,1.31904e-10,False,True,1.2044000000000088,0.04909999999999127,48365568,0.24946802899999965,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_5,hybrid,ganak,1,TIMEOUT,True,,200.005,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_5,hybrid,gpmc,1,ERROR,True,,21.543600000000005,one screening trial,,,,False,0.0,0.0,0,,,450887680,False,"Error: Counter aborted: .  c o [Init   ] 10238 vars (10238 pvars), 30974 cls
+c o gweight 1+0i
+c o [Simp   ] 10227 vars (10227 pvars), 30949 cls, 0 lrnts, 0 fvars, elap. 13.31 s
+c o gweight 1+0i
+c o Primal graph: nodes 10227, edges 29479
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 10073, tw 29, elapsed 13.5265 s
+ [WASM heap 450887680 bytes]"
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_5,wmc,ganak,5,BOUND,True,inconclusive,1.7389000000000088,5-repeat median,0,8.20284e-7,False,True,1.367199999999997,0.0831999999999971,33554432,,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_5,wmc,gpmc,1,BOUND,True,inconclusive,2.1700999999999766,one screening trial,0,8.20284e-7,False,True,1.7632000000000116,0.031200000000011642,58064896,0.35865121400001226,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_6,hybrid,ganak,1,TIMEOUT,True,,200.00289999999995,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_6,hybrid,gpmc,1,TIMEOUT,True,,200.00070000000002,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_6,wmc,ganak,1,TIMEOUT,True,,200.0004,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_6,wmc,gpmc,1,TIMEOUT,True,,200.00209999999998,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_11,hybrid,ganak,1,BOUND,True,inconclusive,20.418700000000012,one screening trial,0,4.88598e-5,True,True,3.3805,0.08669999999999708,48365568,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_11,hybrid,gpmc,1,BOUND,True,inconclusive,20.33890000000001,one screening trial,0,4.88598e-5,True,True,3.9942000000000117,0.02429999999998836,69730304,0.5286486439999936,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_11,wmc,ganak,1,BOUND,True,inconclusive,10.496,one screening trial,0,1.41422e0,True,True,8.742300000000004,0.08769999999999709,100466688,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_11,wmc,gpmc,1,BOUND,True,inconclusive,11.7085,one screening trial,0,1.41422e0,True,True,9.954299999999987,0.0255,144703488,1.4737097179999983,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_7,hybrid,ganak,1,BOUND,True,inconclusive,3.2946000000000057,one screening trial,0,3.15571e-10,False,True,0.5871000000000058,0.07879999999998835,33554432,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_7,hybrid,gpmc,1,BOUND,True,inconclusive,3.0208000000000172,one screening trial,0,3.15571e-10,False,True,0.2875,0.016199999999982537,40304640,0.03613300999999774,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_7,wmc,ganak,5,BOUND,True,inconclusive,1.5238999999999943,5-repeat median,0,1.04222e-4,True,True,0.8203000000000175,0.05620000000001164,33554432,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_7,wmc,gpmc,5,BOUND,True,inconclusive,1.1371000000000058,5-repeat median,0,1.04222e-4,True,True,0.459,0.01730000000001746,48365568,0.0692450859999999,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_9,hybrid,ganak,1,BOUND,True,inconclusive,6.456900000000009,one screening trial,0,1.24783e-8,False,True,1.27,0.05669999999999709,33554432,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_9,hybrid,gpmc,1,BOUND,True,inconclusive,6.7875,one screening trial,0,1.24783e-8,False,True,0.7995,0.01909999999999127,48365568,0.10990903699999945,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_9,wmc,ganak,1,BOUND,True,inconclusive,4.87,one screening trial,0,8.32193e-1,True,True,3.8127000000000115,0.06229999999998836,69730304,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_9,wmc,gpmc,1,BOUND,True,inconclusive,3.515700000000012,one screening trial,0,8.32193e-1,True,True,2.555199999999997,0.01869999999999709,83689472,0.4396815479999968,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_16,hybrid,ganak,1,BOUND,True,proven_not_equivalent,25.492300000000004,one screening trial,1.39865e-15,1.74454e-15,False,True,20.919400000000024,0.14939999999999418,173670400,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_16,hybrid,gpmc,1,BOUND,True,proven_not_equivalent,39.40690000000001,one screening trial,1.39865e-15,1.74454e-15,False,True,34.783100000000005,0.04369999999999709,432275456,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_16,wmc,ganak,1,BOUND,True,inconclusive,49.50229999999999,one screening trial,0,2.23854e-13,False,True,48.20469999999998,0.1358999999999942,173670400,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_16,wmc,gpmc,1,BOUND,True,inconclusive,71.27480000000003,one screening trial,0,2.23854e-13,False,True,70.043,0.07290000000002328,432275456,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_20,hybrid,ganak,1,TIMEOUT,True,,200.0011,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qft_nativegates_ibm_qiskit_opt0_20,hybrid,gpmc,1,ERROR,True,,53.35930000000005,one screening trial,,,,False,0.0,0.0,0,,,536870912,True,"Error: Counter aborted: . GNU MP: Cannot reallocate memory (old_size=832 new_size=840)
+ c o [Init   ] 559 vars (559 pvars), 1557 cls
+c o gweight 1+0i
+c o [Simp   ] 536 vars (536 pvars), 1510 cls, 0 lrnts, 0 fvars, elap. 0.07 s
+c o gweight 1+0i
+c o Primal graph: nodes 536, edges 1237
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 507, tw 22, elapsed 0.0735 s
+c o min shortcut heuristic
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 11  #npvars 11
+ [WASM heap 536870912 bytes]"
+MQTBench/qft_nativegates_ibm_qiskit_opt0_20,wmc,ganak,1,TIMEOUT,True,,200.0056,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qft_nativegates_ibm_qiskit_opt0_20,wmc,gpmc,1,ERROR,True,,45.368799999999986,one screening trial,,,,False,0.0,0.0,0,,,536870912,True,"Error: Counter aborted: .  c o [Init   ] 643 vars (643 pvars), 1687 cls
+c o gweight 1+0i
+c o [Simp   ] 620 vars (620 pvars), 1640 cls, 0 lrnts, 0 fvars, elap. 0.09 s
+c o gweight 1+0i
+c o Primal graph: nodes 620, edges 1384
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 592, tw 22, elapsed 0.0875 s
+c o min shortcut heuristic
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 12  #npvars 12
+ [WASM heap 536870912 bytes]"
+MQTBench/qft_nativegates_ibm_qiskit_opt0_22,hybrid,ganak,1,TIMEOUT,True,,200.00029999999998,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qft_nativegates_ibm_qiskit_opt0_22,hybrid,gpmc,1,ERROR,True,,53.94540000000002,one screening trial,,,,False,0.0,0.0,0,,,536870912,True,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=760)
+ c o [Init   ] 652 vars (652 pvars), 1826 cls
+c o gweight 1+0i
+c o [Simp   ] 627 vars (627 pvars), 1775 cls, 0 lrnts, 0 fvars, elap. 0.08 s
+c o gweight 1+0i
+c o Primal graph: nodes 627, edges 1458
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 594, tw 26, elapsed 0.092 s
+c o min shortcut heuristic
+c o td: #bags 602, tw 24, elapsed 0.1298 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 11  #npvars 11
+ [WASM heap 536870912 bytes]"
+MQTBench/qft_nativegates_ibm_qiskit_opt0_22,wmc,ganak,1,TIMEOUT,True,,200.006,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qft_nativegates_ibm_qiskit_opt0_22,wmc,gpmc,1,ERROR,True,,46.8515,one screening trial,,,,False,0.0,0.0,0,,,536870912,True,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=1060)
+ c o [Init   ] 748 vars (748 pvars), 1974 cls
+c o gweight 1+0i
+c o [Simp   ] 723 vars (723 pvars), 1923 cls, 0 lrnts, 0 fvars, elap. 0.09 s
+c o gweight 1+0i
+c o Primal graph: nodes 723, edges 1625
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 692, tw 25, elapsed 0.096599 s
+c o min shortcut heuristic
+c o td: #bags 698, tw 24, elapsed 0.130199 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 13  #npvars 13
+ [WASM heap 536870912 bytes]"
+MQTBench/qft_nativegates_ibm_qiskit_opt0_24,hybrid,ganak,1,TIMEOUT,True,,200.00709999999998,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qft_nativegates_ibm_qiskit_opt0_24,hybrid,gpmc,1,ERROR,True,,62.611800000000045,one screening trial,,,,False,0.0,0.0,0,,,536870912,True,"Error: Counter aborted: .  c o [Init   ] 749 vars (749 pvars), 2107 cls
+c o gweight 1+0i
+c o [Simp   ] 722 vars (722 pvars), 2052 cls, 0 lrnts, 0 fvars, elap. 0.09 s
+c o gweight 1+0i
+c o Primal graph: nodes 722, edges 1691
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 686, tw 26, elapsed 0.0957 s
+c o min shortcut heuristic
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 15  #npvars 15
+ [WASM heap 536870912 bytes]"
+MQTBench/qft_nativegates_ibm_qiskit_opt0_24,wmc,ganak,1,TIMEOUT,True,,200.00759999999997,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qft_nativegates_ibm_qiskit_opt0_24,wmc,gpmc,1,ERROR,True,,53.6456999999999,one screening trial,,,,False,0.0,0.0,0,,,536870912,True,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=1624)
+ c o [Init   ] 849 vars (849 pvars), 2261 cls
+c o gweight 1+0i
+c o [Simp   ] 822 vars (822 pvars), 2206 cls, 0 lrnts, 0 fvars, elap. 0.08 s
+c o gweight 1+0i
+c o Primal graph: nodes 822, edges 1866
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 786, tw 26, elapsed 0.0925 s
+c o min shortcut heuristic
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 14  #npvars 14
+ [WASM heap 536870912 bytes]"
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_12,hybrid,ganak,1,TIMEOUT,True,,200.00499999999994,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_12,hybrid,gpmc,1,ERROR,True,,74.6131,one screening trial,,,,False,0.0,0.0,0,,,536870912,True,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=1484)
+ c o [Init   ] 725 vars (725 pvars), 1622 cls
+c o gweight 1+0i
+c o [Simp   ] 708 vars (708 pvars), 1588 cls, 0 lrnts, 0 fvars, elap. 0.07 s
+c o gweight 1+0i
+c o Primal graph: nodes 708, edges 1538
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 680, tw 28, elapsed 0.085 s
+c o min shortcut heuristic
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 21  #npvars 21
+ [WASM heap 536870912 bytes]"
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_12,wmc,ganak,1,TIMEOUT,True,,200.00609999999998,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_12,wmc,gpmc,1,ERROR,True,,59.7705,one screening trial,,,,False,0.0,0.0,0,,,536870912,True,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=1672)
+ c o [Init   ] 1117 vars (1117 pvars), 2253 cls
+c o gweight 1+0i
+c o [Simp   ] 1105 vars (1105 pvars), 2229 cls, 0 lrnts, 0 fvars, elap. 0.11 s
+c o gweight 1+0i
+c o Primal graph: nodes 1105, edges 2229
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 1071, tw 32, elapsed 0.118399 s
+c o min shortcut heuristic
+c o td: #bags 1071, tw 31, elapsed 0.164599 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 18  #npvars 18
+ [WASM heap 536870912 bytes]"
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_4,hybrid,ganak,1,BOUND,True,inconclusive,2.651,one screening trial,0,3.55675e-13,False,True,1.0703999999999942,0.09770000000001164,33554432,,,,,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_4,hybrid,gpmc,1,BOUND,True,inconclusive,2.1514000000000233,one screening trial,0,3.55675e-13,False,True,0.6547999999999884,0.019300000000017463,48365568,0.09790303899999708,,,,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_4,wmc,ganak,1,BOUND,True,inconclusive,2.122399999999994,one screening trial,0,2.73156e-9,False,True,1.4756999999999825,0.05830000000001746,40304640,,,,,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_4,wmc,gpmc,5,BOUND,True,inconclusive,1.498,5-repeat median,0,2.73156e-9,False,True,0.8518999999999942,0.020099999999976716,58064896,0.15248607000000267,,,,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_8,hybrid,ganak,1,TIMEOUT,True,,200.00260000000003,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_8,hybrid,gpmc,1,ERROR,True,,68.33339999999997,one screening trial,,,,False,0.0,0.0,0,,,536870912,True,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=2836)
+ c o [Init   ] 1189 vars (1189 pvars), 3163 cls
+c o gweight 1+0i
+c o [Simp   ] 1181 vars (1181 pvars), 3147 cls, 0 lrnts, 0 fvars, elap. 0.23 s
+c o gweight 1+0i
+c o Primal graph: nodes 1181, edges 2928
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 1162, tw 20, elapsed 0.242099 s
+c o min shortcut heuristic
+c o td: #bags 1164, tw 18, elapsed 0.383099 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 17  #npvars 17
+ [WASM heap 536870912 bytes]"
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_8,wmc,ganak,1,TIMEOUT,True,,200.00179999999997,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_8,wmc,gpmc,1,ERROR,True,,52.035699999999984,one screening trial,,,,False,0.0,0.0,0,,,536870912,True,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=2236)
+ c o [Init   ] 663 vars (663 pvars), 1261 cls
+c o gweight 1+0i
+c o [Simp   ] 655 vars (655 pvars), 1245 cls, 0 lrnts, 0 fvars, elap. 0.06 s
+c o gweight 1+0i
+c o Primal graph: nodes 655, edges 1245
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 631, tw 23, elapsed 0.069899 s
+c o min shortcut heuristic
+c o td: #bags 634, tw 20, elapsed 0.0941 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 17  #npvars 17
+ [WASM heap 536870912 bytes]"
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_16,hybrid,ganak,1,BOUND,True,proven_not_equivalent,12.547400000000023,one screening trial,6.44927e-16,6.47427e-16,False,True,8.884399999999966,0.15070000000001163,33554432,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_16,hybrid,gpmc,1,BOUND,True,proven_not_equivalent,5.518699999999954,one screening trial,6.44927e-16,6.47427e-16,False,True,0.909,0.05709999999997672,48365568,0.1827666030000546,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_16,wmc,ganak,1,TIMEOUT,True,,200.00030000000007,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_16,wmc,gpmc,1,TIMEOUT,True,,200.00030000000004,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_20,hybrid,ganak,1,BOUND,True,proven_not_equivalent,13.263800000000046,one screening trial,4.23706e-6,4.23707e-6,False,True,8.128600000000093,0.15260000000009313,83689472,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_20,hybrid,gpmc,1,BOUND,True,proven_not_equivalent,16.317800000000048,one screening trial,4.23706e-6,4.23707e-6,False,True,10.461299999999813,0.0343000000002794,208404480,2.4185212390000235,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_20,wmc,ganak,1,TIMEOUT,True,,200.00159999999997,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_20,wmc,gpmc,1,TIMEOUT,True,,200.002,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_24,hybrid,ganak,1,TIMEOUT,True,,200.00049999999996,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_24,hybrid,gpmc,1,ERROR,True,,65.64630000000005,one screening trial,,,,False,0.0,0.0,0,,,536870912,True,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=760)
+ c o [Init   ] 726 vars (726 pvars), 2031 cls
+c o gweight 1+0i
+c o [Simp   ] 699 vars (699 pvars), 1978 cls, 0 lrnts, 1 fvars, elap. 0.10 s
+c o gweight 87112285931760246646623899502473447397003/43556142965880123323311949751266331066368-40431922339622502774660414585655152451181/24519928653854221733733552434404946937899825954937634816i
+c o Primal graph: nodes 699, edges 1651
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 663, tw 29, elapsed 0.112899 s
+c o min shortcut heuristic
+c o td: #bags 669, tw 27, elapsed 0.170799 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 14  #npvars 14
+ [WASM heap 536870912 bytes]"
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_24,wmc,ganak,1,TIMEOUT,True,,200.0031000000001,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_24,wmc,gpmc,1,TIMEOUT,True,,200.00480000000005,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_8,hybrid,ganak,5,BOUND,True,proven_not_equivalent,0.453,5-repeat median,8.27411e-16,8.27412e-16,False,True,0.07060000000000582,0.12980000000004657,33554432,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_8,hybrid,gpmc,5,BOUND,True,proven_not_equivalent,0.3748999999999942,5-repeat median,8.27411e-16,8.27412e-16,False,True,0.038899999999965074,0.04410000000000582,40304640,0.017919056999999156,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_8,wmc,ganak,5,BOUND,True,inconclusive,1.6380999999999768,5-repeat median,0,3.75022e-14,False,True,1.2570999999999768,0.12410000000000582,33554432,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_8,wmc,gpmc,5,BOUND,True,inconclusive,0.9495,5-repeat median,0,3.75022e-14,False,True,0.6738999999999651,0.03439999999999418,48365568,0.16469885099999737,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_16,hybrid,ganak,1,BOUND,True,proven_not_equivalent,7.667799999999988,one screening trial,2.03962e-16,2.07892e-16,False,True,5.743400000000023,0.10619999999995343,33554432,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_16,hybrid,gpmc,1,BOUND,True,proven_not_equivalent,2.498,one screening trial,2.03962e-16,2.07892e-16,False,True,0.6616999999999534,0.036800000000046566,48365568,0.1410676009999879,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_16,wmc,ganak,1,BOUND,True,inconclusive,172.7082,one screening trial,0,1.68009e-9,False,True,171.5665,0.11769999999999708,173670400,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_16,wmc,gpmc,1,TIMEOUT,True,,200.00180000000003,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_20,hybrid,ganak,1,BOUND,True,proven_not_equivalent,16.974399999999964,one screening trial,4.23706e-6,4.23707e-6,False,True,11.461,0.16689999999996508,83689472,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_20,hybrid,gpmc,1,BOUND,True,proven_not_equivalent,20.420899999999964,one screening trial,4.23706e-6,4.23707e-6,False,True,15.002,0.03780000000004657,208404480,3.3102426400000113,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_20,wmc,ganak,1,TIMEOUT,True,,200.0033999999999,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_20,wmc,gpmc,1,TIMEOUT,True,,200.0035,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_24,hybrid,ganak,1,BOUND,True,proven_not_equivalent,148.80159999999998,one screening trial,1.3773e-5,1.37731e-5,False,True,137.34880000000004,0.148,173670400,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_24,hybrid,gpmc,1,ERROR,True,,48.92719999999996,one screening trial,,,,False,0.0,0.0,0,,,536870912,True,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=844)
+ c o [Init   ] 521 vars (521 pvars), 1448 cls
+c o gweight 1+0i
+c o [Simp   ] 498 vars (498 pvars), 1403 cls, 0 lrnts, 1 fvars, elap. 0.06 s
+c o gweight 87112285931760246646623899502531450552557/43556142965880123323311949751266331066368+23133724754292062123930962439059795279319/98079714615416886934934209737619787751599303819750539264i
+c o Primal graph: nodes 498, edges 1150
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 469, tw 21, elapsed 0.0618 s
+c o min shortcut heuristic
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 15  #npvars 15
+ [WASM heap 536870912 bytes]"
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_24,wmc,ganak,1,TIMEOUT,True,,200.00269999999995,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_24,wmc,gpmc,1,TIMEOUT,True,,200.00390000000002,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_8,hybrid,ganak,5,BOUND,True,proven_not_equivalent,0.5753000000000466,5-repeat median,1.74146e-16,1.7415e-16,False,True,0.09770000000006986,0.13289999999990687,33554432,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_8,hybrid,gpmc,5,BOUND,True,proven_not_equivalent,0.5092999999999301,5-repeat median,1.74146e-16,1.7415e-16,False,True,0.056900000000023286,0.055900000000023285,40304640,0.02274203000002308,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_8,wmc,ganak,5,BOUND,True,inconclusive,1.9175999999999767,5-repeat median,0,1.25501e-14,False,True,1.4568000000000465,0.1300999999999767,33554432,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_8,wmc,gpmc,5,BOUND,True,inconclusive,1.108,5-repeat median,0,1.25501e-14,False,True,0.7393999999999069,0.04440000000002328,48365568,0.28751012300001455,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_3,hybrid,ganak,5,BOUND,True,proven_not_equivalent,0.3255,5-repeat median,6.16351e-16,6.16353e-16,False,True,0.04819999999995343,0.059199999999953436,33554432,,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_3,hybrid,gpmc,5,BOUND,True,proven_not_equivalent,0.32259999999997674,5-repeat median,6.16351e-16,6.16353e-16,False,True,0.027300000000046565,0.018800000000046568,40304640,0.023331339000025764,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_3,wmc,ganak,5,BOUND,True,inconclusive,1.66329999999993,5-repeat median,0,9.18404e-12,False,True,1.3357000000000698,0.12540000000002327,33554432,,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_3,wmc,gpmc,5,BOUND,True,inconclusive,0.683,5-repeat median,0,9.18404e-12,False,True,0.41000000000011644,0.04960000000009313,40304640,0.06190740599995479,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_4,hybrid,ganak,5,BOUND,True,proven_not_equivalent,0.6235,5-repeat median,8.51684e-16,8.51689e-16,False,True,0.1085,0.06719999999995344,33554432,,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_4,hybrid,gpmc,5,BOUND,True,proven_not_equivalent,0.6491999999999535,5-repeat median,8.51684e-16,8.51689e-16,False,True,0.11219999999995343,0.024099999999976716,40304640,0.033475735999993046,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_4,wmc,ganak,1,BOUND,True,inconclusive,3.184100000000093,one screening trial,0,6.90071e-8,False,True,2.750599999999977,0.1675999999999767,33554432,,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_4,wmc,gpmc,5,BOUND,True,inconclusive,1.4560999999999766,5-repeat median,0,6.90071e-8,False,True,1.1423000000000465,0.04409999999997672,48365568,0.397840412999969,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_5,hybrid,ganak,1,TIMEOUT,True,,200.0005,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_5,hybrid,gpmc,1,TIMEOUT,True,,200.0004,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_5,wmc,ganak,1,TIMEOUT,True,,200.0004,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_5,wmc,gpmc,1,TIMEOUT,True,,200.00039999999998,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_16,hybrid,ganak,1,TIMEOUT,True,,200.00030000000004,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_16,hybrid,gpmc,1,ERROR,True,,72.60809999999998,one screening trial,,,,False,0.0,0.0,0,,,536870912,True,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=2052)
+ c o [Init   ] 787 vars (787 pvars), 1949 cls
+c o gweight 1+0i
+c o [Simp   ] 753 vars (753 pvars), 1881 cls, 0 lrnts, 0 fvars, elap. 0.08 s
+c o gweight 1+0i
+c o Primal graph: nodes 753, edges 1659
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 716, tw 33, elapsed 0.093899 s
+c o min shortcut heuristic
+c o td: #bags 717, tw 32, elapsed 0.156399 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 17  #npvars 17
+ [WASM heap 536870912 bytes]"
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_16,wmc,ganak,1,TIMEOUT,True,,200.0045,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_16,wmc,gpmc,1,ERROR,True,,51.64169999999995,one screening trial,,,,False,0.0,0.0,0,,,536870912,True,"Error: Counter aborted: . GNU MP: Cannot reallocate memory (old_size=4 new_size=1916)
+ c o [Init   ] 996 vars (996 pvars), 1946 cls
+c o gweight 1+0i
+c o [Simp   ] 980 vars (980 pvars), 1914 cls, 0 lrnts, 0 fvars, elap. 0.12 s
+c o gweight 1+0i
+c o Primal graph: nodes 980, edges 1914
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 947, tw 27, elapsed 0.142699 s
+c o min shortcut heuristic
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 17  #npvars 17
+ [WASM heap 536870912 bytes]"
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_4,hybrid,ganak,1,BOUND,True,inconclusive,5.904099999999977,one screening trial,0,5.15038e-15,False,True,3.8429000000000233,0.07730000000004657,33554432,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_4,hybrid,gpmc,1,BOUND,True,inconclusive,2.6384000000000234,one screening trial,0,5.15038e-15,False,True,0.6170999999999767,0.02259999999997672,48365568,0.10158668700000272,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_4,wmc,ganak,5,BOUND,True,inconclusive,1.165100000000093,5-repeat median,0,1.29709e-12,False,True,0.6598999999999069,0.07290000000002328,33554432,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_4,wmc,gpmc,5,BOUND,True,inconclusive,0.766,5-repeat median,0,1.29709e-12,False,True,0.3196999999999534,0.0235,40304640,0.03927277200005483,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_8,hybrid,ganak,1,BOUND,True,inconclusive,68.87469999999972,one screening trial,0,1.57239e-11,False,True,49.43539999999991,0.0555,173670400,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_8,hybrid,gpmc,1,BOUND,True,inconclusive,36.36110000000009,one screening trial,0,1.57239e-11,False,True,16.246200000000186,0.0185,536870912,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_8,wmc,ganak,1,BOUND,True,inconclusive,11.265799999999814,one screening trial,0,3.35601e-6,True,True,10.74309999999986,0.0534000000001397,173670400,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_8,wmc,gpmc,1,BOUND,True,inconclusive,4.883399999999907,one screening trial,0,3.35601e-6,True,True,4.386700000000186,0.0185,173670400,1.0658086159999949,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_16,hybrid,ganak,1,BOUND,True,inconclusive,71.47990000000003,one screening trial,0,6.23077e-13,False,True,57.152,0.157,69730304,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_16,hybrid,gpmc,1,BOUND,True,inconclusive,17.220100000000095,one screening trial,0,6.23077e-13,False,True,3.2115999999998603,0.050699999999953435,48365568,0.6793486640001647,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_16,wmc,ganak,1,BOUND,True,inconclusive,92.29249999999989,one screening trial,0,1.41422e0,True,True,90.95320000000018,0.25639999999990687,173670400,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_16,wmc,gpmc,1,TIMEOUT,True,,200.00420000000008,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_32,hybrid,ganak,1,TIMEOUT,True,,200.00180000000006,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_32,hybrid,gpmc,1,BOUND,True,inconclusive,171.55079999999998,one screening trial,0,3.49128e-6,True,True,124.66530000000016,0.03229999999993015,300154880,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_32,wmc,ganak,1,TIMEOUT,True,,200.00259999999997,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_32,wmc,gpmc,1,TIMEOUT,True,,200.00039999999998,one screening trial,,,,False,0.0,0.0,0,,,,,Error: Time limit reached (200 seconds).
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_4,hybrid,ganak,5,BOUND,True,proven_not_equivalent,0.6593999999999068,5-repeat median,5.90229e-16,5.90232e-16,False,True,0.16020000000001164,0.13340000000008148,33554432,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_4,hybrid,gpmc,5,BOUND,True,proven_not_equivalent,0.5938000000000465,5-repeat median,5.90229e-16,5.90232e-16,False,True,0.10670000000006985,0.042,40304640,0.02153039999998873,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_4,wmc,ganak,1,BOUND,True,inconclusive,2.044599999999977,one screening trial,0,2.4988e-14,False,True,1.4944999999999418,0.16240000000002328,33554432,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_4,wmc,gpmc,5,BOUND,True,inconclusive,0.6108000000000465,5-repeat median,0,2.4988e-14,False,True,0.2579999999999418,0.045099999999976714,40304640,0.03165203699999256,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_8,hybrid,ganak,1,BOUND,True,proven_not_equivalent,9.037,one screening trial,1.98432e-15,2.0102e-15,False,True,6.018000000000116,0.14709999999997672,33554432,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_8,hybrid,gpmc,1,BOUND,True,proven_not_equivalent,4.799,one screening trial,1.98432e-15,2.0102e-15,False,True,0.8426999999999535,0.04680000000004657,40304640,0.1748934939999599,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_8,wmc,ganak,1,BOUND,True,inconclusive,2.780099999999977,one screening trial,0,1.33571e-8,False,True,2.318400000000023,0.12490000000002328,33554432,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_8,wmc,gpmc,5,BOUND,True,inconclusive,1.1669000000000234,5-repeat median,0,1.33571e-8,False,True,0.7859000000000232,0.0375,48365568,0.16072431199997664,,,,

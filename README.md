@@ -7,6 +7,7 @@ PathsumWMC reimplements our paper, *Equivalence Checking of Quantum Circuits via
 - [Browser workbench](https://guluchen.github.io/PathsumWMC/)
 - [Source code](https://github.com/guluchen/PathsumWMC)
 - [MIT license](LICENSE)
+- [Original-paper browser benchmark: results and limitations](benchmarks/paper-2026/results/FINDINGS.md)
 
 The decision procedure follows Huang, Chareton, Chen, Chung, Hsieh, Laarman, and Mei, “Equivalence Checking of Quantum Circuits via Path-Sum and Weighted Model Counting” ([arXiv:2604.24504](https://arxiv.org/abs/2604.24504), TACAS 2026). It builds the path-sum of \(U_2 U_1^\dagger\), applies the [HH] and [ω] reductions, and encodes whatever remains as a weighted model counting problem. The circuits are equivalent up to a global phase when the sum of the diagonal amplitudes has magnitude \(2^n\).
 

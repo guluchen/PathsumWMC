@@ -1,0 +1,372 @@
+{
+  "native_completed_pairs": 40,
+  "ratio_min_native_ms": 100,
+  "ratio_summary_pair_count": 20,
+  "median_first_trial_ratio": 4.832584896339472,
+  "ratio_min": 2.8609461553118845,
+  "ratio_max": 7.555490863985003,
+  "cross_mode_engine_cases_compared": 26,
+  "cross_mode_engine_interval_disagreements": [],
+  "native_pairs": [
+    {
+      "case": "MQTBench/ghz_nativegates_ibm_qiskit_opt0_128",
+      "mode": "wmc",
+      "native_process_ms": 40.80547800000022,
+      "wasm_counter_ms": 123.40000000000873,
+      "ratio": 3.024103773518057,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_20",
+      "mode": "hybrid",
+      "native_process_ms": 3310.2426400000113,
+      "wasm_counter_ms": 15002,
+      "ratio": 4.531994065546793,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/wstate_nativegates_ibm_qiskit_opt0_8",
+      "mode": "hybrid",
+      "native_process_ms": 174.8934939999599,
+      "wasm_counter_ms": 842.6999999999534,
+      "ratio": 4.818361053500062,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/wstate_nativegates_ibm_qiskit_opt0_8",
+      "mode": "wmc",
+      "native_process_ms": 160.72431199997663,
+      "wasm_counter_ms": 779,
+      "ratio": 4.846808739178882,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/ghz_nativegates_ibm_qiskit_opt0_32",
+      "mode": "wmc",
+      "native_process_ms": 27.59516399999984,
+      "wasm_counter_ms": 40.59999999997672,
+      "ratio": 1.471272285244507,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qaoa_nativegates_ibm_qiskit_opt0_7",
+      "mode": "wmc",
+      "native_process_ms": 69.2450859999999,
+      "wasm_counter_ms": 461.79999999998836,
+      "ratio": 6.669065296561102,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qaoa_nativegates_ibm_qiskit_opt0_7",
+      "mode": "hybrid",
+      "native_process_ms": 36.13300999999774,
+      "wasm_counter_ms": 287.5,
+      "ratio": 7.9567132657926365,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_8",
+      "mode": "wmc",
+      "native_process_ms": 164.69885099999738,
+      "wasm_counter_ms": 668.2000000000116,
+      "ratio": 4.057101770552257,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_8",
+      "mode": "hybrid",
+      "native_process_ms": 17.919056999999157,
+      "wasm_counter_ms": 45.30000000001746,
+      "ratio": 2.5280348179047367,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qaoa_nativegates_ibm_qiskit_opt0_9",
+      "mode": "hybrid",
+      "native_process_ms": 109.90903699999944,
+      "wasm_counter_ms": 799.5,
+      "ratio": 7.274197116293577,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qaoa_nativegates_ibm_qiskit_opt0_9",
+      "mode": "wmc",
+      "native_process_ms": 439.68154799999684,
+      "wasm_counter_ms": 2555.199999999997,
+      "ratio": 5.811478811478382,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_16",
+      "mode": "hybrid",
+      "native_process_ms": 141.06760099998792,
+      "wasm_counter_ms": 661.6999999999534,
+      "ratio": 4.690658913239831,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/wstate_nativegates_ibm_qiskit_opt0_4",
+      "mode": "hybrid",
+      "native_process_ms": 21.53039999998873,
+      "wasm_counter_ms": 109.80000000004657,
+      "ratio": 5.099765912389182,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/wstate_nativegates_ibm_qiskit_opt0_4",
+      "mode": "wmc",
+      "native_process_ms": 31.65203699999256,
+      "wasm_counter_ms": 257.9999999999418,
+      "ratio": 8.151134159232862,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/ghz_nativegates_ibm_qiskit_opt0_64",
+      "mode": "wmc",
+      "native_process_ms": 43.61385199999995,
+      "wasm_counter_ms": 69.09999999999854,
+      "ratio": 1.5843590242842716,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_8",
+      "mode": "wmc",
+      "native_process_ms": 287.5101230000146,
+      "wasm_counter_ms": 1143.8999999999069,
+      "ratio": 3.9786425189621895,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_8",
+      "mode": "hybrid",
+      "native_process_ms": 22.742030000023078,
+      "wasm_counter_ms": 59.20000000006985,
+      "ratio": 2.6031097487783534,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/graphstate_nativegates_ibm_qiskit_opt0_16",
+      "mode": "hybrid",
+      "native_process_ms": 9.666960999999901,
+      "wasm_counter_ms": 10.30000000000291,
+      "ratio": 1.0654847992045293,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/graphstate_nativegates_ibm_qiskit_opt0_16",
+      "mode": "wmc",
+      "native_process_ms": 34.32757400000082,
+      "wasm_counter_ms": 200.70000000001164,
+      "ratio": 5.846611822903851,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_3",
+      "mode": "hybrid",
+      "native_process_ms": 23.331339000025764,
+      "wasm_counter_ms": 27.300000000046566,
+      "ratio": 1.1701000101201402,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_3",
+      "mode": "wmc",
+      "native_process_ms": 61.90740599995479,
+      "wasm_counter_ms": 415.5999999999767,
+      "ratio": 6.713251723069776,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32",
+      "mode": "hybrid",
+      "native_process_ms": 6.193831000000046,
+      "wasm_counter_ms": 19.099999999998545,
+      "ratio": 3.0837134561789634,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32",
+      "mode": "wmc",
+      "native_process_ms": 52.110359000000244,
+      "wasm_counter_ms": 362.6999999999971,
+      "ratio": 6.9602283876032285,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_4",
+      "mode": "hybrid",
+      "native_process_ms": 33.47573599999305,
+      "wasm_counter_ms": 146.09999999997672,
+      "ratio": 4.364355125754578,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_4",
+      "mode": "wmc",
+      "native_process_ms": 397.840412999969,
+      "wasm_counter_ms": 1138.1999999999534,
+      "ratio": 2.8609461553118845,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/graphstate_nativegates_ibm_qiskit_opt0_64",
+      "mode": "wmc",
+      "native_process_ms": 76.39023400000042,
+      "wasm_counter_ms": 364.79999999998836,
+      "ratio": 4.775479546246531,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/graphstate_nativegates_ibm_qiskit_opt0_64",
+      "mode": "hybrid",
+      "native_process_ms": 11.956884999999602,
+      "wasm_counter_ms": 18.699999999982538,
+      "ratio": 1.5639524842785693,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qnn_nativegates_ibm_qiskit_opt0_4",
+      "mode": "wmc",
+      "native_process_ms": 152.48607000000266,
+      "wasm_counter_ms": 851.8999999999942,
+      "ratio": 5.586739824824519,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qnn_nativegates_ibm_qiskit_opt0_4",
+      "mode": "hybrid",
+      "native_process_ms": 97.90303899999708,
+      "wasm_counter_ms": 654.7999999999884,
+      "ratio": 6.688249993955835,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_4",
+      "mode": "wmc",
+      "native_process_ms": 249.46802899999966,
+      "wasm_counter_ms": 1200.7000000000116,
+      "ratio": 4.813041594199685,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_4",
+      "mode": "hybrid",
+      "native_process_ms": 108.68774799999846,
+      "wasm_counter_ms": 641.5999999999767,
+      "ratio": 5.903149267569568,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_5",
+      "mode": "wmc",
+      "native_process_ms": 358.65121400001226,
+      "wasm_counter_ms": 1763.2000000000116,
+      "ratio": 4.916196937785777,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_16",
+      "mode": "hybrid",
+      "native_process_ms": 182.7666030000546,
+      "wasm_counter_ms": 909,
+      "ratio": 4.9735563559154645,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/vqe_nativegates_ibm_qiskit_opt0_4",
+      "mode": "hybrid",
+      "native_process_ms": 101.58668700000271,
+      "wasm_counter_ms": 617.0999999999767,
+      "ratio": 6.074614875470447,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/vqe_nativegates_ibm_qiskit_opt0_4",
+      "mode": "wmc",
+      "native_process_ms": 39.27277200005483,
+      "wasm_counter_ms": 320.5,
+      "ratio": 8.160870335293687,
+      "included_in_ratio_summary": false,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_20",
+      "mode": "hybrid",
+      "native_process_ms": 2418.5212390000233,
+      "wasm_counter_ms": 10461.299999999814,
+      "ratio": 4.325494368751215,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/vqe_nativegates_ibm_qiskit_opt0_8",
+      "mode": "wmc",
+      "native_process_ms": 1065.8086159999948,
+      "wasm_counter_ms": 4386.700000000186,
+      "ratio": 4.115842126012807,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qaoa_nativegates_ibm_qiskit_opt0_11",
+      "mode": "wmc",
+      "native_process_ms": 1473.7097179999982,
+      "wasm_counter_ms": 9954.299999999988,
+      "ratio": 6.754586658700449,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/qaoa_nativegates_ibm_qiskit_opt0_11",
+      "mode": "hybrid",
+      "native_process_ms": 528.6486439999935,
+      "wasm_counter_ms": 3994.2000000000116,
+      "ratio": 7.555490863985003,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    },
+    {
+      "case": "MQTBench/wstate_nativegates_ibm_qiskit_opt0_16",
+      "mode": "hybrid",
+      "native_process_ms": 679.3486640001647,
+      "wasm_counter_ms": 3211.5999999998603,
+      "ratio": 4.727469369100109,
+      "included_in_ratio_summary": true,
+      "exact_count_match": true
+    }
+  ]
+}
