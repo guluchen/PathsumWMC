@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: pages
@@ -50,6 +51,14 @@ jobs:
           cache-dependency-path: web/package-lock.json
       - name: Install wasm-bindgen
         run: cargo install wasm-bindgen-cli --locked --version 0.2.100
+      - name: Counter corresponding sources
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download 43580382944 --repo guluchen/PathsumWMC --name gpmc-wasm --dir "$RUNNER_TEMP/gpmc-port"
+          mkdir -p web/public/engines/sources
+          cp "$RUNNER_TEMP/gpmc-port/sources/"* web/public/engines/sources/
+          python3 scripts/package-ganak-sources.py
       - name: Build from source
         working-directory: web
         run: |
@@ -63,6 +72,7 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/pathsum-qa" --no-save playwright@1.65.1
           "$RUNNER_TEMP/pathsum-qa/node_modules/.bin/playwright" install --with-deps chromium
           PATHSUM_PLAYWRIGHT_MODULE="$RUNNER_TEMP/pathsum-qa/node_modules/playwright" node tests/smoke.cjs
+          PATHSUM_PLAYWRIGHT_MODULE="$RUNNER_TEMP/pathsum-qa/node_modules/playwright" node tests/counters.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

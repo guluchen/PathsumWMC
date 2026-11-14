@@ -16,7 +16,9 @@ Three counters solve that problem inside the library:
 - **dpll** — unit propagation with activity branching
 - **bucket** — variable elimination on clause and weight factors
 
-`--counter gpmc` calls the complex-weight [GPMC](https://github.com/System-Verification-Lab/GPMC) binary. `--counter ganak` calls [GANAK](https://github.com/meelgroup/ganak) in complex MPFR mode (`--mode 6`), with probabilistic caching turned off. Set `PATHSUM_GPMC` and `PATHSUM_GANAK` to those executables. The browser cannot spawn either program, so the site keeps the three built-in counters and reports that when an external engine is selected. Their floating-point results are displayed with a heuristic error slack. These optional external integrations do not provide a certified accumulated-error bound, so their verdict is inconclusive; their numerical counts remain available for inspection.
+The browser runs GPMC and GANAK in disposable WebAssembly workers, with Stop and a 200-second whole-request limit. GPMC uses our exact GMP complex-rational numeric adapter on the pinned upstream counting engine. GANAK uses the unmodified upstream WASM in deterministic exact complex-rational mode (`--mode 2 --prob 0`). The Rust ball adapter propagates all phase-weight approximation error with a telescoping product bound; the external count itself is rational and exact. A nonzero-radius overlap remains inconclusive. Engine revisions, hashes, licenses and complete corresponding-source archives are linked from the site's About section.
+
+The native optional `--counter gpmc` / `--counter ganak` subprocess integrations still use the earlier floating-point diagnostic path. They do not certify an accumulated rounding-error bound or provide a certified distance. The new exact-rational worker adapter is a separate explicit API (`prepare_external` / `finish_external`).
 
 A direct path enumeration and, for at most three qubits, a state-vector product are reference checks. If a weighted counter and a reference disagree, the verdict is inconclusive.
 

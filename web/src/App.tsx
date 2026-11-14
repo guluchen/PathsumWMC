@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
-import { checkEquivalence, loadChecker, type Report } from "./checker"
+import { cancelCheck, checkEquivalence, loadChecker, type Report } from "./checker"
 import { examples, starter, type Example } from "./examples"
 
 const verdictLabel: Record<string, string> = {
@@ -86,9 +86,9 @@ export default function App() {
     setMaxNodes(nodes)
     setFormError("")
     setChecking(true)
-    window.setTimeout(() => {
+    window.setTimeout(async () => {
       try {
-        const next = checkEquivalence({
+        const next = await checkEquivalence({
           circuit1: left,
           circuit2: right,
           mode,
@@ -126,8 +126,7 @@ export default function App() {
           <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
             Compute the normalized Frobenius distance between two OpenQASM 2 circuits, ignoring global phase. The checker
             builds the path-sum of U₂U₁†, applies the [HH] and [ω] reductions,
-            then decides the residual sum. The built-in counters run in the
-            browser. GPMC and GANAK are external engines for the native checker.
+            then evaluates the residual sum. All five counters, including GPMC and GANAK, run locally in your browser using WebAssembly.
           </p>
         </div>
         <a
@@ -274,6 +273,7 @@ export default function App() {
           {checking ? <LoaderCircleIcon className="animate-spin" /> : null}
           {checking ? "Checking" : "Compute distance"}
         </Button>
+        {checking ? <Button type="button" variant="outline" onClick={cancelCheck}>Stop</Button> : null}
         <p className="text-sm text-muted-foreground" role="status">
           {wasmError
             ? wasmError
@@ -340,10 +340,14 @@ export default function App() {
             requires symbolic or exact arithmetic evidence.
           </p>
           <p>
+            GPMC uses an exact-rational numeric adapter; GANAK runs its deterministic complex-rational mode. Phase approximations are enclosed by ball arithmetic. Computations stop after 200 seconds and can be cancelled.
+          </p>
+          <p>
             Licensed under the <a className="text-primary underline" href="./LICENSE.txt">MIT License</a>.
             {" "}<a className="text-primary underline" href="https://github.com/guluchen/PathsumWMC">Source code</a>
             {" · "}<a className="text-primary underline" href="https://arxiv.org/abs/2604.24504">Our paper</a>
             {" · "}<a className="text-primary underline" href="./THIRD_PARTY_NOTICES.txt">Third-party notices</a>
+            {" · "}<a className="text-primary underline" href="./engines/PROVENANCE.json">Counter versions and sources</a>
           </p>
         </CardContent>
       </Card>

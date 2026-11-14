@@ -10,7 +10,7 @@ for (const name of fs.readdirSync(modules)) {
   if (name.startsWith('@')) for (const sub of fs.readdirSync(dir)) packages.push(path.join(dir, sub));
   else packages.push(dir);
 }
-const notices = ['PathsumWMC third-party notices', '', 'PathsumWMC is MIT licensed. Bundled dependencies and fonts retain their own licenses.', 'The licenses directory also includes build-dependency notices.'];
+const notices = ['GPMC and GANAK run as separate WebAssembly workers. Engine versions and complete corresponding source downloads: engines/PROVENANCE.json. GPMC notices: engines/LICENSE.md and engines/COPYING*. GANAK and dependency notices: engines/GANAK-LICENSES.txt.', '', 'PathsumWMC third-party notices', '', 'PathsumWMC is MIT licensed. Bundled dependencies and fonts retain their own licenses.', 'The licenses directory also includes build-dependency notices.'];
 for (const dir of packages) {
   const manifest = path.join(dir, 'package.json');
   if (!fs.existsSync(manifest)) continue;

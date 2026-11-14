@@ -1,0 +1,338 @@
+[
+  {
+    "id": 0,
+    "gpmc": "c t wmc\np cnf 1 2\nc p weight 1 -3/2 2/5 0\nc p weight -1 1/2 1/3 0\n1 0\n-1 0\n",
+    "ganak": "c t wmc\np cnf 1 2\nc p weight 1 -3/2+2/5i 0\nc p weight -1 1/2+1/3i 0\n1 0\n-1 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 1,
+    "gpmc": "c t wmc\np cnf 2 1\nc p weight 1 3/7 -1/4 0\nc p weight -1 1 0 0\nc p weight 2 1 -1/2 0\nc p weight -2 1 0 0\n-1 2 0\n",
+    "ganak": "c t wmc\np cnf 2 1\nc p weight 1 3/7-1/4i 0\nc p weight -1 1+0i 0\nc p weight 2 1-1/2i 0\nc p weight -2 1+0i 0\n-1 2 0\n",
+    "real": "129/56",
+    "imag": "-27/28"
+  },
+  {
+    "id": 2,
+    "gpmc": "c t wmc\np cnf 3 2\nc p weight 1 0 0 0\nc p weight -1 1 0 0\nc p weight 2 1 2/3 0\nc p weight -2 1 0 0\nc p weight 3 3/2 1/4 0\nc p weight -3 1 0 0\n3 -2 -1 0\n1 -3 0\n",
+    "ganak": "c t wmc\np cnf 3 2\nc p weight 1 0+0i 0\nc p weight -1 1+0i 0\nc p weight 2 1+2/3i 0\nc p weight -2 1+0i 0\nc p weight 3 3/2+1/4i 0\nc p weight -3 1+0i 0\n3 -2 -1 0\n1 -3 0\n",
+    "real": "2",
+    "imag": "2/3"
+  },
+  {
+    "id": 3,
+    "gpmc": "c t wmc\np cnf 4 3\nc p weight 1 2/3 -1/2 0\nc p weight -1 1 0 0\nc p weight 2 -2 -1/4 0\nc p weight -2 1 0 0\nc p weight 3 0 1/3 0\nc p weight -3 1 0 0\nc p weight 4 0 -1/3 0\nc p weight -4 1 0 0\n-2 -3 -1 0\n2 -3 0\n-3 1 0\n",
+    "ganak": "c t wmc\np cnf 4 3\nc p weight 1 2/3-1/2i 0\nc p weight -1 1+0i 0\nc p weight 2 -2-1/4i 0\nc p weight -2 1+0i 0\nc p weight 3 0+1/3i 0\nc p weight -3 1+0i 0\nc p weight 4 0-1/3i 0\nc p weight -4 1+0i 0\n-2 -3 -1 0\n2 -3 0\n-3 1 0\n",
+    "real": "-127/72",
+    "imag": "49/72"
+  },
+  {
+    "id": 4,
+    "gpmc": "c t wmc\np cnf 5 4\nc p weight 1 -1/2 2/5 0\nc p weight -1 1/2 1/3 0\nc p weight 2 0 1 0\nc p weight -2 1/2 1/3 0\nc p weight 3 2 1/3 0\nc p weight -3 1/2 1/3 0\nc p weight 4 -1/2 1/2 0\nc p weight -4 1/2 1/3 0\nc p weight 5 1/3 2/3 0\nc p weight -5 1/2 1/3 0\n-3 5 4 0\n3 0\n5 0\n4 0\n",
+    "ganak": "c t wmc\np cnf 5 4\nc p weight 1 -1/2+2/5i 0\nc p weight -1 1/2+1/3i 0\nc p weight 2 0+1i 0\nc p weight -2 1/2+1/3i 0\nc p weight 3 2+1/3i 0\nc p weight -3 1/2+1/3i 0\nc p weight 4 -1/2+1/2i 0\nc p weight -4 1/2+1/3i 0\nc p weight 5 1/3+2/3i 0\nc p weight -5 1/2+1/3i 0\n-3 5 4 0\n3 0\n5 0\n4 0\n",
+    "real": "1793/1620",
+    "imag": "77/540"
+  },
+  {
+    "id": 5,
+    "gpmc": "c t wmc\np cnf 1 5\nc p weight 1 1/5 0 0\nc p weight -1 1 0 0\n-1 0\n-1 0\n-1 0\n1 0\n-1 0\n",
+    "ganak": "c t wmc\np cnf 1 5\nc p weight 1 1/5+0i 0\nc p weight -1 1+0i 0\n-1 0\n-1 0\n-1 0\n1 0\n-1 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 6,
+    "gpmc": "c t wmc\np cnf 2 6\nc p weight 1 2 0 0\nc p weight -1 1 0 0\nc p weight 2 1/3 -2/5 0\nc p weight -2 1 0 0\n-1 2 0\n1 -2 0\n1 0\n1 0\n2 -1 0\n1 2 0\n",
+    "ganak": "c t wmc\np cnf 2 6\nc p weight 1 2+0i 0\nc p weight -1 1+0i 0\nc p weight 2 1/3-2/5i 0\nc p weight -2 1+0i 0\n-1 2 0\n1 -2 0\n1 0\n1 0\n2 -1 0\n1 2 0\n",
+    "real": "2/3",
+    "imag": "-4/5"
+  },
+  {
+    "id": 7,
+    "gpmc": "c t wmc\np cnf 3 7\nc p weight 1 2/7 2/5 0\nc p weight -1 1 0 0\nc p weight 2 0 0 0\nc p weight -2 1 0 0\nc p weight 3 -1/4 2/5 0\nc p weight -3 1 0 0\n-2 -3 1 0\n3 0\n-3 0\n1 -3 0\n1 2 0\n-3 1 2 0\n2 3 0\n",
+    "ganak": "c t wmc\np cnf 3 7\nc p weight 1 2/7+2/5i 0\nc p weight -1 1+0i 0\nc p weight 2 0+0i 0\nc p weight -2 1+0i 0\nc p weight 3 -1/4+2/5i 0\nc p weight -3 1+0i 0\n-2 -3 1 0\n3 0\n-3 0\n1 -3 0\n1 2 0\n-3 1 2 0\n2 3 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 8,
+    "gpmc": "c t wmc\np cnf 4 0\nc p weight 1 1/2 1/4 0\nc p weight -1 1/2 1/3 0\nc p weight 2 1/2 1/4 0\nc p weight -2 1/2 1/3 0\nc p weight 3 3/4 -1 0\nc p weight -3 1/2 1/3 0\nc p weight 4 -2/7 1 0\nc p weight -4 1/2 1/3 0\n",
+    "ganak": "c t wmc\np cnf 4 0\nc p weight 1 1/2+1/4i 0\nc p weight -1 1/2+1/3i 0\nc p weight 2 1/2+1/4i 0\nc p weight -2 1/2+1/3i 0\nc p weight 3 3/4-1i 0\nc p weight -3 1/2+1/3i 0\nc p weight 4 -2/7+1i 0\nc p weight -4 1/2+1/3i 0\n",
+    "real": "-73639/72576",
+    "imag": "7121/3024"
+  },
+  {
+    "id": 9,
+    "gpmc": "c t wmc\np cnf 5 1\nc p weight 1 0 1 0\nc p weight -1 1 0 0\nc p weight 2 1/3 -1/3 0\nc p weight -2 1 0 0\nc p weight 3 -1/2 -1 0\nc p weight -3 1 0 0\nc p weight 4 0 -1/5 0\nc p weight -4 1 0 0\nc p weight 5 -1 0 0\nc p weight -5 1 0 0\n-4 -1 0\n",
+    "ganak": "c t wmc\np cnf 5 1\nc p weight 1 0+1i 0\nc p weight -1 1+0i 0\nc p weight 2 1/3-1/3i 0\nc p weight -2 1+0i 0\nc p weight 3 -1/2-1i 0\nc p weight -3 1+0i 0\nc p weight 4 0-1/5i 0\nc p weight -4 1+0i 0\nc p weight 5 -1+0i 0\nc p weight -5 1+0i 0\n-4 -1 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 10,
+    "gpmc": "c t wmc\np cnf 1 2\nc p weight 1 0 -1/2 0\nc p weight -1 1 0 0\n1 0\n1 0\n",
+    "ganak": "c t wmc\np cnf 1 2\nc p weight 1 0-1/2i 0\nc p weight -1 1+0i 0\n1 0\n1 0\n",
+    "real": "0",
+    "imag": "-1/2"
+  },
+  {
+    "id": 11,
+    "gpmc": "c t wmc\np cnf 2 3\nc p weight 1 3/2 -2 0\nc p weight -1 1 0 0\nc p weight 2 3 0 0\nc p weight -2 1 0 0\n2 1 0\n2 -1 0\n-2 0\n",
+    "ganak": "c t wmc\np cnf 2 3\nc p weight 1 3/2-2i 0\nc p weight -1 1+0i 0\nc p weight 2 3+0i 0\nc p weight -2 1+0i 0\n2 1 0\n2 -1 0\n-2 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 12,
+    "gpmc": "c t wmc\np cnf 3 4\nc p weight 1 -3/7 1 0\nc p weight -1 1/2 1/3 0\nc p weight 2 0 0 0\nc p weight -2 1/2 1/3 0\nc p weight 3 -1/7 -1/4 0\nc p weight -3 1/2 1/3 0\n-2 1 3 0\n3 0\n-3 -2 -1 0\n-1 2 0\n",
+    "ganak": "c t wmc\np cnf 3 4\nc p weight 1 -3/7+1i 0\nc p weight -1 1/2+1/3i 0\nc p weight 2 0+0i 0\nc p weight -2 1/2+1/3i 0\nc p weight 3 -1/7-1/4i 0\nc p weight -3 1/2+1/3i 0\n-2 1 3 0\n3 0\n-3 -2 -1 0\n-1 2 0\n",
+    "real": "4/63",
+    "imag": "-83/1008"
+  },
+  {
+    "id": 13,
+    "gpmc": "c t wmc\np cnf 4 5\nc p weight 1 -3/5 -2 0\nc p weight -1 1 0 0\nc p weight 2 2/7 0 0\nc p weight -2 1 0 0\nc p weight 3 -1 -1/5 0\nc p weight -3 1 0 0\nc p weight 4 1/3 1 0\nc p weight -4 1 0 0\n-3 0\n2 3 4 0\n3 1 0\n-4 -1 -3 0\n4 -3 0\n",
+    "ganak": "c t wmc\np cnf 4 5\nc p weight 1 -3/5-2i 0\nc p weight -1 1+0i 0\nc p weight 2 2/7+0i 0\nc p weight -2 1+0i 0\nc p weight 3 -1-1/5i 0\nc p weight -3 1+0i 0\nc p weight 4 1/3+1i 0\nc p weight -4 1+0i 0\n-3 0\n2 3 4 0\n3 1 0\n-4 -1 -3 0\n4 -3 0\n",
+    "real": "15/7",
+    "imag": "-11/5"
+  },
+  {
+    "id": 14,
+    "gpmc": "c t wmc\np cnf 5 6\nc p weight 1 3/2 1/4 0\nc p weight -1 1 0 0\nc p weight 2 -1/2 0 0\nc p weight -2 1 0 0\nc p weight 3 1/6 1/2 0\nc p weight -3 1 0 0\nc p weight 4 -2/5 0 0\nc p weight -4 1 0 0\nc p weight 5 -2/7 1/5 0\nc p weight -5 1 0 0\n-1 0\n3 4 0\n-5 4 -1 0\n2 0\n-1 -4 0\n2 1 -4 0\n",
+    "ganak": "c t wmc\np cnf 5 6\nc p weight 1 3/2+1/4i 0\nc p weight -1 1+0i 0\nc p weight 2 -1/2+0i 0\nc p weight -2 1+0i 0\nc p weight 3 1/6+1/2i 0\nc p weight -3 1+0i 0\nc p weight 4 -2/5+0i 0\nc p weight -4 1+0i 0\nc p weight 5 -2/7+1/5i 0\nc p weight -5 1+0i 0\n-1 0\n3 4 0\n-5 4 -1 0\n2 0\n-1 -4 0\n2 1 -4 0\n",
+    "real": "24/175",
+    "imag": "-27/350"
+  },
+  {
+    "id": 15,
+    "gpmc": "c t wmc\np cnf 1 7\nc p weight 1 2/3 2/3 0\nc p weight -1 1 0 0\n-1 0\n-1 0\n1 0\n-1 0\n1 0\n-1 0\n1 0\n",
+    "ganak": "c t wmc\np cnf 1 7\nc p weight 1 2/3+2/3i 0\nc p weight -1 1+0i 0\n-1 0\n-1 0\n1 0\n-1 0\n1 0\n-1 0\n1 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 16,
+    "gpmc": "c t wmc\np cnf 2 0\nc p weight 1 -3/4 2 0\nc p weight -1 1/2 1/3 0\nc p weight 2 -2/3 1/2 0\nc p weight -2 1/2 1/3 0\n",
+    "ganak": "c t wmc\np cnf 2 0\nc p weight 1 -3/4+2i 0\nc p weight -1 1/2+1/3i 0\nc p weight 2 -2/3+1/2i 0\nc p weight -2 1/2+1/3i 0\n",
+    "real": "-137/72",
+    "imag": "-43/72"
+  },
+  {
+    "id": 17,
+    "gpmc": "c t wmc\np cnf 3 1\nc p weight 1 2 -1/5 0\nc p weight -1 1 0 0\nc p weight 2 1/2 0 0\nc p weight -2 1 0 0\nc p weight 3 2/5 1/3 0\nc p weight -3 1 0 0\n-1 0\n",
+    "ganak": "c t wmc\np cnf 3 1\nc p weight 1 2-1/5i 0\nc p weight -1 1+0i 0\nc p weight 2 1/2+0i 0\nc p weight -2 1+0i 0\nc p weight 3 2/5+1/3i 0\nc p weight -3 1+0i 0\n-1 0\n",
+    "real": "21/10",
+    "imag": "1/2"
+  },
+  {
+    "id": 18,
+    "gpmc": "c t wmc\np cnf 4 2\nc p weight 1 -1 -1/5 0\nc p weight -1 1 0 0\nc p weight 2 -1/7 -1 0\nc p weight -2 1 0 0\nc p weight 3 -1 1/2 0\nc p weight -3 1 0 0\nc p weight 4 0 0 0\nc p weight -4 1 0 0\n-3 2 -1 0\n-3 0\n",
+    "ganak": "c t wmc\np cnf 4 2\nc p weight 1 -1-1/5i 0\nc p weight -1 1+0i 0\nc p weight 2 -1/7-1i 0\nc p weight -2 1+0i 0\nc p weight 3 -1+1/2i 0\nc p weight -3 1+0i 0\nc p weight 4 0+0i 0\nc p weight -4 1+0i 0\n-3 2 -1 0\n-3 0\n",
+    "real": "-1/5",
+    "imag": "-6/35"
+  },
+  {
+    "id": 19,
+    "gpmc": "c t wmc\np cnf 5 3\nc p weight 1 1/4 0 0\nc p weight -1 1 0 0\nc p weight 2 0 -2/5 0\nc p weight -2 1 0 0\nc p weight 3 0 0 0\nc p weight -3 1 0 0\nc p weight 4 0 2/3 0\nc p weight -4 1 0 0\nc p weight 5 1/2 1 0\nc p weight -5 1 0 0\n3 0\n-4 2 0\n1 3 0\n",
+    "ganak": "c t wmc\np cnf 5 3\nc p weight 1 1/4+0i 0\nc p weight -1 1+0i 0\nc p weight 2 0-2/5i 0\nc p weight -2 1+0i 0\nc p weight 3 0+0i 0\nc p weight -3 1+0i 0\nc p weight 4 0+2/3i 0\nc p weight -4 1+0i 0\nc p weight 5 1/2+1i 0\nc p weight -5 1+0i 0\n3 0\n-4 2 0\n1 3 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 20,
+    "gpmc": "c t wmc\np cnf 1 4\nc p weight 1 0 1 0\nc p weight -1 1/2 1/3 0\n-1 0\n-1 0\n1 0\n1 0\n",
+    "ganak": "c t wmc\np cnf 1 4\nc p weight 1 0+1i 0\nc p weight -1 1/2+1/3i 0\n-1 0\n-1 0\n1 0\n1 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 21,
+    "gpmc": "c t wmc\np cnf 2 5\nc p weight 1 -1/2 0 0\nc p weight -1 1 0 0\nc p weight 2 -1 0 0\nc p weight -2 1 0 0\n-2 1 0\n1 2 0\n-1 2 0\n1 2 0\n1 0\n",
+    "ganak": "c t wmc\np cnf 2 5\nc p weight 1 -1/2+0i 0\nc p weight -1 1+0i 0\nc p weight 2 -1+0i 0\nc p weight -2 1+0i 0\n-2 1 0\n1 2 0\n-1 2 0\n1 2 0\n1 0\n",
+    "real": "1/2",
+    "imag": "0"
+  },
+  {
+    "id": 22,
+    "gpmc": "c t wmc\np cnf 3 6\nc p weight 1 -1/4 -1/4 0\nc p weight -1 1 0 0\nc p weight 2 -1/5 1/4 0\nc p weight -2 1 0 0\nc p weight 3 -3 2 0\nc p weight -3 1 0 0\n1 2 -3 0\n3 0\n-2 -3 0\n2 3 0\n-1 3 -2 0\n-2 3 -1 0\n",
+    "ganak": "c t wmc\np cnf 3 6\nc p weight 1 -1/4-1/4i 0\nc p weight -1 1+0i 0\nc p weight 2 -1/5+1/4i 0\nc p weight -2 1+0i 0\nc p weight 3 -3+2i 0\nc p weight -3 1+0i 0\n1 2 -3 0\n3 0\n-2 -3 0\n2 3 0\n-1 3 -2 0\n-2 3 -1 0\n",
+    "real": "5/4",
+    "imag": "1/4"
+  },
+  {
+    "id": 23,
+    "gpmc": "c t wmc\np cnf 4 7\nc p weight 1 -1/3 1 0\nc p weight -1 1 0 0\nc p weight 2 -1/5 1/2 0\nc p weight -2 1 0 0\nc p weight 3 2/3 0 0\nc p weight -3 1 0 0\nc p weight 4 -1 2 0\nc p weight -4 1 0 0\n4 0\n-2 3 0\n1 -4 3 0\n-3 2 0\n4 0\n3 -4 0\n-2 -3 0\n",
+    "ganak": "c t wmc\np cnf 4 7\nc p weight 1 -1/3+1i 0\nc p weight -1 1+0i 0\nc p weight 2 -1/5+1/2i 0\nc p weight -2 1+0i 0\nc p weight 3 2/3+0i 0\nc p weight -3 1+0i 0\nc p weight 4 -1+2i 0\nc p weight -4 1+0i 0\n4 0\n-2 3 0\n1 -4 3 0\n-3 2 0\n4 0\n3 -4 0\n-2 -3 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 24,
+    "gpmc": "c t wmc\np cnf 5 0\nc p weight 1 -2/3 2 0\nc p weight -1 1/2 1/3 0\nc p weight 2 -1 -2/3 0\nc p weight -2 1/2 1/3 0\nc p weight 3 1/6 0 0\nc p weight -3 1/2 1/3 0\nc p weight 4 -1/2 2/3 0\nc p weight -4 1/2 1/3 0\nc p weight 5 -1/2 0 0\nc p weight -5 1/2 1/3 0\n",
+    "ganak": "c t wmc\np cnf 5 0\nc p weight 1 -2/3+2i 0\nc p weight -1 1/2+1/3i 0\nc p weight 2 -1-2/3i 0\nc p weight -2 1/2+1/3i 0\nc p weight 3 1/6+0i 0\nc p weight -3 1/2+1/3i 0\nc p weight 4 -1/2+2/3i 0\nc p weight -4 1/2+1/3i 0\nc p weight 5 -1/2+0i 0\nc p weight -5 1/2+1/3i 0\n",
+    "real": "-17/54",
+    "imag": "49/324"
+  },
+  {
+    "id": 25,
+    "gpmc": "c t wmc\np cnf 1 1\nc p weight 1 -1/5 -1 0\nc p weight -1 1 0 0\n1 0\n",
+    "ganak": "c t wmc\np cnf 1 1\nc p weight 1 -1/5-1i 0\nc p weight -1 1+0i 0\n1 0\n",
+    "real": "-1/5",
+    "imag": "-1"
+  },
+  {
+    "id": 26,
+    "gpmc": "c t wmc\np cnf 2 2\nc p weight 1 1/3 -1/2 0\nc p weight -1 1 0 0\nc p weight 2 -1/2 1/5 0\nc p weight -2 1 0 0\n-1 0\n1 0\n",
+    "ganak": "c t wmc\np cnf 2 2\nc p weight 1 1/3-1/2i 0\nc p weight -1 1+0i 0\nc p weight 2 -1/2+1/5i 0\nc p weight -2 1+0i 0\n-1 0\n1 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 27,
+    "gpmc": "c t wmc\np cnf 3 3\nc p weight 1 1/4 0 0\nc p weight -1 1 0 0\nc p weight 2 0 1/5 0\nc p weight -2 1 0 0\nc p weight 3 -1/2 -1 0\nc p weight -3 1 0 0\n2 -3 -1 0\n-3 0\n-2 1 3 0\n",
+    "ganak": "c t wmc\np cnf 3 3\nc p weight 1 1/4+0i 0\nc p weight -1 1+0i 0\nc p weight 2 0+1/5i 0\nc p weight -2 1+0i 0\nc p weight 3 -1/2-1i 0\nc p weight -3 1+0i 0\n2 -3 -1 0\n-3 0\n-2 1 3 0\n",
+    "real": "5/4",
+    "imag": "1/20"
+  },
+  {
+    "id": 28,
+    "gpmc": "c t wmc\np cnf 4 4\nc p weight 1 -1/2 0 0\nc p weight -1 1/2 1/3 0\nc p weight 2 -2/7 2/3 0\nc p weight -2 1/2 1/3 0\nc p weight 3 -3/4 1/2 0\nc p weight -3 1/2 1/3 0\nc p weight 4 1/6 0 0\nc p weight -4 1/2 1/3 0\n2 -1 3 0\n-2 0\n-3 4 0\n1 0\n",
+    "ganak": "c t wmc\np cnf 4 4\nc p weight 1 -1/2+0i 0\nc p weight -1 1/2+1/3i 0\nc p weight 2 -2/7+2/3i 0\nc p weight -2 1/2+1/3i 0\nc p weight 3 -3/4+1/2i 0\nc p weight -3 1/2+1/3i 0\nc p weight 4 1/6+0i 0\nc p weight -4 1/2+1/3i 0\n2 -1 3 0\n-2 0\n-3 4 0\n1 0\n",
+    "real": "13/288",
+    "imag": "0"
+  },
+  {
+    "id": 29,
+    "gpmc": "c t wmc\np cnf 5 5\nc p weight 1 0 1/4 0\nc p weight -1 1 0 0\nc p weight 2 1/7 -1 0\nc p weight -2 1 0 0\nc p weight 3 1/3 1/2 0\nc p weight -3 1 0 0\nc p weight 4 -3/4 1/4 0\nc p weight -4 1 0 0\nc p weight 5 1/4 0 0\nc p weight -5 1 0 0\n1 0\n-3 0\n-1 3 -5 0\n2 0\n-3 4 -5 0\n",
+    "ganak": "c t wmc\np cnf 5 5\nc p weight 1 0+1/4i 0\nc p weight -1 1+0i 0\nc p weight 2 1/7-1i 0\nc p weight -2 1+0i 0\nc p weight 3 1/3+1/2i 0\nc p weight -3 1+0i 0\nc p weight 4 -3/4+1/4i 0\nc p weight -4 1+0i 0\nc p weight 5 1/4+0i 0\nc p weight -5 1+0i 0\n1 0\n-3 0\n-1 3 -5 0\n2 0\n-3 4 -5 0\n",
+    "real": "3/56",
+    "imag": "1/14"
+  },
+  {
+    "id": 30,
+    "gpmc": "c t wmc\np cnf 1 6\nc p weight 1 -1 2/3 0\nc p weight -1 1 0 0\n1 0\n-1 0\n-1 0\n-1 0\n1 0\n1 0\n",
+    "ganak": "c t wmc\np cnf 1 6\nc p weight 1 -1+2/3i 0\nc p weight -1 1+0i 0\n1 0\n-1 0\n-1 0\n-1 0\n1 0\n1 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 31,
+    "gpmc": "c t wmc\np cnf 2 7\nc p weight 1 1/3 1/4 0\nc p weight -1 1 0 0\nc p weight 2 1/5 -1/5 0\nc p weight -2 1 0 0\n-2 -1 0\n1 0\n-2 0\n2 -1 0\n1 0\n-2 0\n1 0\n",
+    "ganak": "c t wmc\np cnf 2 7\nc p weight 1 1/3+1/4i 0\nc p weight -1 1+0i 0\nc p weight 2 1/5-1/5i 0\nc p weight -2 1+0i 0\n-2 -1 0\n1 0\n-2 0\n2 -1 0\n1 0\n-2 0\n1 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 32,
+    "gpmc": "c t wmc\np cnf 3 0\nc p weight 1 2/3 -2 0\nc p weight -1 1/2 1/3 0\nc p weight 2 -2/5 2 0\nc p weight -2 1/2 1/3 0\nc p weight 3 -2 -2 0\nc p weight -3 1/2 1/3 0\n",
+    "ganak": "c t wmc\np cnf 3 0\nc p weight 1 2/3-2i 0\nc p weight -1 1/2+1/3i 0\nc p weight 2 -2/5+2i 0\nc p weight -2 1/2+1/3i 0\nc p weight 3 -2-2i 0\nc p weight -3 1/2+1/3i 0\n",
+    "real": "-1889/1080",
+    "imag": "-1135/108"
+  },
+  {
+    "id": 33,
+    "gpmc": "c t wmc\np cnf 4 1\nc p weight 1 0 -1/4 0\nc p weight -1 1 0 0\nc p weight 2 -2 1/2 0\nc p weight -2 1 0 0\nc p weight 3 -1/5 -2/5 0\nc p weight -3 1 0 0\nc p weight 4 1/5 -1/5 0\nc p weight -4 1 0 0\n-4 0\n",
+    "ganak": "c t wmc\np cnf 4 1\nc p weight 1 0-1/4i 0\nc p weight -1 1+0i 0\nc p weight 2 -2+1/2i 0\nc p weight -2 1+0i 0\nc p weight 3 -1/5-2/5i 0\nc p weight -3 1+0i 0\nc p weight 4 1/5-1/5i 0\nc p weight -4 1+0i 0\n-4 0\n",
+    "real": "-2/5",
+    "imag": "19/20"
+  },
+  {
+    "id": 34,
+    "gpmc": "c t wmc\np cnf 5 2\nc p weight 1 -1 1/2 0\nc p weight -1 1 0 0\nc p weight 2 3/2 -2/5 0\nc p weight -2 1 0 0\nc p weight 3 -2/3 2 0\nc p weight -3 1 0 0\nc p weight 4 1 -1 0\nc p weight -4 1 0 0\nc p weight 5 0 -2/3 0\nc p weight -5 1 0 0\n4 3 5 0\n-1 -5 0\n",
+    "ganak": "c t wmc\np cnf 5 2\nc p weight 1 -1+1/2i 0\nc p weight -1 1+0i 0\nc p weight 2 3/2-2/5i 0\nc p weight -2 1+0i 0\nc p weight 3 -2/3+2i 0\nc p weight -3 1+0i 0\nc p weight 4 1-1i 0\nc p weight -4 1+0i 0\nc p weight 5 0-2/3i 0\nc p weight -5 1+0i 0\n4 3 5 0\n-1 -5 0\n",
+    "real": "23/20",
+    "imag": "-469/180"
+  },
+  {
+    "id": 35,
+    "gpmc": "c t wmc\np cnf 1 3\nc p weight 1 0 -1 0\nc p weight -1 1 0 0\n-1 0\n1 0\n-1 0\n",
+    "ganak": "c t wmc\np cnf 1 3\nc p weight 1 0-1i 0\nc p weight -1 1+0i 0\n-1 0\n1 0\n-1 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 36,
+    "gpmc": "c t wmc\np cnf 2 4\nc p weight 1 1/4 -2 0\nc p weight -1 1/2 1/3 0\nc p weight 2 0 -1/5 0\nc p weight -2 1/2 1/3 0\n2 -1 0\n-1 0\n-2 1 0\n-2 0\n",
+    "ganak": "c t wmc\np cnf 2 4\nc p weight 1 1/4-2i 0\nc p weight -1 1/2+1/3i 0\nc p weight 2 0-1/5i 0\nc p weight -2 1/2+1/3i 0\n2 -1 0\n-1 0\n-2 1 0\n-2 0\n",
+    "real": "5/36",
+    "imag": "1/3"
+  },
+  {
+    "id": 37,
+    "gpmc": "c t wmc\np cnf 3 5\nc p weight 1 2/7 1/2 0\nc p weight -1 1 0 0\nc p weight 2 0 -1/5 0\nc p weight -2 1 0 0\nc p weight 3 1/2 0 0\nc p weight -3 1 0 0\n-2 -1 -3 0\n3 1 0\n-2 1 -3 0\n-1 -2 0\n-1 3 -2 0\n",
+    "ganak": "c t wmc\np cnf 3 5\nc p weight 1 2/7+1/2i 0\nc p weight -1 1+0i 0\nc p weight 2 0-1/5i 0\nc p weight -2 1+0i 0\nc p weight 3 1/2+0i 0\nc p weight -3 1+0i 0\n-2 -1 -3 0\n3 1 0\n-2 1 -3 0\n-1 -2 0\n-1 3 -2 0\n",
+    "real": "13/14",
+    "imag": "3/4"
+  },
+  {
+    "id": 38,
+    "gpmc": "c t wmc\np cnf 4 6\nc p weight 1 1 -2/5 0\nc p weight -1 1 0 0\nc p weight 2 1/2 0 0\nc p weight -2 1 0 0\nc p weight 3 -1 1/2 0\nc p weight -3 1 0 0\nc p weight 4 1/7 -2/5 0\nc p weight -4 1 0 0\n-2 0\n-2 1 0\n-1 0\n-2 -3 0\n3 -4 -2 0\n-4 -2 -1 0\n",
+    "ganak": "c t wmc\np cnf 4 6\nc p weight 1 1-2/5i 0\nc p weight -1 1+0i 0\nc p weight 2 1/2+0i 0\nc p weight -2 1+0i 0\nc p weight 3 -1+1/2i 0\nc p weight -3 1+0i 0\nc p weight 4 1/7-2/5i 0\nc p weight -4 1+0i 0\n-2 0\n-2 1 0\n-1 0\n-2 -3 0\n3 -4 -2 0\n-4 -2 -1 0\n",
+    "real": "1/5",
+    "imag": "4/7"
+  },
+  {
+    "id": 39,
+    "gpmc": "c t wmc\np cnf 5 7\nc p weight 1 -1/7 0 0\nc p weight -1 1 0 0\nc p weight 2 0 -2/5 0\nc p weight -2 1 0 0\nc p weight 3 -2/3 1/2 0\nc p weight -3 1 0 0\nc p weight 4 1/3 0 0\nc p weight -4 1 0 0\nc p weight 5 2 1/4 0\nc p weight -5 1 0 0\n3 -5 -2 0\n3 0\n-4 0\n-5 4 2 0\n2 -4 0\n-1 0\n-4 2 5 0\n",
+    "ganak": "c t wmc\np cnf 5 7\nc p weight 1 -1/7+0i 0\nc p weight -1 1+0i 0\nc p weight 2 0-2/5i 0\nc p weight -2 1+0i 0\nc p weight 3 -2/3+1/2i 0\nc p weight -3 1+0i 0\nc p weight 4 1/3+0i 0\nc p weight -4 1+0i 0\nc p weight 5 2+1/4i 0\nc p weight -5 1+0i 0\n3 -5 -2 0\n3 0\n-4 0\n-5 4 2 0\n2 -4 0\n-1 0\n-4 2 5 0\n",
+    "real": "-2/15",
+    "imag": "27/20"
+  },
+  {
+    "id": 40,
+    "gpmc": "c t wmc\np cnf 1 0\nc p weight 1 1/2 0 0\nc p weight -1 1/2 1/3 0\n",
+    "ganak": "c t wmc\np cnf 1 0\nc p weight 1 1/2+0i 0\nc p weight -1 1/2+1/3i 0\n",
+    "real": "1",
+    "imag": "1/3"
+  },
+  {
+    "id": 41,
+    "gpmc": "c t wmc\np cnf 2 1\nc p weight 1 0 0 0\nc p weight -1 1 0 0\nc p weight 2 1/2 -1 0\nc p weight -2 1 0 0\n-2 1 0\n",
+    "ganak": "c t wmc\np cnf 2 1\nc p weight 1 0+0i 0\nc p weight -1 1+0i 0\nc p weight 2 1/2-1i 0\nc p weight -2 1+0i 0\n-2 1 0\n",
+    "real": "1",
+    "imag": "0"
+  },
+  {
+    "id": 42,
+    "gpmc": "c t wmc\np cnf 3 2\nc p weight 1 1 2/3 0\nc p weight -1 1 0 0\nc p weight 2 1/4 1 0\nc p weight -2 1 0 0\nc p weight 3 -1/4 1/4 0\nc p weight -3 1 0 0\n2 1 0\n-3 0\n",
+    "ganak": "c t wmc\np cnf 3 2\nc p weight 1 1+2/3i 0\nc p weight -1 1+0i 0\nc p weight 2 1/4+1i 0\nc p weight -2 1+0i 0\nc p weight 3 -1/4+1/4i 0\nc p weight -3 1+0i 0\n2 1 0\n-3 0\n",
+    "real": "5/6",
+    "imag": "17/6"
+  },
+  {
+    "id": 43,
+    "gpmc": "c t wmc\np cnf 4 3\nc p weight 1 -2/3 0 0\nc p weight -1 1 0 0\nc p weight 2 1/5 -2 0\nc p weight -2 1 0 0\nc p weight 3 1/3 -1/5 0\nc p weight -3 1 0 0\nc p weight 4 1/2 0 0\nc p weight -4 1 0 0\n-4 -2 -1 0\n2 -4 0\n2 0\n",
+    "ganak": "c t wmc\np cnf 4 3\nc p weight 1 -2/3+0i 0\nc p weight -1 1+0i 0\nc p weight 2 1/5-2i 0\nc p weight -2 1+0i 0\nc p weight 3 1/3-1/5i 0\nc p weight -3 1+0i 0\nc p weight 4 1/2+0i 0\nc p weight -4 1+0i 0\n-4 -2 -1 0\n2 -4 0\n2 0\n",
+    "real": "-1/9",
+    "imag": "-203/90"
+  },
+  {
+    "id": 44,
+    "gpmc": "c t wmc\np cnf 5 4\nc p weight 1 -3/4 1/4 0\nc p weight -1 1/2 1/3 0\nc p weight 2 -3/5 0 0\nc p weight -2 1/2 1/3 0\nc p weight 3 3/5 0 0\nc p weight -3 1/2 1/3 0\nc p weight 4 3 -1/3 0\nc p weight -4 1/2 1/3 0\nc p weight 5 3/5 1/4 0\nc p weight -5 1/2 1/3 0\n5 -1 2 0\n2 -5 0\n-1 -4 2 0\n-3 2 -5 0\n",
+    "ganak": "c t wmc\np cnf 5 4\nc p weight 1 -3/4+1/4i 0\nc p weight -1 1/2+1/3i 0\nc p weight 2 -3/5+0i 0\nc p weight -2 1/2+1/3i 0\nc p weight 3 3/5+0i 0\nc p weight -3 1/2+1/3i 0\nc p weight 4 3-1/3i 0\nc p weight -4 1/2+1/3i 0\nc p weight 5 3/5+1/4i 0\nc p weight -5 1/2+1/3i 0\n5 -1 2 0\n2 -5 0\n-1 -4 2 0\n-3 2 -5 0\n",
+    "real": "880957/648000",
+    "imag": "12229/216000"
+  },
+  {
+    "id": 45,
+    "gpmc": "c t wmc\np cnf 1 5\nc p weight 1 -1 -1/3 0\nc p weight -1 1 0 0\n1 0\n1 0\n-1 0\n1 0\n1 0\n",
+    "ganak": "c t wmc\np cnf 1 5\nc p weight 1 -1-1/3i 0\nc p weight -1 1+0i 0\n1 0\n1 0\n-1 0\n1 0\n1 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 46,
+    "gpmc": "c t wmc\np cnf 2 6\nc p weight 1 -1 1/2 0\nc p weight -1 1 0 0\nc p weight 2 1/3 1/2 0\nc p weight -2 1 0 0\n2 0\n2 0\n2 1 0\n1 0\n-2 1 0\n-1 0\n",
+    "ganak": "c t wmc\np cnf 2 6\nc p weight 1 -1+1/2i 0\nc p weight -1 1+0i 0\nc p weight 2 1/3+1/2i 0\nc p weight -2 1+0i 0\n2 0\n2 0\n2 1 0\n1 0\n-2 1 0\n-1 0\n",
+    "real": "0",
+    "imag": "0"
+  },
+  {
+    "id": 47,
+    "gpmc": "c t wmc\np cnf 3 7\nc p weight 1 -2/3 -1/2 0\nc p weight -1 1 0 0\nc p weight 2 3/5 2/5 0\nc p weight -2 1 0 0\nc p weight 3 2/3 1/2 0\nc p weight -3 1 0 0\n3 0\n3 -2 -1 0\n1 3 0\n2 -3 -1 0\n-3 0\n3 0\n-3 0\n",
+    "ganak": "c t wmc\np cnf 3 7\nc p weight 1 -2/3-1/2i 0\nc p weight -1 1+0i 0\nc p weight 2 3/5+2/5i 0\nc p weight -2 1+0i 0\nc p weight 3 2/3+1/2i 0\nc p weight -3 1+0i 0\n3 0\n3 -2 -1 0\n1 3 0\n2 -3 -1 0\n-3 0\n3 0\n-3 0\n",
+    "real": "0",
+    "imag": "0"
+  }
+]
