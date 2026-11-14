@@ -430,6 +430,12 @@ function ReportView({ report }: { report: Report }) {
               : `[${report.frobenius_distance.lower}, ${report.frobenius_distance.upper}]`
             : "Unavailable"}
         </output>
+        <p className="text-sm leading-6 text-muted-foreground">
+          Closer to 0 means the two circuits are closer. A distance of 0 means
+          they are identical up to a global phase. For an interval, the upper
+          bound tells you how close they are guaranteed to be; a lower bound
+          of 0 alone does not establish exact equality.
+        </p>
         {!report.frobenius_distance ? <p className="text-sm text-muted-foreground">{report.headline} {report.detail}</p> : null}
         <details className="grid gap-4">
           <summary className="cursor-pointer text-sm font-medium">Computation details</summary>
