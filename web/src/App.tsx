@@ -219,7 +219,7 @@ export default function App() {
           </Field>
           <p className="text-xs leading-5 text-muted-foreground md:col-span-2 xl:col-span-6">
             Switch the engine between the built-in counters, GPMC, and GANAK.
-            The two external engines run from the native checker.
+            All engines run in the browser; GPMC and GANAK load on demand.
           </p>
           <Field label="Precision (bits)" htmlFor="precision">
             <Input
@@ -241,7 +241,7 @@ export default function App() {
               onChange={(event) => setMaxPrecision(Number(event.target.value))}
             />
           </Field>
-          <Field label="Node limit" htmlFor="nodes">
+          <Field label="Built-in node limit" htmlFor="nodes">
             <Input
               id="nodes"
               type="number"
@@ -342,7 +342,7 @@ export default function App() {
             requires symbolic or exact arithmetic evidence.
           </p>
           <p>
-            GPMC uses an exact-rational numeric adapter; GANAK runs its deterministic complex-rational mode. Phase approximations are enclosed by ball arithmetic. Computations stop after 200 seconds and can be cancelled.
+            GPMC uses an exact-rational numeric adapter; GANAK runs its deterministic complex-rational mode. Phase approximations are enclosed by ball arithmetic. Computations stop after 200 seconds and can be cancelled. Each WebAssembly module has a 512 MiB memory limit.
           </p>
           <p>
             Licensed under the <a className="text-primary underline" href="./LICENSE.txt">MIT License</a>.
