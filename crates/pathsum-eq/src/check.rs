@@ -602,3 +602,59 @@ fn dimension_report(left: &Circuit, right: &Circuit) -> Report {
         notes: base_notes("exact"),
     }
 }
+
+// Browser-worker bridge. The request is revalidated and its CNF reconstructed
+// at finalization; a caller cannot inject a radius or a normalization factor.
+pub fn prepare_external(req:&CheckRequest)->Result<serde_json::Value,EqError> {
+    let (left,right,ps,before,after,prec)=external_setup(req)?;
+    if left.qubits!=right.qubits { return Ok(serde_json::json!({"report":dimension_report(&left,&right)})); }
+    let mode=parse_mode(&req.mode)?;
+    if mode!=Mode::Wmc {
+        if let Some(angle)=syntactic_global_phase(&ps) {
+            return Ok(serde_json::json!({"report":symbolic_report(&left,&right,&ps,before,after,&angle)}));
+        }
+    }
+    if mode==Mode::Reduction { return Ok(serde_json::json!({"report":unknown_report(&left,&right,&ps,before,after)})); }
+    let enc=encode::encode(&ps)?;
+    let (cnf,_)=crate::external::cnf(&enc,prec,&req.counter);
+    Ok(serde_json::json!({"cnf":cnf,"precision":prec,"engine":req.counter}))
+}
+fn external_setup(req:&CheckRequest)->Result<(Circuit,Circuit,PathSum,u32,u32,u32),EqError> {
+    if req.counter!="gpmc" && req.counter!="ganak" { return Err(EqError("Expected GPMC or GANAK.".into())); }
+    let left=parse_qasm(&req.circuit1)?;
+    let right=parse_qasm(&req.circuit2)?;
+    if left.qubits!=right.qubits {
+        let ps=PathSum::compose(&left,&left,true)?;
+        return Ok((left,right,ps,0,0,req.precision.clamp(32,4096)));
+    }
+    let mode=parse_mode(&req.mode)?;
+    let mut ps=PathSum::compose(&left,&right,mode!=Mode::Wmc)?;
+    let before=ps.path_var_count();
+    if mode!=Mode::Wmc { reduce(&mut ps)?; }
+    let after=ps.path_var_count();
+    Ok((left,right,ps,before,after,req.precision.clamp(32,4096)))
+}
+pub fn finish_external(req:&CheckRequest,stdout:&str,elapsed_ms:u64)->Result<Report,EqError> {
+    let (left,right,ps,before,after,prec)=external_setup(req)?;
+    if left.qubits!=right.qubits { return Ok(dimension_report(&left,&right)); }
+    let enc=encode::encode(&ps)?;
+    let (_,radius)=crate::external::cnf(&enc,prec,&req.counter);
+    let (re,im)=crate::external::count(stdout)?;
+    let value=if radius.is_zero() {
+        AmpValue::Exact(ExactAmp {re0:re,re1:num_rational::BigRational::zero(),im0:im,im1:num_rational::BigRational::zero()})
+    } else { AmpValue::Ball(crate::external::ball(&re,&im,&radius,prec)) };
+    let j=finalize(&ps,value,prec);
+    // An exact counter result that cannot intersect the physically possible
+    // normalized trace is an adapter/counter failure, not a valid distance.
+    if j.frobenius_distance.is_none() { return Err(EqError("The counter result violates the unitary trace bound.".into())); }
+    let counter=CounterReport { name:req.counter.clone(),kind:"wmc".into(),verdict:j.verdict.clone(),value:j.value.clone(),magnitude_squared:j.magnitude_squared,frobenius_distance:j.frobenius_distance.clone(),elapsed_ms,error:String::new() };
+    Ok(Report {
+        verdict:j.verdict.clone(),headline:headline_for(&j.verdict),detail:j.value.clone(),phase:j.value,
+        arithmetic:if radius.is_zero() {"exact".into()} else {"ball".into()},
+        qubits:left.qubits as u32,gates1:left.len() as u32,gates2:right.len() as u32,
+        path_variables_before:before,path_variables_after:after,monomials:ps.phase.terms.len() as u32,
+        variables:enc.nvars,clauses:enc.clauses.len() as u32,frobenius_distance:j.frobenius_distance,
+        precision_bits:prec,reduction_steps:ps.steps,counters:vec![counter],
+        notes:vec!["The selected WebAssembly counter computed the exact complex-rational midpoint sum. Ball arithmetic encloses all phase-weight approximation error using a telescoping product bound; no floating-point acceptance band is used.".into()],
+    })
+}

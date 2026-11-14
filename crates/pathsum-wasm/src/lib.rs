@@ -36,3 +36,18 @@ pub fn check_equivalence(request_json: &str) -> String {
         .to_string(),
     }
 }
+
+#[wasm_bindgen]
+pub fn prepare_external(request_json:&str)->String {
+    let result=serde_json::from_str::<CheckRequest>(request_json)
+        .map_err(|e|e.to_string())
+        .and_then(|r|pathsum_eq::prepare_external(&r).map_err(|e|e.to_string()));
+    match result { Ok(v)=>v.to_string(),Err(e)=>serde_json::json!({"error":e}).to_string() }
+}
+#[wasm_bindgen]
+pub fn finish_external(request_json:&str,stdout:&str,elapsed_ms:u32)->String {
+    let result=serde_json::from_str::<CheckRequest>(request_json)
+        .map_err(|e|e.to_string())
+        .and_then(|r|pathsum_eq::finish_external(&r,stdout,elapsed_ms as u64).map_err(|e|e.to_string()));
+    match result { Ok(v)=>serde_json::to_string(&v).unwrap(),Err(e)=>serde_json::json!({"error":e}).to_string() }
+}

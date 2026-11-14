@@ -34,7 +34,7 @@ s=p.read_text().replace('gpmc flowcutter z mpfr gmp gmpxx','gpmc flowcutter gmpx
 s+='\nset_target_properties(gpmc-bin PROPERTIES SUFFIX ".js")\n'
 p.write_text(s)
 PY
-emcmake cmake -S gpmc -B gpmc-build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-I$BUILD/prefix/include -std=c++14 -sUSE_ZLIB=1" -DCMAKE_EXE_LINKER_FLAGS="-L$BUILD/prefix/lib -sUSE_ZLIB=1 -sALLOW_MEMORY_GROWTH=1 -sMAXIMUM_MEMORY=536870912 -sENVIRONMENT=worker -sEXPORTED_RUNTIME_METHODS=FS,callMain -sEXIT_RUNTIME=1"
+emcmake cmake -S gpmc -B gpmc-build -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-I$BUILD/prefix/include -std=c++14 -sUSE_ZLIB=1" -DCMAKE_EXE_LINKER_FLAGS="-L$BUILD/prefix/lib -sUSE_ZLIB=1 -sALLOW_MEMORY_GROWTH=1 -sMAXIMUM_MEMORY=536870912 -sENVIRONMENT=worker -sEXPORTED_RUNTIME_METHODS=FS,callMain -sEXIT_RUNTIME=1"
 cmake --build gpmc-build -j2
 cp gpmc-build/gpmc.js gpmc-build/gpmc.wasm "$OUT/"
 cp gmp-6.3.0.tar.xz "$OUT/sources/"

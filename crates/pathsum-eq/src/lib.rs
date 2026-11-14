@@ -17,6 +17,7 @@ mod distance;
 mod encode;
 mod error;
 mod exact;
+mod external;
 mod ganak;
 mod gpmc;
 mod matrix;
@@ -28,7 +29,7 @@ mod wmc;
 mod zpoly;
 
 pub use ball::{ComplexBall, RealBall};
-pub use check::{check, CheckRequest, CounterReport, Report};
+pub use check::{prepare_external, finish_external,check, CheckRequest, CounterReport, Report};
 pub use circuit::{Circuit, Gate};
 pub use distance::DistanceBounds;
 pub use error::EqError;

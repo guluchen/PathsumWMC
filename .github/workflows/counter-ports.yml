@@ -19,6 +19,11 @@ jobs:
           path: .port-build/prefix
           key: gmp-6.3.0-emsdk-4.0.23-v1
       - run: bash scripts/build-gpmc-wasm.sh
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .port-build/prefix
+          key: gmp-6.3.0-emsdk-4.0.23-v1
       - uses: actions/upload-artifact@v4
         with:
           name: gpmc-wasm
