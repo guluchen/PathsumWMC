@@ -274,5 +274,57 @@ fn tiny_phase_must_not_be_certified() {
         max_nodes: 200_000,
     }).unwrap();
     assert_eq!(report.verdict, "inconclusive", "{:?}", report.counters);
-    assert!(report.counters.iter().all(|c| !c.verdict.contains("equivalent")));
+    assert!(report.counters.iter().all(|c| !matches!(c.verdict.as_str(), "proven_equivalent" | "proven_global_phase" | "certified_equivalent" | "certified_global_phase")));
+}
+
+#[test]
+fn distance_zero_ignores_global_phase() {
+    for (left, right, mode) in [
+        ("h q[0]; h q[0];", "id q[0];", "hybrid"),
+        ("s q[0];", "rz(pi/2) q[0];", "wmc"),
+    ] {
+        let report = run(left, right, mode);
+        let distance = report.frobenius_distance.expect("distance missing");
+        assert_eq!(distance.lower_exact, "0");
+        assert_eq!(distance.upper_exact, "0");
+        assert!(distance.global_phase_ignored);
+    }
+}
+
+#[test]
+fn general_angle_distance_encloses_analytic_value() {
+    // tr(Rz(2*pi/3))/2 = cos(pi/3) = 1/2, so delta = 1.
+    let report = run("rz(2*pi/3) q[0];", "id q[0];", "wmc");
+    let distance = report.frobenius_distance.expect("distance missing");
+    let lo: num_rational::BigRational = distance.lower_exact.parse().unwrap();
+    let hi: num_rational::BigRational = distance.upper_exact.parse().unwrap();
+    let one = num_rational::BigRational::from_integer(1.into());
+    assert!(lo <= one && one <= hi);
+}
+
+#[test]
+fn tiny_phase_distance_remains_bounded_when_equality_is_unknown() {
+    use num_bigint::BigInt;
+    use num_rational::BigRational;
+    let request = |bits| CheckRequest {
+        circuit1: "OPENQASM 2.0; qreg q[1]; id q[0];".into(),
+        circuit2: "OPENQASM 2.0; qreg q[1]; p(1/1000000000000000000000000000000) q[0];".into(),
+        mode: "wmc".into(), counter: "all".into(), precision: bits,
+        max_precision: bits, max_nodes: 200_000,
+    };
+    let low = check(&request(32)).unwrap();
+    let high = check(&request(256)).unwrap();
+    let l = low.frobenius_distance.expect("low-precision distance missing");
+    let h = high.frobenius_distance.expect("high-precision distance missing");
+    let low_hi: BigRational = l.upper_exact.parse().unwrap();
+    let high_hi: BigRational = h.upper_exact.parse().unwrap();
+    let high_lo: BigRational = h.lower_exact.parse().unwrap();
+    assert!(high_hi < low_hi);
+    // delta = 2*sin(epsilon/4). For 0<epsilon<1:
+    // epsilon/2 - epsilon^3/192 <= delta <= epsilon/2.
+    let epsilon = BigRational::new(1.into(), BigInt::from(10).pow(30));
+    let analytic_upper = &epsilon / BigRational::from_integer(2.into());
+    let analytic_lower = &analytic_upper - &epsilon * &epsilon * &epsilon / BigRational::from_integer(192.into());
+    assert!(high_lo <= analytic_upper && high_hi >= analytic_lower);
+    assert!(high_lo > BigRational::from_integer(0.into()));
 }

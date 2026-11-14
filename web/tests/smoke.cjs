@@ -24,18 +24,18 @@ const server = http.createServer((req,res)=>{
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto(base+'/PathsumWMC');assert.equal(page.url(),base+prefix);
   await page.getByText('A Cursor reimplementation of our TACAS 2026 paper, using ball arithmetic.',{exact:true}).waitFor();
-  const check=page.getByRole('button',{name:'Check equivalence',exact:true});
-  await page.waitForFunction(()=>!Array.from(document.querySelectorAll('button')).find(b=>b.textContent==='Check equivalence')?.disabled);
+  const check=page.getByRole('button',{name:'Compute distance',exact:true});
+  await page.waitForFunction(()=>!Array.from(document.querySelectorAll('button')).find(b=>b.textContent==='Compute distance')?.disabled);
   await page.locator('#circuit-a').fill('OPENQASM 2.0; qreg q[1]; h q[0]; h q[0];');
   await page.locator('#circuit-b').fill('OPENQASM 2.0; qreg q[1]; id q[0];');
-  await check.click();await page.getByText('The circuits are equivalent.',{exact:true}).waitFor();
+  await check.click();await page.waitForFunction(()=>document.querySelector('output[aria-label="Frobenius distance"]')?.textContent==='0');
   await page.locator('#circuit-a').fill('OPENQASM 2.0; qreg q[1]; h q[0];');
-  await check.click();await page.getByText('The circuits are not equivalent, even up to a global phase.',{exact:true}).waitFor();
+  await check.click();await page.waitForFunction(()=>document.querySelector('output[aria-label="Frobenius distance"]')?.textContent.includes('1.41421'));
   await page.locator('#mode').click();await page.getByRole('option',{name:'Model counting only',exact:true}).click();
   await page.locator('#precision').fill('32');await page.locator('#max-precision').fill('32');
   await page.locator('#circuit-a').fill('OPENQASM 2.0; qreg q[1]; id q[0];');
   await page.locator('#circuit-b').fill('OPENQASM 2.0; qreg q[1]; p(1/1000000000000000000000000000000) q[0];');
-  await check.click();await page.getByText('The enclosure does not establish exact equivalence or inequivalence.',{exact:true}).waitFor();
+  await check.click();await page.waitForFunction(()=>document.querySelector('output[aria-label="Frobenius distance"]')?.textContent.startsWith('[0,'));
   assert.equal(await page.getByRole('link',{name:'Source code',exact:true}).getAttribute('href'),'https://github.com/guluchen/PathsumWMC');
   for(const file of ['LICENSE.txt','THIRD_PARTY_NOTICES.txt']){
    const response=await page.request.get(base+prefix+file);assert.equal(response.status(),200);
@@ -44,7 +44,7 @@ const server = http.createServer((req,res)=>{
   await page.setViewportSize({width:390,height:844});
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1),'mobile horizontal overflow');
   await page.screenshot({path:'test-results/mobile.png',fullPage:true});assert.deepEqual(errors,[]);
-  fs.writeFileSync('test-results/browser.json',JSON.stringify({pass:true,checks:['PathsumWMC subpath/redirect','Cursor/paper/ball attribution','WASM load','exact equivalence','inequivalence','tiny-phase inconclusive','license notices','source link','390px layout','no page errors']},null,2));
+  fs.writeFileSync('test-results/browser.json',JSON.stringify({pass:true,checks:['PathsumWMC subpath/redirect','Cursor/paper/ball attribution','WASM load','exact distance zero','trace-zero distance sqrt2','tiny-phase distance enclosure','license notices','source link','390px layout','no page errors']},null,2));
   console.log('Browser smoke checks PASS');
  }finally{if(browser)await browser.close();server.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

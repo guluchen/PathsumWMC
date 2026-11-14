@@ -33,18 +33,6 @@ const verdictLabel: Record<string, string> = {
   error: "Could not check",
 }
 
-function verdictTone(verdict: string): string {
-  if (verdict === "proven_equivalent") {
-    return "border-emerald-700/30 bg-emerald-700/10 text-emerald-900 dark:text-emerald-200"
-  }
-  if (verdict === "proven_global_phase") {
-    return "border-teal-700/30 bg-teal-700/10 text-teal-950 dark:text-teal-100"
-  }
-  if (verdict === "proven_not_equivalent" || verdict === "error") {
-    return "border-destructive/40 bg-destructive/10 text-destructive"
-  }
-  return "border-amber-700/30 bg-amber-700/10 text-amber-950 dark:text-amber-100"
-}
 
 function kindLabel(kind: string): string {
   if (kind === "wmc") return "Weighted model count"
@@ -130,13 +118,13 @@ export default function App() {
             PathsumWMC · Ball arithmetic
           </p>
           <h1 className="font-heading text-4xl leading-tight font-medium tracking-tight sm:text-5xl">
-            Are these two quantum circuits the same?
+            How close are these two quantum circuits?
           </h1>
           <p className="mt-3 text-sm font-medium text-foreground">
             A Cursor reimplementation of our TACAS 2026 paper, using ball arithmetic.
           </p>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">
-            Compare two OpenQASM 2 circuits up to a global phase. The checker
+            Compute the normalized Frobenius distance between two OpenQASM 2 circuits, ignoring global phase. The checker
             builds the path-sum of U₂U₁†, applies the [HH] and [ω] reductions,
             then decides the residual sum. The built-in counters run in the
             browser. GPMC and GANAK are external engines for the native checker.
@@ -284,7 +272,7 @@ export default function App() {
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
         <Button type="button" size="lg" disabled={!wasmReady || checking} onClick={onCheck}>
           {checking ? <LoaderCircleIcon className="animate-spin" /> : null}
-          {checking ? "Checking" : "Check equivalence"}
+          {checking ? "Checking" : "Compute distance"}
         </Button>
         <p className="text-sm text-muted-foreground" role="status">
           {wasmError
@@ -328,7 +316,7 @@ export default function App() {
                 Qiskit’s <code>rz(θ)</code> is diag(e<sup>−iθ/2</sup>, e<sup>iθ/2</sup>).
                 It differs from <code>p(θ)</code> = diag(1, e<sup>iθ</sup>) by the
                 global phase e<sup>−iθ/2</sup>. That is why S and{" "}
-                <code>rz(pi/2)</code> match only up to a phase.
+                <code>rz(pi/2)</code> match only up to a phase, giving Frobenius distance zero.
               </p>
             </CardContent>
           </Card>
@@ -427,17 +415,26 @@ function ReportView({ report }: { report: Report }) {
     <Card>
       <CardHeader>
         <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="outline" className={verdictTone(report.verdict)}>
-            {verdictLabel[report.verdict] ?? report.verdict}
-          </Badge>
           {report.arithmetic ? (
             <Badge variant="secondary">{report.arithmetic} arithmetic</Badge>
           ) : null}
         </div>
-        <CardTitle className="font-heading text-2xl">{report.headline}</CardTitle>
-        {report.detail ? <CardDescription>{report.detail}</CardDescription> : null}
+        <CardTitle className="font-heading text-2xl">Frobenius distance</CardTitle>
+        <CardDescription>Normalized by √(2ⁿ), with global phase ignored. Inclusive lower and upper bounds.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-5">
+        <output aria-label="Frobenius distance" className="break-words font-mono text-2xl font-semibold sm:text-3xl">
+          {report.frobenius_distance
+            ? report.frobenius_distance.lower === report.frobenius_distance.upper
+              ? report.frobenius_distance.lower
+              : `[${report.frobenius_distance.lower}, ${report.frobenius_distance.upper}]`
+            : "Unavailable"}
+        </output>
+        {!report.frobenius_distance ? <p className="text-sm text-muted-foreground">{report.headline} {report.detail}</p> : null}
+        <details className="grid gap-4">
+          <summary className="cursor-pointer text-sm font-medium">Computation details</summary>
+          <p className="mt-3 text-sm text-muted-foreground">{report.headline} {report.detail}</p>
+          <div className="mt-4 grid gap-5">
         <dl className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
           <Stat label="Phase" value={report.phase || "—"} />
           <Stat label="Qubits" value={text(report.qubits)} />
@@ -537,6 +534,8 @@ function ReportView({ report }: { report: Report }) {
             ))}
           </ul>
         ) : null}
+          </div>
+        </details>
       </CardContent>
     </Card>
   )

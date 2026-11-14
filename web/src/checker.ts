@@ -10,12 +10,22 @@ export type CheckRequest = {
   max_nodes: number
 }
 
+export type DistanceBounds = {
+  lower: string
+  upper: string
+  lower_exact: string
+  upper_exact: string
+  normalization: string
+  global_phase_ignored: boolean
+}
+
 export type CounterReport = {
   name: string
   kind: string
   verdict: string
   value: string
   magnitude_squared: string
+  frobenius_distance: DistanceBounds | null
   elapsed_ms: number
   error: string
 }
@@ -35,6 +45,7 @@ export type Report = {
   variables?: number
   clauses?: number
   precision_bits?: number
+  frobenius_distance?: DistanceBounds | null
   reduction_steps?: string[]
   counters?: CounterReport[]
   notes?: string[]

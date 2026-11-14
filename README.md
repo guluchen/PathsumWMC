@@ -20,6 +20,19 @@ Three counters solve that problem inside the library:
 
 A direct path enumeration and, for at most three qubits, a state-vector product are reference checks. If a weighted counter and a reference disagree, the verdict is inconclusive.
 
+## Frobenius distance
+
+The main result is an inclusive distance interval. For n qubits and V = U₂U₁†,
+
+```text
+δ = minφ ||U₂ − exp(iφ)U₁||F / sqrt(2^n)
+  = sqrt(2 − 2 |tr(V)| / 2^n).
+```
+
+This is the normalized Frobenius distance, ignoring global phase. Its range is 0 to sqrt(2). A bound such as `[0, 1e-12]` establishes closeness within this metric; it does not by itself establish exact equality. Increasing precision can tighten the interval even when an exact-equivalence verdict remains inconclusive. This is an average matrix distance, not the worst-case input error.
+
+Display endpoints are rounded outward to six significant decimal digits. Reports also contain exact rational endpoints in `frobenius_distance.lower_exact` and `upper_exact`. Symbolic proofs and exact global-phase equivalence produce distance zero. No distance is reported for mismatched dimensions, inconsistent counter evidence, or heuristic external counts.
+
 ## Exact values and ball arithmetic
 
 Angles are rational. `pi/2` and `0.3*pi` are exact (`0.3` is `3/10`). When every weight is a multiple of \(\pi/4\), the amplitude lives in \(\mathbb{Q}(i, \sqrt{2})\) and the decision is exact.

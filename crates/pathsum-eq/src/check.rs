@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::ball::{ComplexBall, RealBall};
 use crate::circuit::Circuit;
+use crate::distance::DistanceBounds;
 use crate::encode::{self, Encoded};
 use crate::error::EqError;
 use crate::exact::ExactAmp;
@@ -49,6 +50,7 @@ pub struct CounterReport {
     pub verdict: String,
     pub value: String,
     pub magnitude_squared: String,
+    pub frobenius_distance: Option<DistanceBounds>,
     pub elapsed_ms: u64,
     pub error: String,
 }
@@ -68,6 +70,7 @@ pub struct Report {
     pub monomials: u32,
     pub variables: u32,
     pub clauses: u32,
+    pub frobenius_distance: Option<DistanceBounds>,
     pub precision_bits: u32,
     pub reduction_steps: Vec<String>,
     pub counters: Vec<CounterReport>,
@@ -140,7 +143,7 @@ fn wmc_report(
     if left.qubits <= 3 {
         counters.push(run_matrix(left, right, prec));
     }
-    let (verdict, phase, arithmetic) = consensus(&counters);
+    let (verdict, phase, arithmetic, frobenius_distance) = consensus(&counters);
     let headline = headline_for(&verdict);
     let mut notes = base_notes(&arithmetic);
     if counters
@@ -181,6 +184,7 @@ fn wmc_report(
         monomials: ps.phase.terms.len() as u32,
         variables: enc.nvars,
         clauses: enc.clauses.len() as u32,
+        frobenius_distance,
         precision_bits: prec,
         reduction_steps: ps.steps.clone(),
         counters,
@@ -202,6 +206,7 @@ fn run_named(name: &str, ps: &PathSum, enc: &Encoded, prec: u32, max_nodes: u64)
         // certified bound on the external program's accumulated error.
         if report.error.is_empty() {
             report.verdict = "inconclusive".into();
+            report.frobenius_distance = None;
         }
         return report;
     }
@@ -249,14 +254,14 @@ fn run_direct(ps: &PathSum, prec: u32) -> CounterReport {
     let started = Instant::now();
     let result = ps
         .diagonal_sum_direct(prec)
-        .map(|amp| judge(&amp, ps.qubits as u32));
+        .map(|amp| judge(&amp, ps.qubits as u32, prec));
     finish_counter("direct", "reference", started, result)
 }
 
 fn run_matrix(left: &Circuit, right: &Circuit, prec: u32) -> CounterReport {
     let started = Instant::now();
     let result = matrix_diagonal(left, right, prec)
-        .map(|amp| judge(&AmpValue::Ball(amp), left.qubits as u32));
+        .map(|amp| judge(&AmpValue::Ball(amp), left.qubits as u32, prec));
     finish_counter("matrix", "reference", started, result)
 }
 
@@ -264,11 +269,12 @@ struct Judgement {
     verdict: String,
     value: String,
     magnitude_squared: String,
+    frobenius_distance: Option<DistanceBounds>,
 }
 
 fn finalize(ps: &PathSum, wmc_value: AmpValue, prec: u32) -> Judgement {
     let amp = normalize(ps, wmc_value, prec);
-    judge(&amp, ps.qubits as u32)
+    judge(&amp, ps.qubits as u32, prec)
 }
 
 fn normalize(ps: &PathSum, wmc_value: AmpValue, prec: u32) -> AmpValue {
@@ -302,7 +308,7 @@ fn normalize(ps: &PathSum, wmc_value: AmpValue, prec: u32) -> AmpValue {
     }
 }
 
-fn judge(amp: &AmpValue, n: u32) -> Judgement {
+fn judge(amp: &AmpValue, n: u32, prec: u32) -> Judgement {
     match amp {
         AmpValue::Exact(z) => {
             let ratio = z.div_pow2(n);
@@ -322,10 +328,13 @@ fn judge(amp: &AmpValue, n: u32) -> Judgement {
             } else {
                 "proven_not_equivalent"
             };
+            let frobenius_distance = if c1.is_zero() && c0.is_one() {
+                Some(DistanceBounds::zero())
+            } else {
+                DistanceBounds::from_normalized_trace(&ratio.to_ball(prec), prec)
+            };
             Judgement {
-                verdict: verdict.into(),
-                value,
-                magnitude_squared,
+                verdict: verdict.into(), value, magnitude_squared, frobenius_distance,
             }
         }
         AmpValue::Ball(z) => {
@@ -333,7 +342,7 @@ fn judge(amp: &AmpValue, n: u32) -> Judgement {
             let target = RealBall::pow2(2 * n, z.re.prec().max(32));
             let ratio = z.div_pow2(n);
             let value = ratio.pretty();
-            let magnitude_squared = mag2.pretty();
+            let magnitude_squared = ratio.norm_sqr().pretty();
             let verdict = if mag2.certainly_lt(&target) || mag2.certainly_gt(&target) {
                 "proven_not_equivalent"
             } else {
@@ -341,30 +350,29 @@ fn judge(amp: &AmpValue, n: u32) -> Judgement {
                 "inconclusive"
             };
             Judgement {
-                verdict: verdict.into(),
-                value,
-                magnitude_squared,
+                verdict: verdict.into(), value, magnitude_squared,
+                frobenius_distance: DistanceBounds::from_normalized_trace(&ratio, prec),
             }
         }
     }
 }
 
-fn consensus(counters: &[CounterReport]) -> (String, String, String) {
+fn consensus(counters: &[CounterReport]) -> (String, String, String, Option<DistanceBounds>) {
     let decided: Vec<&CounterReport> = counters
         .iter()
         .filter(|c| c.error.is_empty() && c.kind == "wmc")
         .collect();
     if decided.is_empty() {
         if let Some(c) = counters.iter().find(|c| c.error.is_empty()) {
-            return (c.verdict.clone(), c.value.clone(), arithmetic_from(c));
+            return (c.verdict.clone(), c.value.clone(), arithmetic_from(c), c.frobenius_distance.clone());
         }
         if let Some(c) = counters.iter().find(|c| !c.error.is_empty()) {
-            return ("error".into(), c.error.clone(), "unavailable".into());
+            return ("error".into(), c.error.clone(), "unavailable".into(), None);
         }
         return (
             "inconclusive".into(),
             "no counter finished".into(),
-            "unavailable".into(),
+            "unavailable".into(), None,
         );
     }
     let verdict = decided[0].verdict.clone();
@@ -379,10 +387,10 @@ fn consensus(counters: &[CounterReport]) -> (String, String, String) {
         return (
             "inconclusive".into(),
             format!("{phase} The finished procedures do not agree."),
-            arithmetic,
+            arithmetic, None,
         );
     }
-    (verdict, phase, arithmetic)
+    (verdict, phase, arithmetic, decided[0].frobenius_distance.clone())
 }
 
 fn compatible(a: &str, b: &str) -> bool {
@@ -432,6 +440,7 @@ fn finish_counter(
             verdict: j.verdict,
             value: j.value,
             magnitude_squared: j.magnitude_squared,
+            frobenius_distance: j.frobenius_distance,
             elapsed_ms,
             error: String::new(),
         },
@@ -441,6 +450,7 @@ fn finish_counter(
             verdict: "error".into(),
             value: String::new(),
             magnitude_squared: String::new(),
+            frobenius_distance: None,
             elapsed_ms,
             error: err.0,
         },
@@ -516,6 +526,7 @@ fn skeleton(left: &Circuit, right: &Circuit, ps: &PathSum, before: u32, after: u
         monomials: ps.phase.terms.len() as u32,
         variables: 0,
         clauses: 0,
+        frobenius_distance: None,
         precision_bits: 0,
         reduction_steps: ps.steps.clone(),
         counters: Vec::new(),
@@ -539,6 +550,7 @@ fn symbolic_report(
         report.verdict = "proven_global_phase".into();
         report.phase = angle.pretty();
     }
+    report.frobenius_distance = Some(DistanceBounds::zero());
     report.headline = headline_for(&report.verdict);
     report.detail = format!(
         "Path-sum reduction reached the identity with global phase {}.",
@@ -583,6 +595,7 @@ fn dimension_report(left: &Circuit, right: &Circuit) -> Report {
         monomials: 0,
         variables: 0,
         clauses: 0,
+        frobenius_distance: None,
         precision_bits: 0,
         reduction_steps: Vec::new(),
         counters: Vec::new(),

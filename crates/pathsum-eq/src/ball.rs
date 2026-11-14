@@ -3,9 +3,8 @@
 //! Every elementary operation returns a ball that contains the true image.
 //! `π` is enclosed by Machin's formula, and `cos` / `sin` use a Taylor
 //! polynomial plus an explicit remainder bound. Equivalence is claimed from
-//! these enclosures only when the ball sits entirely on one side of the
-//! decision threshold, or is narrow enough that the certified error is reported
-//! as such.
+//! these enclosures only when the ball excludes the decision threshold.
+//! Overlap remains inconclusive. Distance bounds retain outward endpoints.
 
 use num_bigint::{BigInt, Sign};
 use num_integer::Integer;
@@ -288,6 +287,14 @@ impl RealBall {
         let lo = endpoint_rational(&self.lo, self.exp);
         let hi = endpoint_rational(&self.hi, self.exp);
         (&hi - &lo) / BigRational::from_integer(BigInt::from(2))
+    }
+
+    /// Exact inclusive endpoints, before any decimal display rounding.
+    pub fn rational_bounds(&self) -> (BigRational, BigRational) {
+        (
+            endpoint_rational(&self.lo, self.exp),
+            endpoint_rational(&self.hi, self.exp),
+        )
     }
 
     /// Nearest decimal to the midpoint, with `digits` digits after the point.
