@@ -42,7 +42,16 @@ jobs:
         with:
           path: .port-build/prefix
           key: gmp-6.3.0-emsdk-4.0.23-v1
+      - uses: actions/cache/restore@v4
+        with:
+          path: .port-build/ganak-prefix
+          key: ganak-gnu-emsdk-4.0.23-v1
       - run: bash scripts/build-ganak-wasm.sh
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .port-build/ganak-prefix
+          key: ganak-gnu-emsdk-4.0.23-v1
       - uses: actions/upload-artifact@v4
         with:
           name: ganak-static-wasm
