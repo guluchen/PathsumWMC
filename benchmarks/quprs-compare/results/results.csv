@@ -1,0 +1,716 @@
+case,mode,system,trials,status,stable_status,stable_verdict,verdict,median_request_s,median_process_s,timing_kind,distance_lower,distance_upper,lower_exact,upper_exact,tight_1e_6,error
+Feynman/adder_8,reduction,ours-native,1,TIMEOUT,True,True,,,200.01377940799995,one screening trial,,,,,,200 s whole-process cap
+Feynman/adder_8,reduction,ours-wasm,1,TIMEOUT,True,True,,200.0004,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+Feynman/adder_8,reduction,quprs-default,1,MEMORY_LIMIT,True,True,MemoryOut,7.130737569000075,8.291159297999926,one screening trial,,,,,,
+Feynman/adder_8,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,1.3593692019999253,1.9543151970000472,5-repeat median,,,,,,
+Feynman/barenco_tof_10,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.015841968,0.02038557199994102,5-repeat median,0,0,0,0,True,
+Feynman/barenco_tof_10,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.112,,5-repeat median,0,0,0,0,True,
+Feynman/barenco_tof_10,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.41343148399994334,1.1190020730000687,5-repeat median,,,,,,
+Feynman/barenco_tof_10,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.2801758789998985,0.985853693000041,5-repeat median,,,,,,
+Feynman/barenco_tof_3,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.000896114,0.004362696999916807,5-repeat median,0,0,0,0,True,
+Feynman/barenco_tof_3,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.06029999999981374,,5-repeat median,0,0,0,0,True,
+Feynman/barenco_tof_3,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.018202814000005674,0.7265960080001969,5-repeat median,,,,,,
+Feynman/barenco_tof_3,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.015092322999862517,0.7290850629999768,5-repeat median,,,,,,
+Feynman/barenco_tof_4,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.002357917,0.005746613000053912,5-repeat median,0,0,0,0,True,
+Feynman/barenco_tof_4,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.0685,,5-repeat median,0,0,0,0,True,
+Feynman/barenco_tof_4,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.06153753500007042,0.746955069999909,5-repeat median,,,,,,
+Feynman/barenco_tof_4,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.04913395699986722,0.726331770000048,5-repeat median,,,,,,
+Feynman/barenco_tof_5,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.003286241,0.006767391000001226,5-repeat median,0,0,0,0,True,
+Feynman/barenco_tof_5,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.06069999999999709,,5-repeat median,0,0,0,0,True,
+Feynman/barenco_tof_5,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.10006022999999686,0.6835517709999985,5-repeat median,,,,,,
+Feynman/barenco_tof_5,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.05754970799999626,0.6619690489999993,5-repeat median,,,,,,
+Feynman/csla_mux_3,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.004741636,0.008445673000009264,5-repeat median,0,0,0,0,True,
+Feynman/csla_mux_3,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.0585,,5-repeat median,0,0,0,0,True,
+Feynman/csla_mux_3,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.09311872500006757,0.5465051209999947,5-repeat median,,,,,,
+Feynman/csla_mux_3,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.09927495399995223,0.5632194160000071,5-repeat median,,,,,,
+Feynman/csum_mux_9,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.016183948,0.02040700399997877,5-repeat median,0,0,0,0,True,
+Feynman/csum_mux_9,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.11879999999993016,,5-repeat median,0,0,0,0,True,
+Feynman/csum_mux_9,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.31595167199998286,1.01211556799995,5-repeat median,,,,,,
+Feynman/csum_mux_9,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.34081540699992274,1.0435421429999987,5-repeat median,,,,,,
+Feynman/gf2^10_mult,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.09128882,0.09584785300004296,5-repeat median,0,0,0,0,True,
+Feynman/gf2^10_mult,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.23889999999990688,,5-repeat median,0,0,0,0,True,
+Feynman/gf2^10_mult,reduction,quprs-default,1,DECIDED,True,True,equivalent,1.7542190750000373,2.8604251120000845,one screening trial,,,,,,
+Feynman/gf2^10_mult,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.8273750409998684,1.4354925809999695,5-repeat median,,,,,,
+Feynman/gf2^16_mult,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.564939181,0.5701628129999153,5-repeat median,0,0,0,0,True,
+Feynman/gf2^16_mult,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.8945,,5-repeat median,0,0,0,0,True,
+Feynman/gf2^16_mult,reduction,quprs-default,1,DECIDED,True,True,equivalent,4.056562751999991,4.63348769700015,one screening trial,,,,,,
+Feynman/gf2^16_mult,reduction,quprs-proportional,1,DECIDED,True,True,equivalent,3.198409843999798,3.8584739739999643,one screening trial,,,,,,
+Feynman/gf2^32_mult,reduction,ours-native,1,BOUND,True,True,proven_equivalent,27.285142054,27.298016993999997,one screening trial,0,0,0,0,True,
+Feynman/gf2^32_mult,reduction,ours-wasm,1,BOUND,True,True,proven_equivalent,42.594699999999996,,one screening trial,0,0,0,0,True,
+Feynman/gf2^32_mult,reduction,quprs-default,1,DECIDED,True,True,equivalent,109.97108232000002,112.22766099200001,one screening trial,,,,,,
+Feynman/gf2^32_mult,reduction,quprs-proportional,1,DECIDED,True,True,equivalent,26.477240411999958,28.242259779999994,one screening trial,,,,,,
+Feynman/gf2^4_mult,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.005108359,0.00945157500001369,5-repeat median,0,0,0,0,True,
+Feynman/gf2^4_mult,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.08059999999997672,,5-repeat median,0,0,0,0,True,
+Feynman/gf2^4_mult,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.14037331500003347,0.9190093169999891,5-repeat median,,,,,,
+Feynman/gf2^4_mult,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.158994999000015,0.9205258449999965,5-repeat median,,,,,,
+Feynman/gf2^5_mult,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.008652851,0.012927072999998927,5-repeat median,0,0,0,0,True,
+Feynman/gf2^5_mult,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.08779999999993016,,5-repeat median,0,0,0,0,True,
+Feynman/gf2^5_mult,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.20215497200001664,0.9280311579999979,5-repeat median,,,,,,
+Feynman/gf2^5_mult,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.1793317990000105,0.8819817930000136,5-repeat median,,,,,,
+Feynman/gf2^64_mult,reduction,ours-native,1,TIMEOUT,True,True,,,200.012343993,one screening trial,,,,,,200 s whole-process cap
+Feynman/gf2^64_mult,reduction,ours-wasm,1,TIMEOUT,True,True,,200.00469999999996,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+Feynman/gf2^64_mult,reduction,quprs-default,1,ERROR,True,True,,,43.942105606999945,one screening trial,,,,,,exit=127 signal=null output_overflow=false
+Feynman/gf2^64_mult,reduction,quprs-proportional,1,ERROR,True,True,,,105.24561514400004,one screening trial,,,,,,exit=127 signal=null output_overflow=false
+Feynman/gf2^6_mult,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.017401433,0.022997316000000864,5-repeat median,0,0,0,0,True,
+Feynman/gf2^6_mult,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.12529999999998837,,5-repeat median,0,0,0,0,True,
+Feynman/gf2^6_mult,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.3526653430000124,1.160928372000002,5-repeat median,,,,,,
+Feynman/gf2^6_mult,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.3750700979999806,1.1768528159999987,5-repeat median,,,,,,
+Feynman/gf2^7_mult,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.02774951,0.031723769000003815,5-repeat median,0,0,0,0,True,
+Feynman/gf2^7_mult,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.1298999999999942,,5-repeat median,0,0,0,0,True,
+Feynman/gf2^7_mult,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.37018783499999586,1.0162406770000016,5-repeat median,,,,,,
+Feynman/gf2^7_mult,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.4004303629999981,1.0527992710000036,5-repeat median,,,,,,
+Feynman/gf2^8_mult,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.055736914,0.061362231999999496,5-repeat median,0,0,0,0,True,
+Feynman/gf2^8_mult,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.1950999999999767,,5-repeat median,0,0,0,0,True,
+Feynman/gf2^8_mult,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.7197743909999872,1.4681573000000063,5-repeat median,,,,,,
+Feynman/gf2^8_mult,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.752292720000014,1.5010681130000012,5-repeat median,,,,,,
+Feynman/gf2^9_mult,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.045266825,0.050297067999956195,5-repeat median,0,0,0,0,True,
+Feynman/gf2^9_mult,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.1485999999998603,,5-repeat median,0,0,0,0,True,
+Feynman/gf2^9_mult,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.5379266469999493,1.2411452600000192,5-repeat median,,,,,,
+Feynman/gf2^9_mult,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.4865281459999551,1.1688518749999348,5-repeat median,,,,,,
+Feynman/grover_5,reduction,ours-native,1,UNKNOWN,True,True,unknown,0.237684696,0.24275196599995252,one screening trial,,,,,,
+Feynman/grover_5,reduction,ours-wasm,1,UNKNOWN,True,True,unknown,0.4565999999999767,,one screening trial,,,,,,
+Feynman/grover_5,reduction,quprs-default,1,TIMEOUT,True,True,,,200.18656182100005,one screening trial,,,,,,200 s whole-process cap
+Feynman/grover_5,reduction,quprs-proportional,1,TIMEOUT,True,True,,,200.12853509499993,one screening trial,,,,,,200 s whole-process cap
+Feynman/ham15-high,reduction,ours-native,1,TIMEOUT,True,True,,,200.022559972,one screening trial,,,,,,200 s whole-process cap
+Feynman/ham15-high,reduction,ours-wasm,1,TIMEOUT,True,True,,200.00360000000006,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+Feynman/ham15-high,reduction,quprs-default,1,MEMORY_LIMIT,True,True,MemoryOut,8.419527029999927,9.850029129000031,one screening trial,,,,,,
+Feynman/ham15-high,reduction,quprs-proportional,1,MEMORY_LIMIT,True,True,MemoryOut,8.022661232000019,8.708142191999999,one screening trial,,,,,,
+Feynman/ham15-low,reduction,ours-native,1,TIMEOUT,True,True,,,200.01026130499994,one screening trial,,,,,,200 s whole-process cap
+Feynman/ham15-low,reduction,ours-wasm,1,TIMEOUT,True,True,,200.00040000000013,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+Feynman/ham15-low,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.20247250200009148,0.7313502480001188,5-repeat median,,,,,,
+Feynman/ham15-low,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.22389196199992512,0.7524442110001109,5-repeat median,,,,,,
+Feynman/ham15-med,reduction,ours-native,1,TIMEOUT,True,True,,,200.025141756,one screening trial,,,,,,200 s whole-process cap
+Feynman/ham15-med,reduction,ours-wasm,1,TIMEOUT,True,True,,200.00019999999995,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+Feynman/ham15-med,reduction,quprs-default,1,DECIDED,True,True,equivalent,2.1771681660000013,3.6601793370000086,one screening trial,,,,,,
+Feynman/ham15-med,reduction,quprs-proportional,1,DECIDED,True,True,equivalent,2.0311624749999737,2.960218855000101,one screening trial,,,,,,
+Feynman/hwb6,reduction,ours-native,1,UNKNOWN,True,True,unknown,0.544745533,0.5503310820000479,one screening trial,,,,,,
+Feynman/hwb6,reduction,ours-wasm,1,UNKNOWN,True,True,unknown,0.8423000000000466,,one screening trial,,,,,,
+Feynman/hwb6,reduction,quprs-default,5,DECIDED,True,True,equivalent*,0.21440836599992963,0.9548936059999978,5-repeat median,,,,,,
+Feynman/hwb6,reduction,quprs-proportional,5,DECIDED,True,True,equivalent*,0.2379931340000212,0.9704399579999735,5-repeat median,,,,,,
+Feynman/mod5_4,reduction,ours-native,5,BOUND,True,True,proven_global_phase,0.000934504,0.0042903910000022735,5-repeat median,0,0,0,0,True,
+Feynman/mod5_4,reduction,ours-wasm,5,BOUND,True,True,proven_global_phase,0.04010000000003493,,5-repeat median,0,0,0,0,True,
+Feynman/mod5_4,reduction,quprs-default,5,DECIDED,True,True,equivalent*,0.015364658000009968,0.4891900460000034,5-repeat median,,,,,,
+Feynman/mod5_4,reduction,quprs-proportional,5,DECIDED,True,True,equivalent*,0.02575577999999723,0.49591100499999446,5-repeat median,,,,,,
+Feynman/mod_adder_1024,reduction,ours-native,1,TIMEOUT,True,True,,,200.02160021600005,one screening trial,,,,,,200 s whole-process cap
+Feynman/mod_adder_1024,reduction,ours-wasm,1,TIMEOUT,True,True,,200.00430000000006,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+Feynman/mod_adder_1024,reduction,quprs-default,1,ERROR,True,True,,,65.35599935299999,one screening trial,,,,,,exit=127 signal=null output_overflow=false
+Feynman/mod_adder_1024,reduction,quprs-proportional,1,MEMORY_LIMIT,True,True,MemoryOut,126.86637258900004,128.869101795,one screening trial,,,,,,
+Feynman/mod_mult_55,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.003830579,0.00728814900002908,5-repeat median,0,0,0,0,True,
+Feynman/mod_mult_55,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.06379999999981374,,5-repeat median,0,0,0,0,True,
+Feynman/mod_mult_55,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.08471922400008225,0.6440953509999672,5-repeat median,,,,,,
+Feynman/mod_mult_55,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.06152369500000532,0.6300382400000235,5-repeat median,,,,,,
+Feynman/mod_red_21,reduction,ours-native,1,UNKNOWN,True,True,unknown,0.339605485,0.344783712000004,one screening trial,,,,,,
+Feynman/mod_red_21,reduction,ours-wasm,1,UNKNOWN,True,True,unknown,0.5819000000001397,,one screening trial,,,,,,
+Feynman/mod_red_21,reduction,quprs-default,5,DECIDED,True,True,equivalent*,0.20896577600001365,0.9112155910000438,5-repeat median,,,,,,
+Feynman/mod_red_21,reduction,quprs-proportional,5,DECIDED,True,True,equivalent*,0.21068853899998885,0.9133869730000151,5-repeat median,,,,,,
+Feynman/qcla_adder_10,reduction,ours-native,1,UNKNOWN,True,True,unknown,0.161893338,0.16665157799981534,one screening trial,,,,,,
+Feynman/qcla_adder_10,reduction,ours-wasm,1,UNKNOWN,True,True,unknown,0.35670000000018626,,one screening trial,,,,,,
+Feynman/qcla_adder_10,reduction,quprs-default,5,DECIDED,True,True,equivalent,1.0254244630000358,1.8042542709999252,5-repeat median,,,,,,
+Feynman/qcla_adder_10,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.6925822579999021,1.4596827479999046,5-repeat median,,,,,,
+Feynman/qcla_com_7,reduction,ours-native,1,UNKNOWN,True,True,unknown,10.380750818,10.385399856999982,one screening trial,,,,,,
+Feynman/qcla_com_7,reduction,ours-wasm,1,UNKNOWN,True,True,unknown,13.33109999999986,,one screening trial,,,,,,
+Feynman/qcla_com_7,reduction,quprs-default,5,DECIDED,True,True,equivalent*,0.9377121649999935,1.655606504000025,5-repeat median,,,,,,
+Feynman/qcla_com_7,reduction,quprs-proportional,5,DECIDED,True,True,equivalent*,0.42695130299989614,1.1290971049999352,5-repeat median,,,,,,
+Feynman/qcla_mod_7,reduction,ours-native,1,TIMEOUT,True,True,,,200.027644259,one screening trial,,,,,,200 s whole-process cap
+Feynman/qcla_mod_7,reduction,ours-wasm,1,TIMEOUT,True,True,,200.00170000000006,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+Feynman/qcla_mod_7,reduction,quprs-default,1,MEMORY_LIMIT,True,True,MemoryOut,16.91738614399992,18.460124496999896,one screening trial,,,,,,
+Feynman/qcla_mod_7,reduction,quprs-proportional,1,TIMEOUT,True,True,,,200.037542761,one screening trial,,,,,,200 s whole-process cap
+Feynman/qft_4,reduction,ours-native,1,UNKNOWN,True,True,unknown,0.150548961,0.15526777099998434,one screening trial,,,,,,
+Feynman/qft_4,reduction,ours-wasm,1,UNKNOWN,True,True,unknown,0.3233999999999069,,one screening trial,,,,,,
+Feynman/qft_4,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.02251381099995342,0.48710284700000195,5-repeat median,,,,,,
+Feynman/qft_4,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.09422641499998008,0.5711219710000441,5-repeat median,,,,,,
+Feynman/rc_adder_6,reduction,ours-native,1,UNKNOWN,True,True,unknown,3.170960784,3.1755357150000054,one screening trial,,,,,,
+Feynman/rc_adder_6,reduction,ours-wasm,1,UNKNOWN,True,True,unknown,3.9598000000000466,,one screening trial,,,,,,
+Feynman/rc_adder_6,reduction,quprs-default,1,DECIDED,True,True,equivalent,14.143114018000006,14.906675997999962,one screening trial,,,,,,
+Feynman/rc_adder_6,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.115134041000033,0.8034296629999881,5-repeat median,,,,,,
+Feynman/tof_10,reduction,ours-native,1,UNKNOWN,True,True,unknown,0.053177812,0.058775491000036706,one screening trial,,,,,,
+Feynman/tof_10,reduction,ours-wasm,1,UNKNOWN,True,True,unknown,0.1685,,one screening trial,,,,,,
+Feynman/tof_10,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.23603240500005995,0.8097200260000537,5-repeat median,,,,,,
+Feynman/tof_10,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.1314950940000017,0.7011719779999693,5-repeat median,,,,,,
+Feynman/tof_3,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.000559164,0.0036142140000592917,5-repeat median,0,0,0,0,True,
+Feynman/tof_3,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.03370000000018626,,5-repeat median,0,0,0,0,True,
+Feynman/tof_3,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.011664712000083455,0.4653723330001812,5-repeat median,,,,,,
+Feynman/tof_3,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.020279380999909336,0.4657516149999574,5-repeat median,,,,,,
+Feynman/tof_4,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.001836174,0.006619933000009041,5-repeat median,0,0,0,0,True,
+Feynman/tof_4,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.06459999999997672,,5-repeat median,0,0,0,0,True,
+Feynman/tof_4,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.033313167000017074,0.8228799369999906,5-repeat median,,,,,,
+Feynman/tof_4,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.05104413899999827,0.8487500790000194,5-repeat median,,,,,,
+Feynman/tof_5,reduction,ours-native,5,BOUND,True,True,proven_equivalent,0.003521931,0.0079913129999768,5-repeat median,0,0,0,0,True,
+Feynman/tof_5,reduction,ours-wasm,5,BOUND,True,True,proven_equivalent,0.07070000000006985,,5-repeat median,0,0,0,0,True,
+Feynman/tof_5,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.0483541090000017,0.8022261249999865,5-repeat median,,,,,,
+Feynman/tof_5,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.0637649870000132,0.8370938990000286,5-repeat median,,,,,,
+Feynman/vbe_adder_3,reduction,ours-native,1,UNKNOWN,True,True,unknown,0.031492867,0.03605920700007118,one screening trial,,,,,,
+Feynman/vbe_adder_3,reduction,ours-wasm,1,UNKNOWN,True,True,unknown,0.13070000000006984,,one screening trial,,,,,,
+Feynman/vbe_adder_3,reduction,quprs-default,5,DECIDED,True,True,equivalent,0.06253841700004159,0.7567766889999621,5-repeat median,,,,,,
+Feynman/vbe_adder_3,reduction,quprs-proportional,5,DECIDED,True,True,equivalent,0.0700512460000482,0.736229827000061,5-repeat median,,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_128,hybrid,ours-native,5,BOUND,True,True,proven_global_phase,0.000569095,0.0038635529999992285,5-repeat median,0,0,0,0,True,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_128,hybrid,ours-wasm,5,BOUND,True,True,proven_global_phase,0.04,,5-repeat median,0,0,0,0,True,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_128,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.32452849700000286,0.9213012369999997,5-repeat median,,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_128,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.3013935710000055,0.8993747459999996,5-repeat median,,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_128,wmc,ours-native,5,BOUND,True,True,proven_global_phase,0.015886527,0.020336091999997735,5-repeat median,0,0,0,0,True,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_128,wmc,ours-wasm,5,BOUND,True,True,proven_global_phase,0.26520000000001165,,5-repeat median,0,0,0,0,True,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_128,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.6335550379999972,1.2427234630000004,5-repeat median,,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_128,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.6138599709999966,1.222615009000001,5-repeat median,,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_32,hybrid,ours-native,5,BOUND,True,True,proven_global_phase,0.000364344,0.004154571000000032,5-repeat median,0,0,0,0,True,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_32,hybrid,ours-wasm,5,BOUND,True,True,proven_global_phase,0.04680000000000291,,5-repeat median,0,0,0,0,True,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_32,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.03306053999999392,0.7241018419999992,5-repeat median,,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_32,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.028649991999998292,0.7116288969999996,5-repeat median,,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_32,wmc,ours-native,5,BOUND,True,True,proven_global_phase,0.008539255,0.011972592000000077,5-repeat median,0,0,0,0,True,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_32,wmc,ours-wasm,5,BOUND,True,True,proven_global_phase,0.22420000000001164,,5-repeat median,0,0,0,0,True,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_32,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.11682892300001413,0.7959598270000006,5-repeat median,,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_32,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.07880629900000713,0.7668105380000015,5-repeat median,,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_64,hybrid,ours-native,5,BOUND,True,True,proven_global_phase,0.000484481,0.015524304999999914,5-repeat median,0,0,0,0,True,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_64,hybrid,ours-wasm,5,BOUND,True,True,proven_global_phase,0.06039999999999418,,5-repeat median,0,0,0,0,True,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_64,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.13751112900001772,1.0220129160000002,5-repeat median,,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_64,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.1229834270000083,0.9586492609999987,5-repeat median,,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_64,wmc,ours-native,5,BOUND,True,True,proven_global_phase,0.012811845,0.018288093999999547,5-repeat median,0,0,0,0,True,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_64,wmc,ours-wasm,5,BOUND,True,True,proven_global_phase,0.2634000000000233,,5-repeat median,0,0,0,0,True,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_64,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.3164682539999717,1.1532813640000021,5-repeat median,,,,,,
+MQTBench/ghz_nativegates_ibm_qiskit_opt0_64,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.30464670300000307,1.1435903990000007,5-repeat median,,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_16,hybrid,ours-native,5,BOUND,True,True,proven_not_equivalent,0.081587658,0.08547597399999904,5-repeat median,2.14294e-15,2.14295e-15,5833639150690397872015589/2722258935367507707706996859454145691648,1458409799572136065233791/680564733841876926926749214863536422912,True,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_16,hybrid,ours-wasm,5,BOUND,True,True,proven_not_equivalent,0.3360999999999913,,5-repeat median,2.14294e-15,2.14295e-15,5833639150690397872015589/2722258935367507707706996859454145691648,1458409799572136065233791/680564733841876926926749214863536422912,True,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_16,hybrid,quprs-default,5,DECIDED,True,True,equivalent,0.1738970199999983,0.8114124030000003,5-repeat median,,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_16,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent,0.15726263400000562,0.8022247639999986,5-repeat median,,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_16,wmc,ours-native,5,BOUND,True,True,inconclusive,0.094058129,0.09837442899999951,5-repeat median,0,4.9681e-5,0,67622249077024304404326345859134283/1361129467683753853853498429727072845824,False,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_16,wmc,ours-wasm,5,BOUND,True,True,inconclusive,0.5979000000000088,,5-repeat median,0,4.9681e-5,0,67622249077024304404326345859134283/1361129467683753853853498429727072845824,False,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_16,wmc,quprs-default,5,DECIDED,True,True,equivalent,0.3042476700000094,1.0020030719999995,5-repeat median,,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_16,wmc,quprs-proportional,5,DECIDED,True,True,equivalent,0.2774508669999989,0.9440471510000025,5-repeat median,,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32,hybrid,ours-native,5,BOUND,True,True,proven_not_equivalent,0.258448992,0.2641441300000024,5-repeat median,3.01932e-15,3.01933e-15,16438785493694890586000111/5444517870735015415413993718908291383296,16438785617232311214326369/5444517870735015415413993718908291383296,True,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32,hybrid,ours-wasm,5,BOUND,True,True,proven_not_equivalent,0.676,,5-repeat median,3.01932e-15,3.01933e-15,16438785493694890586000111/5444517870735015415413993718908291383296,16438785617232311214326369/5444517870735015415413993718908291383296,True,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32,hybrid,quprs-default,5,DECIDED,True,True,equivalent,0.5334207420000325,1.2825048619999997,5-repeat median,,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent,0.4831226640000068,1.2590625459999991,5-repeat median,,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32,wmc,ours-native,5,BOUND,True,True,inconclusive,0.192054611,0.19724557799999456,5-repeat median,0,1.41422e0,0,1924927753344036092360270179821000455417/1361129467683753853853498429727072845824,False,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32,wmc,ours-wasm,5,BOUND,True,True,inconclusive,0.8497999999999883,,5-repeat median,0,1.41422e0,0,1924927753344036092360270179821000455417/1361129467683753853853498429727072845824,False,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.9255946760000029,1.7755260720000006,5-repeat median,,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.84056055100001,1.6367800810000008,5-repeat median,,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_64,hybrid,ours-native,5,BOUND,True,True,proven_not_equivalent,0.56968671,0.5745386959999996,5-repeat median,4.27569e-15,4.2757e-15,23279092035739342225579037/5444517870735015415413993718908291383296,5819773055944748396542087/1361129467683753853853498429727072845824,True,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_64,hybrid,ours-wasm,5,BOUND,True,True,proven_not_equivalent,1.0068000000000028,,5-repeat median,4.27569e-15,4.2757e-15,23279092035739342225579037/5444517870735015415413993718908291383296,5819773055944748396542087/1361129467683753853853498429727072845824,True,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_64,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.7087796360000027,1.1956838680000001,5-repeat median,,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_64,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.7108709500000003,1.2168004069999998,5-repeat median,,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_64,wmc,ours-native,5,BOUND,True,True,inconclusive,0.236112521,0.24103887799999937,5-repeat median,0,1.41422e0,0,1924927753344036092360270179821000455417/1361129467683753853853498429727072845824,False,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_64,wmc,ours-wasm,5,BOUND,True,True,inconclusive,0.827,,5-repeat median,0,1.41422e0,0,1924927753344036092360270179821000455417/1361129467683753853853498429727072845824,False,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_64,wmc,quprs-default,1,DECIDED,True,True,equivalent*,1.5691361549999954,2.2574204220000027,one screening trial,,,,,,
+MQTBench/graphstate_nativegates_ibm_qiskit_opt0_64,wmc,quprs-proportional,1,DECIDED,True,True,equivalent*,1.477389148,2.0760343269999977,one screening trial,,,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_4,hybrid,ours-native,5,BOUND,True,True,proven_not_equivalent,0.369479724,0.374409242,5-repeat median,1.67758e-15,1.81068e-15,9133620863958352636451439/5444517870735015415413993718908291383296,9858258959885861762703099/5444517870735015415413993718908291383296,True,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_4,hybrid,ours-wasm,5,BOUND,True,True,proven_not_equivalent,1.242,,5-repeat median,1.67758e-15,1.81068e-15,9133620863958352636451439/5444517870735015415413993718908291383296,9858258959885861762703099/5444517870735015415413993718908291383296,True,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_4,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.1746536739999982,0.7265796630000004,5-repeat median,,,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_4,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.17258353600000476,0.6991589569999996,5-repeat median,,,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_4,wmc,ours-native,5,BOUND,True,True,inconclusive,0.199968794,0.2050226650000004,5-repeat median,0,1.31904e-10,0,718151425428423475893272514817/5444517870735015415413993718908291383296,True,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_4,wmc,ours-wasm,5,BOUND,True,True,inconclusive,1.0655999999999912,,5-repeat median,0,1.31904e-10,0,718151425428423475893272514817/5444517870735015415413993718908291383296,True,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_4,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.19872714299999927,0.7483023930000018,5-repeat median,,,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_4,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.1823200380000003,0.7342496580000006,5-repeat median,,,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_5,hybrid,ours-native,1,TIMEOUT,True,True,,,200.01448709000002,one screening trial,,,,,,200 s whole-process cap
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_5,hybrid,ours-wasm,1,ERROR,True,True,,9.194399999999995,,one screening trial,,,,,,"Error: Counter aborted: .  c o [Init   ] 10238 vars (10238 pvars), 30974 cls
+c o gweight 1+0i
+c o [Simp   ] 10227 vars (10227 pvars), 30949 cls, 0 lrnts, 0 fvars, elap. 4.70 s
+c o gweight 1+0i
+c o Primal graph: nodes 10227, edges 29479
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 10073, tw 29, elapsed 4.7877 s
+ [WASM heap 450887680 bytes]"
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_5,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.12017701499999589,0.5555317620000005,5-repeat median,,,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_5,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.14938507499999787,0.5813645920000017,5-repeat median,,,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_5,wmc,ours-native,5,BOUND,True,True,inconclusive,0.253261088,0.25811428599999636,5-repeat median,0,8.20284e-7,0,4466046586796095339144734130223005/5444517870735015415413993718908291383296,True,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_5,wmc,ours-wasm,5,BOUND,True,True,inconclusive,0.8080999999999767,,5-repeat median,0,8.20284e-7,0,4466046586796095339144734130223005/5444517870735015415413993718908291383296,True,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_5,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.5029392540000117,1.0733772299999838,5-repeat median,,,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_5,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.48366352200002893,1.0973553350000003,5-repeat median,,,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_6,hybrid,ours-native,1,TIMEOUT,True,True,,,200.02543908899997,one screening trial,,,,,,200 s whole-process cap
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_6,hybrid,ours-wasm,1,TIMEOUT,True,True,,200.0005999999999,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_6,hybrid,quprs-default,1,TIMEOUT,True,True,,,200.07087293700002,one screening trial,,,,,,200 s whole-process cap
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_6,hybrid,quprs-proportional,1,MEMORY_LIMIT,True,True,MemoryOut,8.165347316999998,9.005535667999997,one screening trial,,,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_6,wmc,ours-native,1,TIMEOUT,True,True,,,200.024902336,one screening trial,,,,,,200 s whole-process cap
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_6,wmc,ours-wasm,1,TIMEOUT,True,True,,200.0003999999999,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_6,wmc,quprs-default,1,DECIDED,True,True,equivalent*,21.54215567200004,22.976326053999948,one screening trial,,,,,,
+MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_6,wmc,quprs-proportional,1,DECIDED,True,True,equivalent*,22.79977291600005,23.755141117000022,one screening trial,,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_11,hybrid,ours-native,1,BOUND,True,True,inconclusive,9.946633584,9.953772519,one screening trial,0,4.88598e-5,0,266018011590296772365566943132587323/5444517870735015415413993718908291383296,False,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_11,hybrid,ours-wasm,1,BOUND,True,True,inconclusive,21.149399999999993,,one screening trial,0,4.88598e-5,0,266018011590296772365566943132587323/5444517870735015415413993718908291383296,False,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_11,hybrid,quprs-default,1,DECIDED,True,True,equivalent*,2.2288357429999905,3.103635777999996,one screening trial,,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_11,hybrid,quprs-proportional,1,DECIDED,True,True,equivalent*,1.901053658999999,3.234771158,one screening trial,,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_11,wmc,ours-native,1,BOUND,True,True,inconclusive,2.139090073,2.144640628000001,one screening trial,0,1.41422e0,0,1924927753344036092360270179821000455417/1361129467683753853853498429727072845824,False,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_11,wmc,ours-wasm,1,BOUND,True,True,inconclusive,11.583199999999982,,one screening trial,0,1.41422e0,0,1924927753344036092360270179821000455417/1361129467683753853853498429727072845824,False,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_11,wmc,quprs-default,5,DECIDED,True,True,equivalent*,1.1354422780000277,1.989767160999996,5-repeat median,,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_11,wmc,quprs-proportional,1,DECIDED,True,True,equivalent*,1.331733445999987,2.1380733949999993,one screening trial,,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_7,hybrid,ours-native,1,BOUND,True,True,inconclusive,2.634970082,2.651072815,one screening trial,0,3.15571e-10,0,1718130111341793530112152867473/5444517870735015415413993718908291383296,True,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_7,hybrid,ours-wasm,1,BOUND,True,True,inconclusive,4.9175,,one screening trial,0,3.15571e-10,0,1718130111341793530112152867473/5444517870735015415413993718908291383296,True,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_7,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.8234317750000031,1.6034692609999983,5-repeat median,,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_7,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.738003961000004,1.5207496979999997,5-repeat median,,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_7,wmc,ours-native,5,BOUND,True,True,inconclusive,0.522146444,0.5274611650000006,5-repeat median,0,1.04222e-4,0,567433647727834614121549937143572853/5444517870735015415413993718908291383296,False,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_7,wmc,ours-wasm,5,BOUND,True,True,inconclusive,1.8035999999999912,,5-repeat median,0,1.04222e-4,0,567433647727834614121549937143572853/5444517870735015415413993718908291383296,False,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_7,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.4341381240000004,1.1835469969999977,5-repeat median,,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_7,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.37573669699999357,1.119618975000005,5-repeat median,,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_9,hybrid,ours-native,1,BOUND,True,True,inconclusive,2.141326731,2.1465216610000026,one screening trial,0,1.24783e-8,0,33969129495859297838987380546419/2722258935367507707706996859454145691648,True,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_9,hybrid,ours-wasm,1,BOUND,True,True,inconclusive,5.313799999999988,,one screening trial,0,1.24783e-8,0,33969129495859297838987380546419/2722258935367507707706996859454145691648,True,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_9,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.7300088929999902,1.2499640909999998,5-repeat median,,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_9,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.6129411029999687,1.1395426649999991,5-repeat median,,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_9,wmc,ours-native,5,BOUND,True,True,inconclusive,0.688491357,0.6936128859999954,5-repeat median,0,8.32193e-1,0,4530889033189395944354344707872590962129/5444517870735015415413993718908291383296,False,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_9,wmc,ours-wasm,1,BOUND,True,True,inconclusive,3.0141999999999536,,one screening trial,0,8.32193e-1,0,4530889033189395944354344707872590962129/5444517870735015415413993718908291383296,False,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_9,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.4089568139999642,0.9141802459999999,5-repeat median,,,,,,
+MQTBench/qaoa_nativegates_ibm_qiskit_opt0_9,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.37407240900000716,0.8845737330000011,5-repeat median,,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_16,hybrid,ours-native,1,BOUND,True,True,proven_not_equivalent,7.819426147,7.824742617999998,one screening trial,1.39865e-15,1.74454e-15,1903757278910341836116361/1361129467683753853853498429727072845824,4749067188776996653306715/2722258935367507707706996859454145691648,True,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_16,hybrid,ours-wasm,1,BOUND,True,True,proven_not_equivalent,29.353199999999998,,one screening trial,1.39865e-15,1.74454e-15,1903757278910341836116361/1361129467683753853853498429727072845824,4749067188776996653306715/2722258935367507707706996859454145691648,True,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_16,hybrid,quprs-default,1,DECIDED,True,True,equivalent*,1.260902563000002,2.401701387,one screening trial,,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_16,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,1.1957104960000038,1.853770817999999,5-repeat median,,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_16,wmc,ours-native,1,BOUND,True,True,inconclusive,12.399888229,12.405901769000003,one screening trial,0,2.23854e-13,0,1218773723931241601119427393/5444517870735015415413993718908291383296,True,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_16,wmc,ours-wasm,1,BOUND,True,True,inconclusive,53.50219999999997,,one screening trial,0,2.23854e-13,0,1218773723931241601119427393/5444517870735015415413993718908291383296,True,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_16,wmc,quprs-default,5,DECIDED,True,True,equivalent*,1.2793189199999941,1.8960375600000043,5-repeat median,,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_16,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,1.1841892289999976,1.773639464,5-repeat median,,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_20,hybrid,ours-native,1,BOUND,True,True,proven_not_equivalent,182.01490097,182.020719091,one screening trial,7.02637e-6,7.02638e-6,38255222460697216480519189175837587/5444517870735015415413993718908291383296,19127611230348608244793673341673407/2722258935367507707706996859454145691648,True,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_20,hybrid,ours-wasm,1,ERROR,True,True,,51.9455,,one screening trial,,,,,,"Error: Counter aborted: . GNU MP: Cannot reallocate memory (old_size=832 new_size=840)
+ c o [Init   ] 559 vars (559 pvars), 1557 cls
+c o gweight 1+0i
+c o [Simp   ] 536 vars (536 pvars), 1510 cls, 0 lrnts, 0 fvars, elap. 0.07 s
+c o gweight 1+0i
+c o Primal graph: nodes 536, edges 1237
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 507, tw 22, elapsed 0.0772 s
+c o min shortcut heuristic
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 11  #npvars 11
+ [WASM heap 536870912 bytes]"
+MQTBench/qft_nativegates_ibm_qiskit_opt0_20,hybrid,quprs-default,1,DECIDED,True,True,equivalent*,16.982422652999958,17.77564933699998,one screening trial,,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_20,hybrid,quprs-proportional,1,DECIDED,True,True,equivalent*,17.118167799999995,18.324849933000003,one screening trial,,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_20,wmc,ours-native,1,TIMEOUT,True,True,,,200.01568807899997,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qft_nativegates_ibm_qiskit_opt0_20,wmc,ours-wasm,1,ERROR,True,True,,44.3095,,one screening trial,,,,,,"Error: Counter aborted: .  c o [Init   ] 643 vars (643 pvars), 1687 cls
+c o gweight 1+0i
+c o [Simp   ] 620 vars (620 pvars), 1640 cls, 0 lrnts, 0 fvars, elap. 0.07 s
+c o gweight 1+0i
+c o Primal graph: nodes 620, edges 1384
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 592, tw 22, elapsed 0.0808 s
+c o min shortcut heuristic
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 12  #npvars 12
+ [WASM heap 536870912 bytes]"
+MQTBench/qft_nativegates_ibm_qiskit_opt0_20,wmc,quprs-default,1,DECIDED,True,True,equivalent*,17.341733538000085,18.146626592000015,one screening trial,,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_20,wmc,quprs-proportional,1,DECIDED,True,True,equivalent*,17.49802302400002,18.218441106999993,one screening trial,,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_22,hybrid,ours-native,1,TIMEOUT,True,True,,,200.03594381700003,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qft_nativegates_ibm_qiskit_opt0_22,hybrid,ours-wasm,1,ERROR,True,True,,62.407900000000026,,one screening trial,,,,,,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=760)
+ c o [Init   ] 652 vars (652 pvars), 1826 cls
+c o gweight 1+0i
+c o [Simp   ] 627 vars (627 pvars), 1775 cls, 0 lrnts, 0 fvars, elap. 0.10 s
+c o gweight 1+0i
+c o Primal graph: nodes 627, edges 1458
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 594, tw 26, elapsed 0.109 s
+c o min shortcut heuristic
+c o td: #bags 602, tw 24, elapsed 0.155 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 11  #npvars 11
+ [WASM heap 536870912 bytes]"
+MQTBench/qft_nativegates_ibm_qiskit_opt0_22,hybrid,quprs-default,1,DECIDED,True,True,equivalent*,75.246618437,76.42515489399997,one screening trial,,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_22,hybrid,quprs-proportional,1,DECIDED,True,True,equivalent*,75.38335163399995,76.31040993500001,one screening trial,,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_22,wmc,ours-native,1,TIMEOUT,True,True,,,200.020390822,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qft_nativegates_ibm_qiskit_opt0_22,wmc,ours-wasm,1,ERROR,True,True,,54.55730000000005,,one screening trial,,,,,,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=1060)
+ c o [Init   ] 748 vars (748 pvars), 1974 cls
+c o gweight 1+0i
+c o [Simp   ] 723 vars (723 pvars), 1923 cls, 0 lrnts, 0 fvars, elap. 0.10 s
+c o gweight 1+0i
+c o Primal graph: nodes 723, edges 1625
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 692, tw 25, elapsed 0.107199 s
+c o min shortcut heuristic
+c o td: #bags 698, tw 24, elapsed 0.152799 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 13  #npvars 13
+ [WASM heap 536870912 bytes]"
+MQTBench/qft_nativegates_ibm_qiskit_opt0_22,wmc,quprs-default,1,DECIDED,True,True,equivalent*,78.97948943300003,79.98109161899995,one screening trial,,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_22,wmc,quprs-proportional,1,DECIDED,True,True,equivalent*,77.69320049599992,78.59327967199998,one screening trial,,,,,,
+MQTBench/qft_nativegates_ibm_qiskit_opt0_24,hybrid,ours-native,1,TIMEOUT,True,True,,,200.01190464100003,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qft_nativegates_ibm_qiskit_opt0_24,hybrid,ours-wasm,1,ERROR,True,True,,62.48070000000001,,one screening trial,,,,,,"Error: Counter aborted: .  c o [Init   ] 749 vars (749 pvars), 2107 cls
+c o gweight 1+0i
+c o [Simp   ] 722 vars (722 pvars), 2052 cls, 0 lrnts, 0 fvars, elap. 0.09 s
+c o gweight 1+0i
+c o Primal graph: nodes 722, edges 1691
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 686, tw 26, elapsed 0.101699 s
+c o min shortcut heuristic
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 15  #npvars 15
+ [WASM heap 536870912 bytes]"
+MQTBench/qft_nativegates_ibm_qiskit_opt0_24,hybrid,quprs-default,1,TIMEOUT,True,True,,,200.10667942699996,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qft_nativegates_ibm_qiskit_opt0_24,hybrid,quprs-proportional,1,TIMEOUT,True,True,,,200.09154301300003,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qft_nativegates_ibm_qiskit_opt0_24,wmc,ours-native,1,TIMEOUT,True,True,,,200.02912513299984,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qft_nativegates_ibm_qiskit_opt0_24,wmc,ours-wasm,1,ERROR,True,True,,52.68309999999986,,one screening trial,,,,,,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=1624)
+ c o [Init   ] 849 vars (849 pvars), 2261 cls
+c o gweight 1+0i
+c o [Simp   ] 822 vars (822 pvars), 2206 cls, 0 lrnts, 0 fvars, elap. 0.09 s
+c o gweight 1+0i
+c o Primal graph: nodes 822, edges 1866
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 786, tw 26, elapsed 0.0978 s
+c o min shortcut heuristic
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 14  #npvars 14
+ [WASM heap 536870912 bytes]"
+MQTBench/qft_nativegates_ibm_qiskit_opt0_24,wmc,quprs-default,1,TIMEOUT,True,True,,,200.058653847,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qft_nativegates_ibm_qiskit_opt0_24,wmc,quprs-proportional,1,TIMEOUT,True,True,,,200.04494000199995,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_12,hybrid,ours-native,1,TIMEOUT,True,True,,,200.00290206100001,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_12,hybrid,ours-wasm,1,ERROR,True,True,,76.10790000000003,,one screening trial,,,,,,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=1484)
+ c o [Init   ] 725 vars (725 pvars), 1622 cls
+c o gweight 1+0i
+c o [Simp   ] 708 vars (708 pvars), 1588 cls, 0 lrnts, 0 fvars, elap. 0.08 s
+c o gweight 1+0i
+c o Primal graph: nodes 708, edges 1538
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 680, tw 28, elapsed 0.094699 s
+c o min shortcut heuristic
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 21  #npvars 21
+ [WASM heap 536870912 bytes]"
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_12,hybrid,quprs-default,1,TIMEOUT,True,True,,,200.057278242,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_12,hybrid,quprs-proportional,1,TIMEOUT,True,True,,,200.046000167,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_12,wmc,ours-native,1,TIMEOUT,True,True,,,200.01991672299988,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_12,wmc,ours-wasm,1,ERROR,True,True,,60.053700000000184,,one screening trial,,,,,,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=1672)
+ c o [Init   ] 1117 vars (1117 pvars), 2253 cls
+c o gweight 1+0i
+c o [Simp   ] 1105 vars (1105 pvars), 2229 cls, 0 lrnts, 0 fvars, elap. 0.11 s
+c o gweight 1+0i
+c o Primal graph: nodes 1105, edges 2229
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 1071, tw 32, elapsed 0.1295 s
+c o min shortcut heuristic
+c o td: #bags 1071, tw 31, elapsed 0.179699 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 18  #npvars 18
+ [WASM heap 536870912 bytes]"
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_12,wmc,quprs-default,1,ERROR,True,True,,,195.89876766200004,one screening trial,,,,,,"WMC output format error, result: c o WARNING: for repeatability, setting FPU to use double precision
+c o gpmc-1.1.1
+c o Mode: Weighted Model Counting
+c o Reading from the file /tmp/pathsum-compare-jFyjMP/tmpzwl7ufts.cnf ...
+c o Reading finished.
+c o Elapsed time 0.00 s
+c o
+c o Simplification starts...
+c o [Init   ] 1417 vars (1417 pvars), 2787 cls
+c o gweight 1+0i
+
+c o [Simp   ] 1041 vars (1041 pvars), 2037 cls, 0 lrnts, 0 fvars, elap. 0.02 s
+c o gweight 0.549106+0.835753i
+
+c o Simplification finished.
+c o Elapsed time 0.02 s
+c o
+c o Preparing extra variable scores ...
+c o Primal graph: nodes 1041, edges 2037
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 1008, tw 29, elapsed 0.021292 s
+c o min shortcut heuristic
+c o td: #bags 1007, tw 28, elapsed 0.029468 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 21  #npvars 21
+c o Elapsed time 0.04 s
+c o
+c o Counting starts ...
+c o INDETERMINATE (bad_alloc exception)
+c o Elapsed time 190.37 s
+c o Memory used = 4095.00 MB
+"
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_12,wmc,quprs-proportional,1,TIMEOUT,True,True,,,200.0539877960001,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_4,hybrid,ours-native,5,BOUND,True,True,inconclusive,0.846374372,0.8513277429999998,5-repeat median,0,3.55675e-13,0,968238124285111309575373063/2722258935367507707706996859454145691648,True,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_4,hybrid,ours-wasm,1,BOUND,True,True,inconclusive,2.3925,,one screening trial,0,3.55675e-13,0,968238124285111309575373063/2722258935367507707706996859454145691648,True,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_4,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.3743429940000027,0.9959026460000022,5-repeat median,,,,,,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_4,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.3471349349999997,0.9952493199999999,5-repeat median,,,,,,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_4,wmc,ours-native,5,BOUND,True,True,inconclusive,0.391406587,0.3972514129999981,5-repeat median,0,2.73156e-9,0,14871990823801825711047087300481/5444517870735015415413993718908291383296,True,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_4,wmc,ours-wasm,5,BOUND,True,True,inconclusive,1.5722999999999883,,5-repeat median,0,2.73156e-9,0,14871990823801825711047087300481/5444517870735015415413993718908291383296,True,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_4,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.251950156999996,0.8626577849999958,5-repeat median,,,,,,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_4,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.2113270260000064,0.831579950000003,5-repeat median,,,,,,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_8,hybrid,ours-native,1,BOUND,True,True,inconclusive,91.79022493,91.802692159,one screening trial,0,3.36629e-8,0,22909761903210534959216292988737/680564733841876926926749214863536422912,True,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_8,hybrid,ours-wasm,1,ERROR,True,True,,39.62689999999998,,one screening trial,,,,,,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=2836)
+ c o [Init   ] 1189 vars (1189 pvars), 3163 cls
+c o gweight 1+0i
+c o [Simp   ] 1181 vars (1181 pvars), 3147 cls, 0 lrnts, 0 fvars, elap. 0.14 s
+c o gweight 1+0i
+c o Primal graph: nodes 1181, edges 2928
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 1162, tw 20, elapsed 0.1466 s
+c o min shortcut heuristic
+c o td: #bags 1164, tw 18, elapsed 0.2246 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 17  #npvars 17
+ [WASM heap 536870912 bytes]"
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_8,hybrid,quprs-default,1,DECIDED,True,True,equivalent*,5.4889074090000065,6.196728659999994,one screening trial,,,,,,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_8,hybrid,quprs-proportional,1,DECIDED,True,True,equivalent*,8.660425040999968,9.22129196999999,one screening trial,,,,,,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_8,wmc,ours-native,1,TIMEOUT,True,True,,,200.02125507000002,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_8,wmc,ours-wasm,1,ERROR,True,True,,30.165,,one screening trial,,,,,,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=2236)
+ c o [Init   ] 663 vars (663 pvars), 1261 cls
+c o gweight 1+0i
+c o [Simp   ] 655 vars (655 pvars), 1245 cls, 0 lrnts, 0 fvars, elap. 0.03 s
+c o gweight 1+0i
+c o Primal graph: nodes 655, edges 1245
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 631, tw 23, elapsed 0.0424 s
+c o min shortcut heuristic
+c o td: #bags 634, tw 20, elapsed 0.0492 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 17  #npvars 17
+ [WASM heap 536870912 bytes]"
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_8,wmc,quprs-default,1,DECIDED,True,True,equivalent*,17.94156833900001,18.467094916000033,one screening trial,,,,,,
+MQTBench/qnn_nativegates_ibm_qiskit_opt0_8,wmc,quprs-proportional,1,DECIDED,True,True,equivalent*,17.610400976999983,18.106741663000022,one screening trial,,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_16,hybrid,ours-native,1,BOUND,True,True,proven_not_equivalent,2.167839974,2.176161285999999,one screening trial,6.44927e-16,6.47427e-16,3511317049788923643863295/5444517870735015415413993718908291383296,3524924379935524756224485/5444517870735015415413993718908291383296,True,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_16,hybrid,ours-wasm,1,BOUND,True,True,proven_not_equivalent,3.999300000000003,,one screening trial,6.44927e-16,6.47427e-16,3511317049788923643863295/5444517870735015415413993718908291383296,3524924379935524756224485/5444517870735015415413993718908291383296,True,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_16,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.3281079420000026,1.0607191340000008,5-repeat median,,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_16,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.34646360600000037,1.0988732579999996,5-repeat median,,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_16,wmc,ours-native,1,TIMEOUT,True,True,,,200.01540292100003,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_16,wmc,ours-wasm,1,TIMEOUT,True,True,,200.0048,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_16,wmc,quprs-default,1,DECIDED,True,True,equivalent*,35.08661616500001,36.486421139000015,one screening trial,,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_16,wmc,quprs-proportional,1,DECIDED,True,True,equivalent*,34.75404821500001,35.55099450000003,one screening trial,,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_20,hybrid,ours-native,1,BOUND,True,True,proven_not_equivalent,7.357564627,7.362471019000001,one screening trial,4.23706e-6,4.23707e-6,5767191780650789421076268802048745/1361129467683753853853498429727072845824,23068767122603157684371302556689043/5444517870735015415413993718908291383296,True,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_20,hybrid,ours-wasm,1,BOUND,True,True,proven_not_equivalent,21.98320000000001,,one screening trial,4.23706e-6,4.23707e-6,5767191780650789421076268802048745/1361129467683753853853498429727072845824,23068767122603157684371302556689043/5444517870735015415413993718908291383296,True,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_20,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.4736341340000081,1.069392691,5-repeat median,,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_20,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.5051851019999845,1.12559116,5-repeat median,,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_20,wmc,ours-native,1,TIMEOUT,True,True,,,200.01823519799993,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_20,wmc,ours-wasm,1,TIMEOUT,True,True,,200.0005,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_20,wmc,quprs-default,1,TIMEOUT,True,True,,,200.03133032800002,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_20,wmc,quprs-proportional,1,TIMEOUT,True,True,,,200.07399744100002,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_24,hybrid,ours-native,1,TIMEOUT,True,True,,,200.018924633,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_24,hybrid,ours-wasm,1,ERROR,True,True,,37.494099999999975,,one screening trial,,,,,,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=760)
+ c o [Init   ] 726 vars (726 pvars), 2031 cls
+c o gweight 1+0i
+c o [Simp   ] 699 vars (699 pvars), 1978 cls, 0 lrnts, 1 fvars, elap. 0.06 s
+c o gweight 87112285931760246646623899502473447397003/43556142965880123323311949751266331066368-40431922339622502774660414585655152451181/24519928653854221733733552434404946937899825954937634816i
+c o Primal graph: nodes 699, edges 1651
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 663, tw 29, elapsed 0.0789 s
+c o min shortcut heuristic
+c o td: #bags 669, tw 27, elapsed 0.1064 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 14  #npvars 14
+ [WASM heap 536870912 bytes]"
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_24,hybrid,quprs-default,1,DECIDED,True,True,equivalent*,146.64043972499996,147.33506990900003,one screening trial,,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_24,hybrid,quprs-proportional,1,DECIDED,True,True,equivalent*,144.53708209999996,145.43613447299998,one screening trial,,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_24,wmc,ours-native,1,TIMEOUT,True,True,,,200.006999587,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_24,wmc,ours-wasm,1,TIMEOUT,True,True,,200.0006000000001,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_24,wmc,quprs-default,1,ERROR,True,True,,,174.68223524800013,one screening trial,,,,,,"WMC output format error, result: c o WARNING: for repeatability, setting FPU to use double precision
+c o gpmc-1.1.1
+c o Mode: Weighted Model Counting
+c o Reading from the file /tmp/pathsum-compare-k1PTJ4/tmp5j2n7hq0.cnf ...
+c o Reading finished.
+c o Elapsed time 0.00 s
+c o
+c o Simplification starts...
+c o [Init   ] 1151 vars (1151 pvars), 2635 cls
+c o gweight 1+0i
+
+c o [Simp   ] 941 vars (941 pvars), 2217 cls, 0 lrnts, 0 fvars, elap. 0.01 s
+c o gweight 0.928495+0.371345i
+
+c o Simplification finished.
+c o Elapsed time 0.01 s
+c o
+c o Preparing extra variable scores ...
+c o Primal graph: nodes 941, edges 2217
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 911, tw 28, elapsed 0.01245 s
+c o min shortcut heuristic
+c o td: #bags 907, tw 27, elapsed 0.02055 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 25  #npvars 25
+c o Elapsed time 0.02 s
+c o
+c o Counting starts ...
+c o INDETERMINATE (bad_alloc exception)
+c o Elapsed time 164.47 s
+c o Memory used = 4095.00 MB
+"
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_24,wmc,quprs-proportional,1,ERROR,True,True,,,143.455658988,one screening trial,,,,,,"WMC output format error, result: c o WARNING: for repeatability, setting FPU to use double precision
+c o gpmc-1.1.1
+c o Mode: Weighted Model Counting
+c o Reading from the file /tmp/pathsum-compare-uJF4kc/tmp1pvhnli_.cnf ...
+c o Reading finished.
+c o Elapsed time 0.00 s
+c o
+c o Simplification starts...
+c o [Init   ] 1151 vars (1151 pvars), 2635 cls
+c o gweight 1+0i
+
+c o [Simp   ] 941 vars (941 pvars), 2217 cls, 0 lrnts, 0 fvars, elap. 0.01 s
+c o gweight 0.928495+0.371345i
+
+c o Simplification finished.
+c o Elapsed time 0.01 s
+c o
+c o Preparing extra variable scores ...
+c o Primal graph: nodes 941, edges 2217
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 911, tw 28, elapsed 0.012265 s
+c o min shortcut heuristic
+c o td: #bags 907, tw 27, elapsed 0.020515 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 27  #npvars 27
+c o Elapsed time 0.02 s
+c o
+c o Counting starts ...
+c o INDETERMINATE (out of memory)
+"
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_8,hybrid,ours-native,5,BOUND,True,True,proven_not_equivalent,0.14035045,0.14526444300000002,5-repeat median,8.27411e-16,8.27412e-16,2252428439761860051820509/2722258935367507707706996859454145691648,1126214732624451656213807/1361129467683753853853498429727072845824,True,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_8,hybrid,ours-wasm,5,BOUND,True,True,proven_not_equivalent,0.5785,,5-repeat median,8.27411e-16,8.27412e-16,2252428439761860051820509/2722258935367507707706996859454145691648,1126214732624451656213807/1361129467683753853853498429727072845824,True,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_8,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.09427470200000698,0.8393118319999994,5-repeat median,,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_8,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.0806849739999933,0.8197293360000003,5-repeat median,,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_8,wmc,ours-native,5,BOUND,True,True,inconclusive,0.354841218,0.36045051000000056,5-repeat median,0,3.75022e-14,0,102090520713344073162468527/2722258935367507707706996859454145691648,True,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_8,wmc,ours-wasm,5,BOUND,True,True,inconclusive,1.468,,5-repeat median,0,3.75022e-14,0,102090520713344073162468527/2722258935367507707706996859454145691648,True,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_8,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.28671034900000336,1.0707024550000024,5-repeat median,,,,,,
+MQTBench/qpeexact_nativegates_ibm_qiskit_opt0_8,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.24426412200000414,0.9952467260000012,5-repeat median,,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_16,hybrid,ours-native,5,BOUND,True,True,proven_not_equivalent,1.692045431,1.6975214090000008,5-repeat median,2.03962e-16,2.07892e-16,69404969700416099444157/340282366920938463463374607431768211456,1131868415724144057969167/5444517870735015415413993718908291383296,True,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_16,hybrid,ours-wasm,1,BOUND,True,True,proven_not_equivalent,3.7427999999999884,,one screening trial,2.03962e-16,2.07892e-16,69404969700416099444157/340282366920938463463374607431768211456,1131868415724144057969167/5444517870735015415413993718908291383296,True,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_16,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.3792702559999839,1.127110686,5-repeat median,,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_16,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.3979941690000146,1.1910808909999997,5-repeat median,,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_16,wmc,ours-native,1,BOUND,True,True,inconclusive,162.152384831,162.15799331600005,one screening trial,0,1.68009e-9,0,9147256896438755185167500839243/5444517870735015415413993718908291383296,True,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_16,wmc,ours-wasm,1,TIMEOUT,True,True,,200.0026,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_16,wmc,quprs-default,1,DECIDED,True,True,equivalent*,30.805170099999998,32.31671458900001,one screening trial,,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_16,wmc,quprs-proportional,1,DECIDED,True,True,equivalent*,31.100667414999975,32.02928725900001,one screening trial,,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_20,hybrid,ours-native,1,BOUND,True,True,proven_not_equivalent,6.314095428,6.319102404000005,one screening trial,4.23706e-6,4.23707e-6,2883595890325394710499575956166133/680564733841876926926749214863536422912,23068767122603157684029752256911099/5444517870735015415413993718908291383296,True,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_20,hybrid,ours-wasm,1,BOUND,True,True,proven_not_equivalent,20.4425,,one screening trial,4.23706e-6,4.23707e-6,2883595890325394710499575956166133/680564733841876926926749214863536422912,23068767122603157684029752256911099/5444517870735015415413993718908291383296,True,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_20,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.4646549429999993,1.081941127000002,5-repeat median,,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_20,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.5037355940000054,1.1593777529999971,5-repeat median,,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_20,wmc,ours-native,1,TIMEOUT,True,True,,,200.01090844800004,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_20,wmc,ours-wasm,1,TIMEOUT,True,True,,200.00430000000006,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_20,wmc,quprs-default,1,TIMEOUT,True,True,,,200.080456948,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_20,wmc,quprs-proportional,1,TIMEOUT,True,True,,,200.070688784,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_24,hybrid,ours-native,1,BOUND,True,True,proven_not_equivalent,106.003841428,106.009009126,one screening trial,1.3773e-5,1.37731e-5,74987355306836220510745334262937357/5444517870735015415413993718908291383296,74987355306836220511025875504136719/5444517870735015415413993718908291383296,True,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_24,hybrid,ours-wasm,1,ERROR,True,True,,51.52279999999999,,one screening trial,,,,,,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=844)
+ c o [Init   ] 521 vars (521 pvars), 1448 cls
+c o gweight 1+0i
+c o [Simp   ] 498 vars (498 pvars), 1403 cls, 0 lrnts, 1 fvars, elap. 0.08 s
+c o gweight 87112285931760246646623899502531450552557/43556142965880123323311949751266331066368+23133724754292062123930962439059795279319/98079714615416886934934209737619787751599303819750539264i
+c o Primal graph: nodes 498, edges 1150
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 469, tw 21, elapsed 0.0913 s
+c o min shortcut heuristic
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 15  #npvars 15
+ [WASM heap 536870912 bytes]"
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_24,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.8007606959999976,1.5284334309999832,5-repeat median,,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_24,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.9730679320000206,1.7464707549999985,5-repeat median,,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_24,wmc,ours-native,1,TIMEOUT,True,True,,,200.025097594,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_24,wmc,ours-wasm,1,TIMEOUT,True,True,,200.00679999999994,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_24,wmc,quprs-default,1,TIMEOUT,True,True,,,200.0574888820001,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_24,wmc,quprs-proportional,1,TIMEOUT,True,True,,,200.055119464,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_8,hybrid,ours-native,5,BOUND,True,True,proven_not_equivalent,0.123212296,0.1307528170000005,5-repeat median,1.74146e-16,1.7415e-16,237035797673229950371091/1361129467683753853853498429727072845824,948160853827709575664677/5444517870735015415413993718908291383296,True,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_8,hybrid,ours-wasm,5,BOUND,True,True,proven_not_equivalent,0.6179000000000233,,5-repeat median,1.74146e-16,1.7415e-16,237035797673229950371091/1361129467683753853853498429727072845824,948160853827709575664677/5444517870735015415413993718908291383296,True,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_8,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.0902145100000098,0.921551102999998,5-repeat median,,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_8,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.08012538599996333,0.8964711270000043,5-repeat median,,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_8,wmc,ours-native,5,BOUND,True,True,inconclusive,0.274114707,0.28004215500000285,5-repeat median,0,1.25501e-14,0,34164469402806850550477609/2722258935367507707706996859454145691648,True,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_8,wmc,ours-wasm,5,BOUND,True,True,inconclusive,1.3805999999999767,,5-repeat median,0,1.25501e-14,0,34164469402806850550477609/2722258935367507707706996859454145691648,True,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_8,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.2788390789999653,1.1030946570000015,5-repeat median,,,,,,
+MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_8,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.25088579499998787,1.0453767130000051,5-repeat median,,,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_3,hybrid,ours-native,5,BOUND,True,True,proven_not_equivalent,0.055459712,0.05963354700000491,5-repeat median,6.16351e-16,6.16353e-16,3355734063609493394698187/5444517870735015415413993718908291383296,3355741119646377476510307/5444517870735015415413993718908291383296,True,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_3,hybrid,ours-wasm,5,BOUND,True,True,proven_not_equivalent,0.376,,5-repeat median,6.16351e-16,6.16353e-16,3355734063609493394698187/5444517870735015415413993718908291383296,3355741119646377476510307/5444517870735015415413993718908291383296,True,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_3,hybrid,quprs-default,5,DECIDED,True,True,equivalent,0.1359367879999951,0.787244023000003,5-repeat median,,,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_3,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent,0.09728554400000178,0.7358921370000026,5-repeat median,,,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_3,wmc,ours-native,5,BOUND,True,True,inconclusive,0.096795849,0.10099501900000178,5-repeat median,0,9.18404e-12,0,390645818678325514506449691/42535295865117307932921825928971026432,True,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_3,wmc,ours-wasm,5,BOUND,True,True,inconclusive,0.7965,,5-repeat median,0,9.18404e-12,0,390645818678325514506449691/42535295865117307932921825928971026432,True,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_3,wmc,quprs-default,5,DECIDED,True,True,equivalent,0.24755279100000394,0.9107847890000048,5-repeat median,,,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_3,wmc,quprs-proportional,5,DECIDED,True,True,equivalent,0.2287462419999997,0.8864453139999968,5-repeat median,,,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_4,hybrid,ours-native,5,BOUND,True,True,proven_not_equivalent,0.20258178,0.20801310499999817,5-repeat median,8.51684e-16,8.51689e-16,1159253181525097327721811/1361129467683753853853498429727072845824,4637031731920594834056431/5444517870735015415413993718908291383296,True,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_4,hybrid,ours-wasm,5,BOUND,True,True,proven_not_equivalent,0.6883000000000465,,5-repeat median,8.51684e-16,8.51689e-16,1159253181525097327721811/1361129467683753853853498429727072845824,4637031731920594834056431/5444517870735015415413993718908291383296,True,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_4,hybrid,quprs-default,1,DECIDED,True,True,equivalent*,3.4726249789999883,4.238502528999998,one screening trial,,,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_4,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.24648488199994745,0.9943433650000006,5-repeat median,,,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_4,wmc,ours-native,5,BOUND,True,True,inconclusive,0.425655503,0.4312886980000039,5-repeat median,0,6.90071e-8,0,46963749904808523397001758993333/680564733841876926926749214863536422912,True,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_4,wmc,ours-wasm,5,BOUND,True,True,inconclusive,1.484899999999965,,5-repeat median,0,6.90071e-8,0,46963749904808523397001758993333/680564733841876926926749214863536422912,True,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_4,wmc,quprs-default,1,DECIDED,True,True,equivalent*,3.7442259780000313,4.5459253949999985,one screening trial,,,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_4,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.7238503089999995,1.5009505130000034,5-repeat median,,,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_5,hybrid,ours-native,1,TIMEOUT,True,True,,,200.007727686,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_5,hybrid,ours-wasm,1,TIMEOUT,True,True,,200.00320000000002,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_5,hybrid,quprs-default,1,ERROR,True,True,,,58.924646748,one screening trial,,,,,,exit=127 signal=null output_overflow=false
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_5,hybrid,quprs-proportional,1,ERROR,True,True,,,70.178581946,one screening trial,,,,,,exit=127 signal=null output_overflow=false
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_5,wmc,ours-native,1,TIMEOUT,True,True,,,200.02665311900003,one screening trial,,,,,,200 s whole-process cap
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_5,wmc,ours-wasm,1,TIMEOUT,True,True,,200.00270000000006,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_5,wmc,quprs-default,1,DECIDED,True,True,equivalent*,12.920551255999953,14.57276416999998,one screening trial,,,,,,
+MQTBench/qwalk-noancilla_nativegates_ibm_qiskit_opt0_5,wmc,quprs-proportional,1,DECIDED,True,True,equivalent*,10.640066355000044,11.620558655000059,one screening trial,,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_16,hybrid,ours-native,1,TIMEOUT,True,True,,,200.025865412,one screening trial,,,,,,200 s whole-process cap
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_16,hybrid,ours-wasm,1,ERROR,True,True,,45.09119999999992,,one screening trial,,,,,,"Error: Counter aborted: . GNU MP: Cannot allocate memory (size=2052)
+ c o [Init   ] 787 vars (787 pvars), 1949 cls
+c o gweight 1+0i
+c o [Simp   ] 753 vars (753 pvars), 1881 cls, 0 lrnts, 0 fvars, elap. 0.06 s
+c o gweight 1+0i
+c o Primal graph: nodes 753, edges 1659
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 716, tw 33, elapsed 0.0706 s
+c o min shortcut heuristic
+c o td: #bags 717, tw 32, elapsed 0.108 s
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 17  #npvars 17
+ [WASM heap 536870912 bytes]"
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_16,hybrid,quprs-default,1,DECIDED,True,True,equivalent,3.068624022999984,3.932461983999994,one screening trial,,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_16,hybrid,quprs-proportional,1,DECIDED,True,True,equivalent,2.1419680219999577,2.9574587499999905,one screening trial,,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_16,wmc,ours-native,1,TIMEOUT,True,True,,,200.00532465199998,one screening trial,,,,,,200 s whole-process cap
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_16,wmc,ours-wasm,1,ERROR,True,True,,32.98740000000002,,one screening trial,,,,,,"Error: Counter aborted: . GNU MP: Cannot reallocate memory (old_size=4 new_size=1916)
+ c o [Init   ] 996 vars (996 pvars), 1946 cls
+c o gweight 1+0i
+c o [Simp   ] 980 vars (980 pvars), 1914 cls, 0 lrnts, 0 fvars, elap. 0.07 s
+c o gweight 1+0i
+c o Primal graph: nodes 980, edges 1914
+c o FlowCutter is running...
+c o min degree heuristic
+c o td: #bags 947, tw 27, elapsed 0.077099 s
+c o min shortcut heuristic
+c o run with 0.0/0.1/0.2 min balance and node_min_expansion in endless loop with varying seed
+c o centroid bag size 17  #npvars 17
+ [WASM heap 536870912 bytes]"
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_16,wmc,quprs-default,5,DECIDED,True,True,equivalent,1.0852605769999855,1.6534242049999883,5-repeat median,,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_16,wmc,quprs-proportional,5,DECIDED,True,True,equivalent,0.3975458709999202,0.9175172679999377,5-repeat median,,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_4,hybrid,ours-native,5,BOUND,True,True,inconclusive,0.601959375,0.6069088950000004,5-repeat median,0,5.15038e-15,0,14020650205881502890005719/2722258935367507707706996859454145691648,True,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_4,hybrid,ours-wasm,5,BOUND,True,True,inconclusive,1.6787000000000116,,5-repeat median,0,5.15038e-15,0,14020650205881502890005719/2722258935367507707706996859454145691648,True,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_4,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.17208762499996055,0.6854416450000135,5-repeat median,,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_4,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.1454031619999796,0.6779559240000089,5-repeat median,,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_4,wmc,ours-native,5,BOUND,True,True,inconclusive,0.107849859,0.11287638699999661,5-repeat median,0,1.29709e-12,0,7061980131057044509218351295/5444517870735015415413993718908291383296,True,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_4,wmc,ours-wasm,5,BOUND,True,True,inconclusive,0.5372000000000117,,5-repeat median,0,1.29709e-12,0,7061980131057044509218351295/5444517870735015415413993718908291383296,True,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_4,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.13102164500003255,0.6583215900000068,5-repeat median,,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_4,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.09664204099999552,0.6238952359999821,5-repeat median,,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_8,hybrid,ours-native,1,BOUND,True,True,inconclusive,18.643916513,18.648386026999912,one screening trial,0,1.57239e-11,0,42804344003218730406934269583/2722258935367507707706996859454145691648,True,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_8,hybrid,ours-wasm,1,BOUND,True,True,inconclusive,40.56769999999995,,one screening trial,0,1.57239e-11,0,42804344003218730406934269583/2722258935367507707706996859454145691648,True,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_8,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.4119242200001736,0.9435430209999904,5-repeat median,,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_8,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.6350651309999193,1.180303509999998,5-repeat median,,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_8,wmc,ours-native,5,BOUND,True,True,inconclusive,1.445917338,1.4502051939999219,5-repeat median,0,3.35601e-6,0,9135919226013183319163884421306947/2722258935367507707706996859454145691648,False,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_8,wmc,ours-wasm,1,BOUND,True,True,inconclusive,5.712599999999861,,one screening trial,0,3.35601e-6,0,9135919226013183319163884421306947/2722258935367507707706996859454145691648,False,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_8,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.27524500700019416,0.807220708000008,5-repeat median,,,,,,
+MQTBench/vqe_nativegates_ibm_qiskit_opt0_8,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.18230326899993088,0.7145732520001474,5-repeat median,,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_16,hybrid,ours-native,1,BOUND,True,True,inconclusive,8.32819334,8.334631570999976,one screening trial,0,6.23077e-13,0,848087622335014953621554055/1361129467683753853853498429727072845824,True,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_16,hybrid,ours-wasm,1,BOUND,True,True,inconclusive,17.04879999999999,,one screening trial,0,6.23077e-13,0,848087622335014953621554055/1361129467683753853853498429727072845824,True,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_16,hybrid,quprs-default,1,TIMEOUT,True,True,,,200.05910900400002,one screening trial,,,,,,200 s whole-process cap
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_16,hybrid,quprs-proportional,1,TIMEOUT,True,True,,,200.127295132,one screening trial,,,,,,200 s whole-process cap
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_16,wmc,ours-native,1,TIMEOUT,True,True,,,200.02398594499996,one screening trial,,,,,,200 s whole-process cap
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_16,wmc,ours-wasm,1,TIMEOUT,True,True,,200.00380000000004,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_16,wmc,quprs-default,1,TIMEOUT,True,True,,,200.1019113449999,one screening trial,,,,,,200 s whole-process cap
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_16,wmc,quprs-proportional,1,TIMEOUT,True,True,,,200.10316692500004,one screening trial,,,,,,200 s whole-process cap
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_32,hybrid,ours-native,1,BOUND,True,True,inconclusive,98.563498627,98.574262303,one screening trial,0,3.49128e-6,0,19008323482022115461338537855666383/5444517870735015415413993718908291383296,False,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_32,hybrid,ours-wasm,1,TIMEOUT,True,True,,200.00779999999997,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_32,hybrid,quprs-default,1,MEMORY_LIMIT,True,True,MemoryOut,41.221712583,47.19335168699996,one screening trial,,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_32,hybrid,quprs-proportional,1,ERROR,True,True,,,46.32504344799998,one screening trial,,,,,,exit=127 signal=null output_overflow=false
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_32,wmc,ours-native,1,TIMEOUT,True,True,,,200.01323473599996,one screening trial,,,,,,200 s whole-process cap
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_32,wmc,ours-wasm,1,TIMEOUT,True,True,,200.00030000000004,,one screening trial,,,,,,Error: Time limit reached (200 seconds).
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_32,wmc,quprs-default,1,ERROR,True,True,,,53.06798324199999,one screening trial,,,,,,exit=127 signal=null output_overflow=false
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_32,wmc,quprs-proportional,1,MEMORY_LIMIT,True,True,MemoryOut,38.02700384100001,44.761096114999965,one screening trial,,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_4,hybrid,ours-native,5,BOUND,True,True,proven_not_equivalent,0.099703229,0.1040108659999969,5-repeat median,5.90229e-16,5.90232e-16,3213516209755110039633533/5444517870735015415413993718908291383296,1606762581941770734376577/2722258935367507707706996859454145691648,True,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_4,hybrid,ours-wasm,5,BOUND,True,True,proven_not_equivalent,0.5287000000000116,,5-repeat median,5.90229e-16,5.90232e-16,3213516209755110039633533/5444517870735015415413993718908291383296,1606762581941770734376577/2722258935367507707706996859454145691648,True,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_4,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.05449063799994747,0.5212591759999996,5-repeat median,,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_4,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.034249902999988535,0.5053843169999964,5-repeat median,,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_4,wmc,ours-native,5,BOUND,True,True,inconclusive,0.073522825,0.07743950100000074,5-repeat median,0,2.4988e-14,0,68023540753899071118398537/2722258935367507707706996859454145691648,True,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_4,wmc,ours-wasm,5,BOUND,True,True,inconclusive,0.5279000000000232,,5-repeat median,0,2.4988e-14,0,68023540753899071118398537/2722258935367507707706996859454145691648,True,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_4,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.09949840800004495,0.5635920910000058,5-repeat median,,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_4,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.07690450199999077,0.5399910410000012,5-repeat median,,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_8,hybrid,ours-native,5,BOUND,True,True,proven_not_equivalent,1.148004615,1.1532234520000055,5-repeat median,1.98432e-15,2.0102e-15,10803716604640930741070665/5444517870735015415413993718908291383296,10944528883045832009390201/5444517870735015415413993718908291383296,True,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_8,hybrid,ours-wasm,1,BOUND,True,True,proven_not_equivalent,2.838,,one screening trial,1.98432e-15,2.0102e-15,10803716604640930741070665/5444517870735015415413993718908291383296,10944528883045832009390201/5444517870735015415413993718908291383296,True,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_8,hybrid,quprs-default,5,DECIDED,True,True,equivalent*,0.2225086360000148,0.7715131760000077,5-repeat median,,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_8,hybrid,quprs-proportional,5,DECIDED,True,True,equivalent*,0.1657259249999754,0.7268946119999746,5-repeat median,,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_8,wmc,ours-native,5,BOUND,True,True,inconclusive,0.193653699,0.19841065800000798,5-repeat median,0,1.33571e-8,0,72722849408608090680911411937885/5444517870735015415413993718908291383296,True,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_8,wmc,ours-wasm,5,BOUND,True,True,inconclusive,0.9232999999999884,,5-repeat median,0,1.33571e-8,0,72722849408608090680911411937885/5444517870735015415413993718908291383296,True,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_8,wmc,quprs-default,5,DECIDED,True,True,equivalent*,0.2870586110000204,0.7626414769999974,5-repeat median,,,,,,
+MQTBench/wstate_nativegates_ibm_qiskit_opt0_8,wmc,quprs-proportional,5,DECIDED,True,True,equivalent*,0.23659612299999822,0.7193333510000084,5-repeat median,,,,,,

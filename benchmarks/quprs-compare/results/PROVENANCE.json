@@ -1,0 +1,50 @@
+{
+  "comparison_run": "https://github.com/guluchen/PathsumWMC/actions/runs/43608139119",
+  "driver_and_native_frontend_revision": "9d03e1aaf2f34a3393af92a50c6f8f9a88c1359f",
+  "original_quprs_revision": "60bcb250da4eb992f0b5f6727a5b6e57db8f0a84",
+  "original_backend": "python",
+  "original_gpmc_revision": "a1bda3489e959d3695b6798d327c5a1fc1bed305",
+  "frozen_web_run": "https://github.com/guluchen/PathsumWMC/actions/runs/43591913232",
+  "frozen_web_source": "802195fb9b0690327931b892d713bcd07c80440f",
+  "binary_sha256": {
+    "native-frontend": "1d421d87447b839dcf2f7184c917037b8a3bcc72fc1eb2169287e16cccc4cbda",
+    "native-gpmc": "5e6067d2db6dd4168bf7f383a68f9b5a3c1156e4a917c5370c5183ef9bf1501c",
+    "original-gpmc": "a90d799ad9b59a337f00caf7bc62dfda3850f1b012ee874d499ad35aa2bebba0",
+    "gpmc.wasm": "c72e1a55043429bf6f7a81be9a22493e0523ed9e5287afda55796fa5993a58b9",
+    "pathsum_wasm_bg-1cCdz2Jv.wasm": "4478700d11af4f24b58f550ab22d0068cbb1355ef19a8b17832067abe88589f8"
+  },
+  "python_environment": [
+    "antlr4-python3-runtime==4.13.2",
+    "dill==0.4.1",
+    "mpmath==1.3.0",
+    "numpy==2.2.6",
+    "openqasm3==1.0.2",
+    "psutil==7.0.0",
+    "python-dateutil==4.0.0",
+    "qiskit==1.4.5",
+    "qiskit-qasm3-import==0.6.0",
+    "rustworkx==0.18.1",
+    "scipy==1.18.1",
+    "stevedore==5.10.0",
+    "symengine==0.13.0",
+    "sympy==1.14.0",
+    "typing_extensions==4.16.0",
+    "tzdata==2026.6"
+  ],
+  "cpu_models": {
+    "AMD EPYC 9V74 80-Core Processor": 5,
+    "INTEL(R) XEON(R) PLATINUM 8573C": 4,
+    "AMD EPYC 7763 64-Core Processor": 7,
+    "AMD EPYC 9V45 96-Core Processor": 7,
+    "Intel(R) Xeon(R) 6975P-C": 1
+  },
+  "browser_versions": [
+    "159.0.8154.6"
+  ],
+  "metadata_audit": "24/24 shard metadata agree on source and binaries; native executable hashes checked against downloaded frozen artifacts. Same-input comparisons remain on one host.",
+  "excluded_setup_runs": [
+    43607792759,
+    43607999816
+  ],
+  "previous_own_only_screen": "Not pooled; previous own-only timing run 43592259882 remains separate."
+}

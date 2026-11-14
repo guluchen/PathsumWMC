@@ -4,6 +4,8 @@ This comparison runs the original tool rather than only its benchmark inputs or 
 
 Inputs and their 146 file hashes are the same [73 original-paper artifact pairs](../paper-2026/manifest.json) as our earlier browser screen. Neither circuit angles nor gate order are normalized. The source/transpiled direction remains as listed in the manifest. This artifact cohort is a superset of the printed table; the experiment does not reconstruct every unpublished per-case paper setting.
 
+The complete same-host screen is [run 43608139119](https://github.com/guluchen/PathsumWMC/actions/runs/43608139119): 440/440 cells, 1,416 trials. See [findings and limitations](results/FINDINGS.md), [mode/profile tables](results/RESULTS.md), and [per-cell times](results/results.csv).
+
 ## Systems and settings
 
 Each MQTBench input runs Hybrid and WMC; each Feynman input runs reduction-only. There are 110 case/mode combinations, each tested with four separately reported configurations, for **440 expected cells**:
