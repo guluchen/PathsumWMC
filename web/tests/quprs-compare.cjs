@@ -60,9 +60,9 @@ function subprocess(command,args,request,isQuprs){
    policy:'Serial on one pinned CPU. Native/original: 4 GiB AS, 16 MiB stack; WASM: 512 MiB/module. 200 s whole-process/worker request cap. Post-import API and whole-process times separate. Five repeats only when the first completed cell takes <2 s whole-process/request; otherwise one screening trial. No unresolved-time imputation; different numerical guarantees.'};
   fs.writeFileSync(path.join(out,'metadata.json'),JSON.stringify(metadata,null,2));
   const qasm=gates=>`OPENQASM 2.0; include "qelib1.inc"; qreg q[1]; ${gates}`;
-  const cases=smoke?[{id:'smoke/HH',family:'MQTBench',a:qasm('h q[0]; h q[0];'),b:qasm('')},
+  const cases=smoke?[{id:'smoke/HH',family:'MQTBench',a:qasm('h q[0]; h q[0];'),b:qasm('x q[0]; x q[0];')},
    {id:'smoke/Tself',family:'MQTBench',a:qasm('t q[0];'),b:qasm('t q[0];')},
-   {id:'smoke/near_phase',family:'MQTBench',a:qasm('u1(0.000001) q[0];'),b:qasm('')}]:manifest.cases;
+   {id:'smoke/near_phase',family:'MQTBench',a:qasm('u1(0.000001) q[0]; x q[0]; x q[0];'),b:qasm('x q[0]; x q[0];')}]:manifest.cases;
   for(let idx=0;idx<cases.length;idx++){
    if(!smoke&&idx%shards!==shard)continue;const c=cases[idx];let a=c.a,b=c.b;
    if(!smoke){a=fs.readFileSync(path.join(process.env.PATHSUM_PAPER_ROOT,c.source),'utf8');b=fs.readFileSync(path.join(process.env.PATHSUM_PAPER_ROOT,c.transpiled),'utf8');assert.equal(sha(a),c.sha256.source);assert.equal(sha(b),c.sha256.transpiled)}
