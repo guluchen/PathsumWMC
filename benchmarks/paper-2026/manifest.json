@@ -748,5 +748,24 @@
   "cohort_settings": {
     "MQTBench": "Hybrid and WMC, GPMC and GANAK, 200 s whole-request screen",
     "Feynman": "Reduction-only, 80 s paper RR reference; this browser screen uses the common 200 s whole-request cap"
-  }
+  },
+  "engine_settings": {
+    "gpmc": [
+      "-mode=1",
+      "-cs=64"
+    ],
+    "ganak": [
+      "--mode",
+      "2",
+      "--prob",
+      "0",
+      "--maxcache",
+      "128",
+      "--verb",
+      "0",
+      "--arjunverb",
+      "0"
+    ]
+  },
+  "resource_clock": "Browser port uses worker-local monotonic elapsed time for solver resource budgets; no OS CPU/RSS counters are claimed."
 }

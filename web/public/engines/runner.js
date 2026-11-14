@@ -23,7 +23,7 @@ self.onmessage = async ({data}) => {
         Module.FS.writeFile('/input.cnf',data.cnf);
         const args=data.engine==='gpmc'
           ? ['-mode=1','-cs=64','/input.cnf']
-          : ['--verb','0','--arjunverb','0','--mode','2','--prob','0','/input.cnf'];
+          : ['--verb','0','--arjunverb','0','--maxcache','128','--mode','2','--prob','0','/input.cnf'];
         let status=0;
         try { status=Module.callMain(args) || 0; }
         catch(e) { if(e && e.name==='ExitStatus') status=e.status; else throw e; }

@@ -72,7 +72,7 @@ const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
        for(let j=0;j<diag.cnfs.length;j++) {
         const file=path.join(dir,`job-${j}.cnf`);fs.writeFileSync(file,diag.cnfs[j]);native.input_sha256.push(sha(diag.cnfs[j]));
         const start=performance.now();
-        const stdout=execFileSync('prlimit',['--as=4294967296',process.env.PATHSUM_NATIVE_GPMC,'-mode=1','-cs=64',file],{encoding:'utf8',timeout:200000,maxBuffer:4_000_000});
+        const stdout=execFileSync('prlimit',['--as=4294967296','--stack=16777216',process.env.PATHSUM_NATIVE_GPMC,'-mode=1','-cs=64',file],{encoding:'utf8',timeout:200000,maxBuffer:4_000_000});
         native.elapsed_ms+=performance.now()-start;
         const count=s=>s.match(/^c s exact arb frac (.+)$/m)?.[1].replace(/\s/g,'');
         native.exact_count_match &&= count(stdout)===count(diag.stdout[j]);
@@ -80,7 +80,7 @@ const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
       } catch(e) {native.error=String(e)} finally {fs.rmSync(dir,{recursive:true,force:true})}
       response.native_gpmc=native;
      }
-     const row={id:c.id,family:c.family,mode,counter,trial,...response};rows.push(row);
+     const row={id:c.id,family:c.family,mode,counter,trial,...response};rows.push({status:row.status});
      fs.appendFileSync(path.join(out,'rows.jsonl'),JSON.stringify(row)+'\n');
      console.log(`${c.id} ${mode}/${counter} #${trial}: ${row.status} ${row.wall_ms===null?'unknown':(row.wall_ms/1000).toFixed(3)}s ${row.report?.frobenius_distance?.upper||row.error||''}`);
      if(trial===0 && row.status==='BOUND' && row.wall_ms<2000)trials=5;

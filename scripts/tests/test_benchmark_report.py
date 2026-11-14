@@ -27,4 +27,10 @@ class ReportAudit(unittest.TestCase):
    if r['counter']=='ganak' and r['id']==MANIFEST['cases'][0]['id']:
     r['report']['frobenius_distance']={'lower':'1','upper':'1','lower_exact':'1','upper_exact':'1'}
   code,r=self.run_report(rows);self.assertNotEqual(code,0);self.assertTrue(r['interval_disagreements'])
+ def test_disjoint_repeat_is_failure(self):
+  rows=self.rows();rows[1]['report']['frobenius_distance']={'lower':'1','upper':'1','lower_exact':'1','upper_exact':'1'}
+  code,r=self.run_report(rows);self.assertNotEqual(code,0);self.assertTrue(r['repeat_interval_disagreements'])
+ def test_native_count_disagreement_is_failure(self):
+  rows=self.rows();rows[0]['native_gpmc']={'elapsed_ms':1,'exact_count_match':False}
+  code,r=self.run_report(rows);self.assertNotEqual(code,0);self.assertTrue(r['native_count_disagreements'])
 if __name__=='__main__':unittest.main()
