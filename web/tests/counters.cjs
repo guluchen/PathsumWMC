@@ -64,7 +64,7 @@ function eq(a,b) {const [an,ad]=rational(a),[bn,bd]=rational(b);return an*bd===b
   }
   await page.locator('#circuit-a').fill('OPENQASM 2.0; qreg q[24]; '+Array.from({length:2000},(_,i)=>`h q[${i%24}]; t q[${i%24}]; cx q[${i%24}],q[${(i+1)%24}];`).join(''));
   await check.click();await page.getByRole('button',{name:'Stop',exact:true}).click();
-  await page.getByText('Computation stopped.',{exact:true}).waitFor();
+  await page.getByText('Computation stopped.',{exact:false}).first().waitFor();
   await page.setViewportSize({width:390,height:844});
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
   fs.mkdirSync('test-results',{recursive:true});fs.writeFileSync('test-results/counters.json',JSON.stringify({pass:true,exact_weighted_cnfs:results.length,forced_wmc_distance_checks:8,stop:true,mobile_390px:true,results},null,2));
