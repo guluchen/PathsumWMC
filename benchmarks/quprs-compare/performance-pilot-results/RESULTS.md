@@ -1,3 +1,5 @@
+> TIMING SUPERSEDED: the reused-browser harness could overlap asynchronous Chromium worker teardown with the following sample. All timing ratios in this initial panel are withdrawn; raw numerical/interval comparisons remain recorded. The same preselected panel is being remeasured using a fresh, fully closed browser per WASM trial. No old timing will be pooled into that isolated panel.
+
 # Original QuPRS paired comparison — diagnostic pilot
 
 Coverage: 48/48 cells, 152 trials.

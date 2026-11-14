@@ -1,3 +1,5 @@
+> TIMING SUPERSEDED: the reused-browser harness could overlap asynchronous Chromium worker teardown with the following sample. All timing ratios in this initial panel are withdrawn; raw numerical/interval comparisons remain recorded. The same preselected panel is being remeasured using a fresh, fully closed browser per WASM trial. No old timing will be pooled into that isolated panel.
+
 # Exact performance candidate: diagnostic pilot
 
 The preselected 12-case panel completed 48/48 cells and 152 trials in [run 43614116593](https://github.com/guluchen/PathsumWMC/actions/runs/43614116593). This is a diagnostic panel, not a new whole-suite speed claim. The selection was committed before measurement in performance-pilot.json.

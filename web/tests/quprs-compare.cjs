@@ -51,13 +51,12 @@ function subprocess(command,args,request,isQuprs){
  try{
   await new Promise(r=>server.listen(0,'127.0.0.1',r));const base=`http://127.0.0.1:${server.address().port}${prefix}`;
   const launch=async()=>{browser=await chromium.launch({args:['--js-flags=--max-old-space-size=2048']});page=await browser.newPage();await page.goto(base)};
-  await launch();
   const workerFile=fs.readdirSync(path.join(dist,'assets')).find(x=>/^solver\.worker-.*\.js$/.test(x));assert(workerFile);
   const workerUrl=new URL('assets/'+workerFile,base).href;
   const binaries=[process.env.PATHSUM_NATIVE_FRONTEND,process.env.PATHSUM_NATIVE_GPMC,process.env.PATHSUM_ORIGINAL_GPMC];
   const metadata={revision:process.env.GITHUB_SHA,artifact_run:process.env.PATHSUM_BUILD_RUN,original_revision:manifest.revision,
    original_profile:'Unmodified Python API, backend=python, safe_mode=false; separate Difference default and Proportional profiles; source/transpiled direction unchanged.',
-   shard,shards,smoke,pilot,pilot_plan:pilot?pilotPlan:null,cpu:os.cpus()[0].model,browser:browser.version(),
+   shard,shards,smoke,pilot,pilot_plan:pilot?pilotPlan:null,cpu:os.cpus()[0].model,browser:'Fresh Chromium per WASM trial; exact version recorded in each row',timing_protocol:'isolated-chromium-v2',
    hashes:Object.fromEntries([...binaries,...['engines/gpmc.wasm',...fs.readdirSync(path.join(dist,'assets')).filter(n=>n.endsWith('.wasm')).map(n=>'assets/'+n)].map(n=>path.join(dist,n))].map(n=>[n,sha(fs.readFileSync(n))])),
    policy:'Serial on one pinned CPU. Native/original: 4 GiB AS, 16 MiB stack; WASM: 512 MiB/module. 200 s whole-process/worker request cap. Post-import API and whole-process times separate. Five repeats only when the first completed cell takes <2 s whole-process/request; otherwise one screening trial. No unresolved-time imputation; different numerical guarantees.'};
   fs.writeFileSync(path.join(out,'metadata.json'),JSON.stringify(metadata,null,2));
@@ -79,12 +78,13 @@ function subprocess(command,args,request,isQuprs){
       if(system==='ours-native')r=await subprocess(process.env.PATHSUM_NATIVE_FRONTEND,[process.env.PATHSUM_NATIVE_GPMC],request,false);
       else if(system.startsWith('quprs-'))r=await subprocess('python3',[path.resolve('benchmarks/quprs-compare/quprs_runner.py'),system==='quprs-default'?'Difference':'Proportional'],request,true);
       else{
+       const launchTick=performance.now();await launch();const browserVersion=browser.version(),launch_ms=performance.now()-launchTick;
        try{r=await page.evaluate(async({workerUrl,base,request,limit})=>{
         const {createWorkerHost}=await import(new URL('engines/host.js',base).href);const start=performance.now();
         const root=new Worker(workerUrl,{type:'module'}),host=createWorkerHost(root,new URL('engines/',base).href,limit);root.postMessage({request});
         try{const d=await host.result;return {status:d.report?.frobenius_distance?'BOUND':d.report?.verdict==='unknown'?'UNKNOWN':'INCONCLUSIVE',report:d.report,request_ms:performance.now()-start,process_ms:null}}
         catch(e){return {status:e.code==='TIMEOUT'?'TIMEOUT':'ERROR',error:String(e),request_ms:performance.now()-start,process_ms:null}}
-       },{workerUrl,base,request,limit})}catch(e){r={status:'BROWSER_CRASH',error:String(e),request_ms:null,process_ms:null};await browser.close().catch(()=>{});await launch()}
+       },{workerUrl,base,request,limit})}catch(e){r={status:'BROWSER_CRASH',error:String(e),request_ms:null,process_ms:null}}finally{const closeTick=performance.now();await browser.close();browser=null;r.browser_version=browserVersion;r.browser_launch_ms=launch_ms;r.browser_cleanup_ms=performance.now()-closeTick;await new Promise(resolve=>setTimeout(resolve,150));}
       }
       const row={id:c.id,family:c.family,mode,system,trial,...r};fs.appendFileSync(path.join(out,'rows.jsonl'),JSON.stringify(row)+'\n');
       console.log(c.id,mode,system,trial,r.status,((r.process_ms??r.request_ms??0)/1000).toFixed(3));
