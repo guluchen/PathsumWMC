@@ -51,27 +51,28 @@ jobs:
           cache-dependency-path: web/package-lock.json
       - name: Install wasm-bindgen
         run: cargo install wasm-bindgen-cli --locked --version 0.2.100
-      - uses: actions/cache@v4
-        with:
-          path: |
-            web/public/engines/sources/ganak-corresponding-source.tar.gz
-            web/public/engines/GANAK-LICENSES.txt
-          key: ganak-corresponding-f262be5-v1
       - name: Counter corresponding sources
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh run download 43580382944 --repo guluchen/PathsumWMC --name gpmc-wasm --dir "$RUNNER_TEMP/gpmc-port"
+          gh run download 43582929968 --repo guluchen/PathsumWMC --name gpmc-wasm --dir "$RUNNER_TEMP/gpmc-port"
+          gh run download 43582929968 --repo guluchen/PathsumWMC --name ganak-static-wasm --dir "$RUNNER_TEMP/ganak-port"
           mkdir -p web/public/engines/sources
           cp "$RUNNER_TEMP/gpmc-port/sources/"* web/public/engines/sources/
-          python3 scripts/package-ganak-sources.py
+          cp "$RUNNER_TEMP/ganak-port/sources/ganak-static-port-source.tar.gz" web/public/engines/sources/
+          cp "$RUNNER_TEMP/ganak-port/GANAK-LICENSES.txt" web/public/engines/
+          python3 scripts/finalize-port-sources.py
       - name: Build from source
         working-directory: web
         run: |
+          node --check tests/counters.cjs
+          node --check tests/paper-bench.cjs
+          python3 ../scripts/tests/test_benchmark_report.py
           npm ci
           npm run build:wasm
           npm run build
           node ../scripts/collect-licenses.cjs
+          python3 ../scripts/check-wasm-limits.py dist/engines/gpmc.wasm dist/engines/ganak.wasm dist/assets/*.wasm > dist/engines/MEMORY_LIMITS.json
       - name: Browser checks at the deployed subpath
         working-directory: web
         run: |

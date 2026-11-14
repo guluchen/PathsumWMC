@@ -653,12 +653,16 @@ pub fn finish_external(req:&CheckRequest,stdout:&str,elapsed_ms:u64)->Result<Rep
     // normalized trace is an adapter/counter failure, not a valid distance.
     if j.frobenius_distance.is_none() { return Err(EqError("The counter result violates the unitary trace bound.".into())); }
     let counter=CounterReport { name:req.counter.clone(),kind:"wmc".into(),verdict:j.verdict.clone(),value:j.value.clone(),magnitude_squared:j.magnitude_squared,frobenius_distance:j.frobenius_distance.clone(),elapsed_ms,error:String::new() };
+    let arithmetic=arithmetic_from(&counter);
+    let dimensions:Vec<_>=jobs[0].lines().find(|l|l.starts_with("p cnf ")).unwrap().split_whitespace().collect();
+    let submitted_variables=dimensions[2].parse::<u32>().unwrap();
+    let submitted_clauses=dimensions[3].parse::<u32>().unwrap();
     Ok(Report {
         verdict:j.verdict.clone(),headline:headline_for(&j.verdict),detail:j.value.clone(),phase:j.value,
-        arithmetic:if radius.is_zero() {"exact".into()} else {"ball".into()},
+        arithmetic,
         qubits:left.qubits as u32,gates1:left.len() as u32,gates2:right.len() as u32,
         path_variables_before:before,path_variables_after:after,monomials:ps.phase.terms.len() as u32,
-        variables:enc.nvars,clauses:enc.clauses.len() as u32,frobenius_distance:j.frobenius_distance,
+        variables:submitted_variables,clauses:submitted_clauses,frobenius_distance:j.frobenius_distance,
         precision_bits:prec,reduction_steps:ps.steps,counters:vec![counter],
         notes:vec!["The selected WebAssembly counter computed exact complex-rational midpoint sums; a parity/carry extension preserves pi/4 weights exactly in Q(i,sqrt(2)). Ball arithmetic encloses all phase-weight approximation error using a telescoping product bound; no floating-point acceptance band is used.".into()],
     })

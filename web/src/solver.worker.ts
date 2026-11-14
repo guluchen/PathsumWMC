@@ -34,7 +34,7 @@ self.onmessage=async ({data})=>{
       if(report.verdict==='inconclusive' && prec<maxPrec) {
         prec=Math.min(maxPrec,prec*2);continue
       }
-      self.postMessage({report});return
+      self.postMessage({report,...(data.diagnostics?{diagnostics:{cnfs:job.cnfs,stdout:outputs}}:{})});return
     }
   } catch(e) { self.postMessage({error:e instanceof Error?e.message:String(e)}) }
 }

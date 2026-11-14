@@ -54,6 +54,10 @@ function eq(a,b) {const [an,ad]=rational(a),[bn,bd]=rational(b);return an*bd===b
    await page.locator('#circuit-a').fill('OPENQASM 2.0; qreg q[1]; h q[0]; h q[0];');
    await page.locator('#circuit-b').fill('OPENQASM 2.0; qreg q[1]; id q[0];');
    await check.click();await page.waitForFunction(()=>document.querySelector('output[aria-label="Frobenius distance"]')?.textContent==='0');
+   await page.locator('#circuit-a').fill('OPENQASM 2.0; qreg q[1]; h q[0]; t q[0]; h q[0];');
+   await check.click();await page.waitForFunction(()=>document.querySelector('output[aria-label="Frobenius distance"]')?.textContent.includes('3.9018'));
+   await page.locator('#circuit-b').fill('OPENQASM 2.0; qreg q[1]; h q[0]; t q[0]; h q[0];');
+   await check.click();await page.waitForFunction(()=>document.querySelector('output[aria-label="Frobenius distance"]')?.textContent==='0');
    await page.locator('#circuit-a').fill('OPENQASM 2.0; qreg q[1]; rx(1/5) q[0];');
    await page.locator('#circuit-b').fill('OPENQASM 2.0; qreg q[1]; rx(1/6) q[0];');
    await check.click();await page.waitForFunction(()=>document.querySelector('output[aria-label="Frobenius distance"]')?.textContent==='[1.66664e-2, 1.66665e-2]');
@@ -63,7 +67,7 @@ function eq(a,b) {const [an,ad]=rational(a),[bn,bd]=rational(b);return an*bd===b
   await page.getByText('Computation stopped.',{exact:true}).waitFor();
   await page.setViewportSize({width:390,height:844});
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
-  fs.mkdirSync('test-results',{recursive:true});fs.writeFileSync('test-results/counters.json',JSON.stringify({pass:true,exact_weighted_cnfs:results.length,forced_wmc_distance_checks:4,stop:true,mobile_390px:true,results},null,2));
-  console.log('96 exact counter CNFs and 4 forced-WMC distances PASS');
+  fs.mkdirSync('test-results',{recursive:true});fs.writeFileSync('test-results/counters.json',JSON.stringify({pass:true,exact_weighted_cnfs:results.length,forced_wmc_distance_checks:8,stop:true,mobile_390px:true,results},null,2));
+  console.log('96 exact counter CNFs and 8 forced-WMC distances PASS');
  } finally {if(browser) await browser.close();server.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});

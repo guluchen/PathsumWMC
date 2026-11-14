@@ -8,24 +8,31 @@
       "sources/gmp-6.3.0.tar.xz"
     ],
     "license": "GPMC MIT notices; GMP LGPLv3/GPLv2 dual license; see bundled notices.",
-    "build_run": "https://github.com/guluchen/PathsumWMC/actions/runs/43580382944",
+    "build_run": "https://github.com/guluchen/PathsumWMC/actions/runs/43582929968",
     "sha256": {
       "gpmc.js": "93d0191e68c2c7db3dc716cac591947cbf272049db8038bc088af5d14d9cb28b",
       "gpmc.wasm": "3ed9c3044824006283c30c6259963720c29f7b592d3f3acb0e8595b61f82847c"
-    }
+    },
+    "emscripten": "4.0.23"
   },
   "ganak": {
     "repository": "https://github.com/meelgroup/ganak",
     "revision": "f262be5374f312b4bf7c99c6cca26e51182158e5",
-    "official_run": "https://github.com/meelgroup/ganak/actions/runs/42495537837",
     "mode": "2 (exact complex rational), --prob 0",
     "sha256": {
-      "ganak.js": "ada58864757c94197734a54c4576e77b6a887191a0ff2e11e6a8ae47de666127",
-      "ganak.wasm": "1d02d50aa4a639bf939557a8eebfa0a8d7846be23e996b7fb44fcbef769303a6"
+      "ganak.js": "0cc87cb4ff0bfef6e60affedff466b44e6b3d39189db228cddc09153ad196206",
+      "ganak.wasm": "740e93e7e3bc356c82ee8204b8453166bff4b6960cb3022045d6cbe4ab1bbc6b"
     },
     "source": [
-      "sources/ganak-corresponding-source.tar.gz"
+      "sources/ganak-static-port-source.tar.gz"
     ],
-    "licenses": "GANAK-LICENSES.txt"
+    "licenses": "GANAK-LICENSES.txt",
+    "build_run": "https://github.com/guluchen/PathsumWMC/actions/runs/43582929968",
+    "emscripten": "4.0.23",
+    "patches": [
+      "Remove Arjun Emscripten shared-library override; link all dependencies statically.",
+      "Link GMP C++ explicitly.",
+      "Bound each WASM memory to 512 MiB."
+    ]
   }
 }

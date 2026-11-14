@@ -56,8 +56,9 @@ let active: {worker:Worker, reject:(e:Error)=>void} | null = null
 export function loadChecker(): Promise<void> {
   return new Promise((resolve,reject)=>{
     const worker=new Worker(new URL('./solver.worker.ts',import.meta.url),{type:'module'})
-    worker.onmessage=({data})=>{worker.terminate();data.ready?resolve():reject(new Error(data.error))}
-    worker.onerror=(e)=>{worker.terminate();reject(new Error(e.message))}
+    const timer=window.setTimeout(()=>{worker.terminate();reject(new Error("The checker did not load within 30 seconds."))},30_000)
+    worker.onmessage=({data})=>{window.clearTimeout(timer);worker.terminate();data.ready?resolve():reject(new Error(data.error))}
+    worker.onerror=(e)=>{window.clearTimeout(timer);worker.terminate();reject(new Error(e.message))}
     worker.postMessage({init:true})
   })
 }
@@ -68,7 +69,7 @@ export function checkEquivalence(request:CheckRequest,timeoutMs=200_000):Promise
   cancelCheck()
   return new Promise((resolve,reject)=>{
     const worker=new Worker(new URL('./solver.worker.ts',import.meta.url),{type:'module'})
-    const timer=window.setTimeout(()=>finish(undefined,new Error('Time limit reached (200 seconds).')),timeoutMs)
+    const timer=window.setTimeout(()=>finish(undefined,new Error(`Time limit reached (${timeoutMs/1000} seconds).`)),timeoutMs)
     function finish(report?:Report,error?:Error) {
       window.clearTimeout(timer);worker.terminate()
       if(active?.worker===worker) active=null

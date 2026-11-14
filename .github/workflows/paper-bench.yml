@@ -34,6 +34,13 @@ jobs:
           gh run download '${{ inputs.build_run }}' --name github-pages --dir "$RUNNER_TEMP/pages"
           mkdir -p "$RUNNER_TEMP/site"
           tar xf "$RUNNER_TEMP/pages/artifact.tar" -C "$RUNNER_TEMP/site"
+      - name: Build the same GPMC adapter natively
+        run: |
+          mkdir -p "$RUNNER_TEMP/native-src"
+          tar xf "$RUNNER_TEMP/site/engines/sources/gpmc-port-source.tar.gz" -C "$RUNNER_TEMP/native-src"
+          cmake -S "$RUNNER_TEMP/native-src/source-bundle/gpmc-patched" -B "$RUNNER_TEMP/native-build" -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-std=c++14
+          cmake --build "$RUNNER_TEMP/native-build" -j2
+          cp "$RUNNER_TEMP/native-build/gpmc.js" "$RUNNER_TEMP/native-gpmc"
       - name: Install browser harness
         run: |
           npm install --prefix "$RUNNER_TEMP/qa" --no-save playwright@1.65.1
@@ -47,6 +54,7 @@ jobs:
           PATHSUM_SHARDS: 12
           PATHSUM_BENCH_OUT: ${{ runner.temp }}/results
           PATHSUM_BUILD_RUN: ${{ inputs.build_run }}
+          PATHSUM_NATIVE_GPMC: ${{ runner.temp }}/native-gpmc
         run: |
           core=$(python3 -c 'import os;print(min(os.sched_getaffinity(0)))')
           taskset -c "$core" node web/tests/paper-bench.cjs

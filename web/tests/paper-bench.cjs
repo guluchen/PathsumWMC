@@ -16,6 +16,7 @@ const server = http.createServer((req,res)=>{
 });
 const os=require('node:os');
 const crypto=require('node:crypto');
+const {execFileSync}=require('node:child_process');
 const manifest=require('../../benchmarks/paper-2026/manifest.json');
 const sourceRoot=process.env.PATHSUM_PAPER_ROOT;
 const shard=Number(process.env.PATHSUM_SHARD||0),shards=Number(process.env.PATHSUM_SHARDS||12);
@@ -32,7 +33,7 @@ const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
   const filename=fs.readdirSync(path.join(dist,'assets')).find(n=>/^solver\.worker-.*\.js$/.test(n));
   assert(filename,'Compiled solver worker is missing');
   const workerUrl=new URL('assets/'+filename,base).href;
-  const metadata={revision:process.env.GITHUB_SHA,artifact_run:process.env.PATHSUM_BUILD_RUN,source_revision:manifest.revision,
+  const metadata={revision:process.env.GITHUB_SHA,artifact_run:process.env.PATHSUM_BUILD_RUN,source_revision:manifest.revision,native_gpmc_sha256:process.env.PATHSUM_NATIVE_GPMC?sha(fs.readFileSync(process.env.PATHSUM_NATIVE_GPMC)):null,
    binary_sha256:Object.fromEntries(['engines/gpmc.wasm','engines/ganak.wasm',...fs.readdirSync(path.join(dist,'assets')).filter(n=>n.endsWith('.wasm')).map(n=>'assets/'+n)].map(n=>[n,sha(fs.readFileSync(path.join(dist,n)))])),
    shard,shards,cpu:os.cpus()[0].model,logical_cpus:os.cpus().length,total_memory:os.totalmem(),browser:browser.version(),
    scope:'Serial fresh browser workers on one pinned CPU; local HTTP assets, not Internet download latency. Whole-request 200 s cap. One screening trial, plus four repeat trials only when the first finite bound completes under 2 s. Timings are not paper-hardware speedup claims.'};
@@ -53,10 +54,26 @@ const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
       let finished=false;
       const done=data=>{if(finished)return;finished=true;clearTimeout(timer);worker.terminate();resolve({...data,wall_ms:performance.now()-start})};
       const timer=setTimeout(()=>done({status:'TIMEOUT'}),200_000);
-      worker.onmessage=({data})=>done(data.error?{status:'ERROR',error:data.error}:{status:data.report?.frobenius_distance?'BOUND':data.report?.verdict==='unknown'?'UNKNOWN':'INCONCLUSIVE',report:data.report});
+      worker.onmessage=({data})=>done(data.error?{status:'ERROR',error:data.error}:{diagnostics:data.diagnostics,status:data.report?.frobenius_distance?'BOUND':data.report?.verdict==='unknown'?'UNKNOWN':'INCONCLUSIVE',report:data.report});
       worker.onerror=e=>done({status:'ERROR',error:e.message});
-      worker.postMessage({request,engineRoot:new URL('engines/',base).href});
+      worker.postMessage({request,diagnostics:true,engineRoot:new URL('engines/',base).href});
      }),{workerUrl,base,request});
+     const diag=response.diagnostics;delete response.diagnostics;
+     if(trial===0 && counter==='gpmc' && diag && response.wall_ms<30000 && process.env.PATHSUM_NATIVE_GPMC) {
+      const dir=fs.mkdtempSync(path.join(os.tmpdir(),'pathsum-native-counter-'));
+      const native={kind:'Same GPMC exact-rational adapter, native whole-process time; comparison excludes circuits taking >=30 s in WASM.',input_sha256:[],elapsed_ms:0,exact_count_match:true};
+      try {
+       for(let j=0;j<diag.cnfs.length;j++) {
+        const file=path.join(dir,`job-${j}.cnf`);fs.writeFileSync(file,diag.cnfs[j]);native.input_sha256.push(sha(diag.cnfs[j]));
+        const start=performance.now();
+        const stdout=execFileSync('prlimit',['--as=4294967296',process.env.PATHSUM_NATIVE_GPMC,'-mode=1','-cs=64',file],{encoding:'utf8',timeout:200000,maxBuffer:4_000_000});
+        native.elapsed_ms+=performance.now()-start;
+        const count=s=>s.match(/^c s exact arb frac (.+)$/m)?.[1].replace(/\s/g,'');
+        native.exact_count_match &&= count(stdout)===count(diag.stdout[j]);
+       }
+      } catch(e) {native.error=String(e)} finally {fs.rmSync(dir,{recursive:true,force:true})}
+      response.native_gpmc=native;
+     }
      const row={id:c.id,family:c.family,mode,counter,trial,...response};rows.push(row);
      fs.appendFileSync(path.join(out,'rows.jsonl'),JSON.stringify(row)+'\n');
      console.log(`${c.id} ${mode}/${counter} #${trial}: ${row.status} ${(row.wall_ms/1000).toFixed(3)}s ${row.report?.frobenius_distance?.upper||row.error||''}`);
