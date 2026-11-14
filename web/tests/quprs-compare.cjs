@@ -64,7 +64,7 @@ function subprocess(command,args,request,isQuprs){
   const qasm=gates=>`OPENQASM 2.0; include "qelib1.inc"; qreg q[1]; ${gates}`;
   const cases=smoke?[{id:'smoke/HH',family:'MQTBench',a:qasm('h q[0]; h q[0];'),b:qasm('x q[0]; x q[0];')},
    {id:'smoke/Tself',family:'MQTBench',a:qasm('t q[0];'),b:qasm('t q[0];')},
-   {id:'smoke/near_phase',family:'MQTBench',a:qasm('u1(0.000001) q[0]; x q[0]; x q[0];'),b:qasm('x q[0]; x q[0];')}]:manifest.cases;
+   {id:'smoke/near_phase',family:'MQTBench',a:qasm('u1(0.000001) q[0]; x q[0]; x q[0];'),b:qasm('x q[0]; x q[0];')}]:pilot?manifest.cases.filter(c=>pilotPlan.case_ids.includes(c.id)):manifest.cases;
   for(let idx=0;idx<cases.length;idx++){
    if(!smoke&&idx%shards!==shard)continue;const c=cases[idx];
    if(!smoke&&pilot&&!pilotPlan.case_ids.includes(c.id))continue;let a=c.a,b=c.b;

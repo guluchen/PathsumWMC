@@ -4,9 +4,13 @@ import argparse,collections,csv,json,math,pathlib,statistics
 from fractions import Fraction
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 SYSTEMS=['quprs-default','quprs-proportional','ours-native','ours-wasm']
-def audit(raw):
+def audit(raw,plan=None):
  manifest=json.loads((ROOT/'benchmarks/paper-2026/manifest.json').read_text())
- expected={(c['id'],m,s) for c in manifest['cases'] for m in (['reduction'] if c['family']=='Feynman' else ['hybrid','wmc']) for s in SYSTEMS}
+ cases=manifest['cases']
+ if plan:
+  known={c['id'] for c in cases};assert set(plan['case_ids'])<=known,'Unknown pilot inputs'
+  cases=[c for c in cases if c['id'] in plan['case_ids']]
+ expected={(c['id'],m,s) for c in cases for m in (['reduction'] if c['family']=='Feynman' else ['hybrid'] if plan else ['hybrid','wmc']) for s in SYSTEMS}
  groups=collections.defaultdict(list);locations=collections.defaultdict(set)
  for f in sorted(raw.rglob('rows.jsonl')):
   for line in f.read_text().splitlines():
@@ -58,7 +62,7 @@ def audit(raw):
     if (accept and Fraction(own['lower_exact'])>0) or (c['verdict']=='not_equivalent' and Fraction(own['upper_exact'])==0):
      verdict_differences.append({'case':c['case'],'mode':c['mode'],'original_profile':c['system'],'original_verdict':c['verdict'],'ours':s,'our_verdict':own['verdict'],'our_lower':own['distance_lower'],'our_upper':own['distance_upper']})
  same_host_violations=sorted(case for case,files in locations.items() if len(files)>1)
- return {'complete':not(missing or unexpected or bad_trials or same_host_violations),'expected_cells':len(expected),'recorded_cells':len(groups),'trials':sum(map(len,groups.values())),
+ return {'pilot':bool(plan),'complete':not(missing or unexpected or bad_trials or same_host_violations),'expected_cells':len(expected),'recorded_cells':len(groups),'trials':sum(map(len,groups.values())),
   'missing':missing,'unexpected':unexpected,'bad_trials':bad_trials,'same_host_violations':same_host_violations,'unstable_status':unstable,'unstable_verdict':unstable_verdict,
   'interval_conflicts':interval_conflicts,'cross_mode_interval_conflicts':cross_mode_conflicts,
   'cells':cells,'paired_request_ratios':ratios,'numerical_verdict_differences':verdict_differences}
@@ -66,7 +70,7 @@ def write(result,out):
  out.mkdir(parents=True,exist_ok=True);(out/'results.json').write_text(json.dumps(result,indent=2)+'\n')
  with (out/'results.csv').open('w') as f:
   cells=result['cells'];w=csv.DictWriter(f,fieldnames=list(cells[0]) if cells else ['case']);w.writeheader();w.writerows(cells)
- lines=['# Original QuPRS paired comparison','',f"Coverage: {result['recorded_cells']}/{result['expected_cells']} cells, {result['trials']} trials.",'',
+ lines=['# Original QuPRS paired comparison'+(' — diagnostic pilot' if result.get('pilot') else ''),'',f"Coverage: {result['recorded_cells']}/{result['expected_cells']} cells, {result['trials']} trials.",'',
  'QuPRS DECIDED is its historical numerical classification, not a certified distance interval. Our BOUND is a finite inclusive interval, not automatically an exact-equivalence decision. Each cell has one screening trial or a conditional five-repeat median; timeout/UNKNOWN cells receive no speed ratio. Request times exclude Python imports/native frontend startup and include browser worker/module initialization. Whole-process times are separately retained.','',
  '| Cohort / mode / system | Cells | Decided / finite bound | Tight bounds ≤ 1e-6 | Timeout | Error / memory | Unknown | Browser crash |','|---|---:|---:|---:|---:|---:|---:|---:|']
  for family,modes in [('MQTBench',['hybrid','wmc']),('Feynman',['reduction'])]:
@@ -85,5 +89,5 @@ def write(result,out):
  lines+=['',f"Numerical acceptance / strict-distance differences: {len(result['numerical_verdict_differences'])} rows (including multiple modes/profiles/systems for one input). See results.json; these are retained as semantic differences, not silently counted as correctness agreement."]
  (out/'RESULTS.md').write_text('\n'.join(lines)+'\n');print('\n'.join(lines))
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('raw',type=pathlib.Path);p.add_argument('out',type=pathlib.Path);a=p.parse_args();r=audit(a.raw);write(r,a.out)
+ p=argparse.ArgumentParser();p.add_argument('raw',type=pathlib.Path);p.add_argument('out',type=pathlib.Path);p.add_argument('--plan',type=pathlib.Path);a=p.parse_args();r=audit(a.raw,json.loads(a.plan.read_text()) if a.plan else None);write(r,a.out)
  if not r['complete'] or r['interval_conflicts'] or r['cross_mode_interval_conflicts']:raise SystemExit(1)

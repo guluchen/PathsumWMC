@@ -56,7 +56,9 @@ jobs:
           cp "$RUNNER_TEMP/original-gpmc-build/gpmc" "$RUNNER_TEMP/frozen/original-gpmc"
           mkdir -p original-quprs/src/QuPRS/utils/wmc_tools
           cp "$RUNNER_TEMP/frozen/original-gpmc" original-quprs/src/QuPRS/utils/wmc_tools/gpmc
-          cargo test --workspace --locked
+          build_revision=$(gh run view '${{ inputs.build_run }}' --json headSha --jq .headSha)
+          git fetch --no-tags --depth=1 origin "$build_revision"
+          git diff --exit-code "$build_revision" HEAD -- crates/pathsum-eq/src crates/pathsum-wasm/src crates/pathsum-eq/examples/compare_exact.rs Cargo.lock Cargo.toml
           cargo build --release --locked -p pathsum-eq --example compare_exact
           cp target/release/examples/compare_exact "$RUNNER_TEMP/frozen/native-frontend"
           git -C original-quprs rev-parse HEAD > "$RUNNER_TEMP/frozen/original-revision.txt"
@@ -97,7 +99,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+        shard: ${{ fromJSON(inputs.pilot && '[0,1,2,3,4,5,6,7,8,9,10,11]' || '[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]') }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
@@ -133,7 +135,7 @@ jobs:
           PATHSUM_PAPER_ROOT: ${{ github.workspace }}/original-quprs
           PATHSUM_SHARD: ${{ matrix.shard }}
           PATHSUM_COMPARE_PILOT: ${{ inputs.pilot }}
-          PATHSUM_SHARDS: 24
+          PATHSUM_SHARDS: ${{ inputs.pilot && '12' || '24' }}
           PATHSUM_BENCH_OUT: ${{ runner.temp }}/comparison
           PATHSUM_BUILD_RUN: ${{ inputs.build_run }}
           PATHSUM_NATIVE_FRONTEND: ${{ github.workspace }}/frozen/native-frontend
