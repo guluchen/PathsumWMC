@@ -46,5 +46,11 @@
     43607792759,
     43607999816
   ],
-  "previous_own_only_screen": "Not pooled; previous own-only timing run 43592259882 remains separate."
+  "previous_own_only_screen": "Not pooled; previous own-only timing run 43592259882 remains separate.",
+  "timing_qualification_20261115": {
+    "status": "Historical reused-browser timing ratios are not controlled performance claims",
+    "reason": "Asynchronous worker/browser teardown may overlap following samples",
+    "numerical_evidence": "Unchanged; no intervals or raw records modified",
+    "isolated_fixed_pilot_run": 43625065429
+  }
 }

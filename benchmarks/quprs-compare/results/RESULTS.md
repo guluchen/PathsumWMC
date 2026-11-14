@@ -1,3 +1,5 @@
+> TIMING QUALIFICATION — 2026-11-15: a later real-browser audit found that short-lived asynchronous Chromium teardown can overlap a following sample when the same browser is reused. This historical screen used that protocol, so its numerical/interval evidence and raw records remain useful, but its speed ratios must not be treated as controlled performance claims. A fixed diagnostic subset is being remeasured with fresh-browser isolation in [run43625065429](https://github.com/guluchen/PathsumWMC/actions/runs/43625065429); this does not replace the entire historical corpus.
+
 # Original QuPRS paired comparison
 
 Coverage: 440/440 cells, 1416 trials.

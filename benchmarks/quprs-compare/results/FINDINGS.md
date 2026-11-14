@@ -1,3 +1,5 @@
+> TIMING QUALIFICATION — 2026-11-15: a later real-browser audit found that short-lived asynchronous Chromium teardown can overlap a following sample when the same browser is reused. This historical screen used that protocol, so its numerical/interval evidence and raw records remain useful, but its speed ratios must not be treated as controlled performance claims. A fixed diagnostic subset is being remeasured with fresh-browser isolation in [run43625065429](https://github.com/guluchen/PathsumWMC/actions/runs/43625065429); this does not replace the entire historical corpus.
+
 # Direct comparison with the original QuPRS
 
 **The current Hybrid reimplementation has a substantial performance problem compared with the paper-era original.** This is not solely a WebAssembly problem: the certified native path is also slower on many Hybrid inputs, and both our implementations complete fewer cases. Reduction-only is faster on the selected common completed cases, but has lower completion coverage. Pure WMC native timing is competitive on a small selected subset; that does not compensate for its missing cases or imply equivalent numerical guarantees.
