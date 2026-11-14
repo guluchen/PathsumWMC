@@ -37,4 +37,11 @@ class ComparisonAudit(unittest.TestCase):
    if trial==4:r['status']='TIMEOUT';r['report']={}
    rows.append(r)
   result=self.audit(rows);self.assertTrue(result['complete']);self.assertTrue(result['unstable_status']);self.assertEqual(len(result['paired_request_ratios']),438)
+ def test_verdict_instability_is_not_a_speed_win(self):
+  rows=self.rows();first=rows[0];first['process_ms']=100
+  for trial in range(1,5):
+   r=copy.deepcopy(first);r['trial']=trial
+   if trial==4:r['report']['equivalent']='not_equivalent'
+   rows.append(r)
+  result=self.audit(rows);self.assertTrue(result['complete']);self.assertFalse(result['unstable_status']);self.assertTrue(result['unstable_verdict']);self.assertEqual(len(result['paired_request_ratios']),438)
 if __name__=='__main__':unittest.main()

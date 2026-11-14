@@ -25,6 +25,7 @@ def audit(raw):
   native_or_wasm=key[2].startswith('ours-')
   cells.append({'case':key[0],'mode':key[1],'system':key[2],'trials':len(rs),'status':first['status'],
    'stable_status':len({r['status'] for r in rs})==1,
+   'stable_verdict':len({r.get('report',{}).get('verdict' if native_or_wasm else 'equivalent') for r in rs})==1,
    'verdict':first.get('report',{}).get('verdict' if native_or_wasm else 'equivalent'),
    'median_request_s':median('request_ms')/1000 if median('request_ms') is not None else None,
    'median_process_s':median('process_ms')/1000 if median('process_ms') is not None else None,
@@ -38,13 +39,14 @@ def audit(raw):
  for (case,mode),ds in bounds.items():cross_mode[case].extend(ds)
  cross_mode_conflicts=[case for case,ds in cross_mode.items() if max(Fraction(d['lower_exact']) for d in ds)>min(Fraction(d['upper_exact']) for d in ds)]
  unstable=[(r['case'],r['mode'],r['system']) for r in cells if not r['stable_status']]
+ unstable_verdict=[(r['case'],r['mode'],r['system']) for r in cells if not r['stable_verdict']]
  by={(c['case'],c['mode'],c['system']):c for c in cells};ratios=[];verdict_differences=[]
  for c in cells:
   if not c['system'].startswith('quprs-'):continue
   for s in ['ours-native','ours-wasm']:
    own=by.get((c['case'],c['mode'],s))
    if not own:continue
-   if c['status']=='DECIDED' and own['status']=='BOUND' and c['stable_status'] and own['stable_status']:
+   if c['status']=='DECIDED' and own['status']=='BOUND' and c['stable_status'] and own['stable_status'] and c['stable_verdict'] and own['stable_verdict']:
     # No timeout/UNKNOWN substitution and no assertion that numerical acceptance is proof.
     if c['median_request_s'] and own['median_request_s'] is not None:
      ratios.append({'case':c['case'],'mode':c['mode'],'original_profile':c['system'],'ours':s,
@@ -57,7 +59,7 @@ def audit(raw):
      verdict_differences.append({'case':c['case'],'mode':c['mode'],'original_profile':c['system'],'original_verdict':c['verdict'],'ours':s,'our_verdict':own['verdict'],'our_lower':own['distance_lower'],'our_upper':own['distance_upper']})
  same_host_violations=sorted(case for case,files in locations.items() if len(files)>1)
  return {'complete':not(missing or unexpected or bad_trials or same_host_violations),'expected_cells':len(expected),'recorded_cells':len(groups),'trials':sum(map(len,groups.values())),
-  'missing':missing,'unexpected':unexpected,'bad_trials':bad_trials,'same_host_violations':same_host_violations,'unstable_status':unstable,
+  'missing':missing,'unexpected':unexpected,'bad_trials':bad_trials,'same_host_violations':same_host_violations,'unstable_status':unstable,'unstable_verdict':unstable_verdict,
   'interval_conflicts':interval_conflicts,'cross_mode_interval_conflicts':cross_mode_conflicts,
   'cells':cells,'paired_request_ratios':ratios,'numerical_verdict_differences':verdict_differences}
 def write(result,out):
