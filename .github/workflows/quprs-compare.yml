@@ -1,0 +1,145 @@
+name: Original QuPRS paired comparison
+on:
+  workflow_dispatch:
+    inputs:
+      build_run:
+        description: Frozen validated Pages build
+        default: '43591913232'
+        required: true
+      smoke_only:
+        description: Stop after preparing binaries and paired smoke validation
+        type: boolean
+        default: false
+permissions:
+  contents: read
+  actions: read
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: PhysicsQoo/QuPRS
+          ref: 60bcb250da4eb992f0b5f6727a5b6e57db8f0a84
+          submodules: recursive
+          path: original-quprs
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Prepare exact pinned original and native runtime
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libmpfr-dev libgmp-dev zlib1g-dev
+          python3 -m pip install -r benchmarks/quprs-compare/requirements.txt
+          mkdir -p "$RUNNER_TEMP/frozen/site" "$RUNNER_TEMP/gpmc-src"
+          gh run view '${{ inputs.build_run }}' --json conclusion --jq .conclusion | grep -x success
+          gh run download '${{ inputs.build_run }}' --name github-pages --dir "$RUNNER_TEMP/pages"
+          tar xf "$RUNNER_TEMP/pages/artifact.tar" -C "$RUNNER_TEMP/frozen/site"
+          tar xf "$RUNNER_TEMP/frozen/site/engines/sources/gpmc-port-source.tar.gz" -C "$RUNNER_TEMP/gpmc-src"
+          cmake -S "$RUNNER_TEMP/gpmc-src/source-bundle/gpmc-patched" -B "$RUNNER_TEMP/adapter-build" -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-std=c++14
+          cmake --build "$RUNNER_TEMP/adapter-build" -j2
+          cp "$RUNNER_TEMP/adapter-build/gpmc.js" "$RUNNER_TEMP/frozen/native-gpmc"
+          cmake -S original-quprs/GPMC -B "$RUNNER_TEMP/original-gpmc-build" -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_BUILD_TYPE=Release
+          cmake --build "$RUNNER_TEMP/original-gpmc-build" -j2
+          cp "$RUNNER_TEMP/original-gpmc-build/gpmc" "$RUNNER_TEMP/frozen/original-gpmc"
+          mkdir -p original-quprs/src/QuPRS/utils/wmc_tools
+          cp "$RUNNER_TEMP/frozen/original-gpmc" original-quprs/src/QuPRS/utils/wmc_tools/gpmc
+          cargo test --workspace --locked
+          cargo build --release --locked -p pathsum-eq --example compare_exact
+          cp target/release/examples/compare_exact "$RUNNER_TEMP/frozen/native-frontend"
+          git -C original-quprs rev-parse HEAD > "$RUNNER_TEMP/frozen/original-revision.txt"
+          git -C original-quprs/GPMC rev-parse HEAD > "$RUNNER_TEMP/frozen/original-gpmc-revision.txt"
+          python3 -m pip freeze > "$RUNNER_TEMP/frozen/python-environment.txt"
+          sha256sum "$RUNNER_TEMP/frozen/native-gpmc" "$RUNNER_TEMP/frozen/original-gpmc" "$RUNNER_TEMP/frozen/native-frontend" > "$RUNNER_TEMP/frozen/native-hashes.txt"
+          npm install --prefix "$RUNNER_TEMP/qa" --no-save playwright@1.65.1
+          "$RUNNER_TEMP/qa/node_modules/.bin/playwright" install --with-deps chromium
+          node --check web/tests/quprs-compare.cjs
+      - name: Same-host smoke including actual weighted counting
+        env:
+          PATHSUM_PLAYWRIGHT_MODULE: ${{ runner.temp }}/qa/node_modules/playwright
+          PATHSUM_DIST: ${{ runner.temp }}/frozen/site
+          PATHSUM_BENCH_OUT: ${{ runner.temp }}/smoke
+          PATHSUM_BUILD_RUN: ${{ inputs.build_run }}
+          PATHSUM_NATIVE_FRONTEND: ${{ runner.temp }}/frozen/native-frontend
+          PATHSUM_NATIVE_GPMC: ${{ runner.temp }}/frozen/native-gpmc
+          PATHSUM_ORIGINAL_GPMC: ${{ runner.temp }}/frozen/original-gpmc
+          PATHSUM_COMPARE_SMOKE: '1'
+          PYTHONPATH: ${{ github.workspace }}/original-quprs/src
+        run: |
+          core=$(python3 -c 'import os;print(min(os.sched_getaffinity(0)))')
+          taskset -c "$core" node web/tests/quprs-compare.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quprs-comparison-smoke
+          path: ${{ runner.temp }}/smoke
+      - uses: actions/upload-artifact@v4
+        with:
+          name: quprs-comparison-frozen
+          path: ${{ runner.temp }}/frozen
+  compare:
+    needs: prepare
+    if: ${{ !inputs.smoke_only }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: PhysicsQoo/QuPRS
+          ref: 60bcb250da4eb992f0b5f6727a5b6e57db8f0a84
+          path: original-quprs
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/download-artifact@v4
+        with:
+          name: quprs-comparison-frozen
+          path: frozen
+      - name: Install pinned environment and verify original
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libmpfr6
+          python3 -m pip install -r benchmarks/quprs-compare/requirements.txt
+          chmod +x frozen/native-* frozen/original-gpmc
+          test "$(git -C original-quprs rev-parse HEAD)" = "$(cat frozen/original-revision.txt)"
+          mkdir -p original-quprs/src/QuPRS/utils/wmc_tools
+          cp frozen/original-gpmc original-quprs/src/QuPRS/utils/wmc_tools/gpmc
+          npm install --prefix "$RUNNER_TEMP/qa" --no-save playwright@1.65.1
+          "$RUNNER_TEMP/qa/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Serial pinned comparison
+        env:
+          PATHSUM_PLAYWRIGHT_MODULE: ${{ runner.temp }}/qa/node_modules/playwright
+          PATHSUM_DIST: ${{ github.workspace }}/frozen/site
+          PATHSUM_PAPER_ROOT: ${{ github.workspace }}/original-quprs
+          PATHSUM_SHARD: ${{ matrix.shard }}
+          PATHSUM_SHARDS: 24
+          PATHSUM_BENCH_OUT: ${{ runner.temp }}/comparison
+          PATHSUM_BUILD_RUN: ${{ inputs.build_run }}
+          PATHSUM_NATIVE_FRONTEND: ${{ github.workspace }}/frozen/native-frontend
+          PATHSUM_NATIVE_GPMC: ${{ github.workspace }}/frozen/native-gpmc
+          PATHSUM_ORIGINAL_GPMC: ${{ github.workspace }}/frozen/original-gpmc
+          PYTHONPATH: ${{ github.workspace }}/original-quprs/src
+        run: |
+          core=$(python3 -c 'import os;print(min(os.sched_getaffinity(0)))')
+          taskset -c "$core" node web/tests/quprs-compare.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quprs-comparison-${{ matrix.shard }}
+          path: ${{ runner.temp }}/comparison
