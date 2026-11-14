@@ -4,13 +4,18 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      gpmc_run:
+        description: Optional successful candidate GPMC port build (branch validation only)
+        required: false
+        default: ''
 
 permissions:
   contents: read
   actions: read
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -54,11 +59,20 @@ jobs:
       - name: Counter corresponding sources
         env:
           GH_TOKEN: ${{ github.token }}
+          GPMC_RUN: ${{ inputs.gpmc_run }}
         run: |
           gh release download counter-wasm-20261114-v2 --repo guluchen/PathsumWMC --pattern gpmc-port-source.tar.gz --pattern ganak-static-port-source.tar.gz --pattern gmp-6.3.0.tar.xz --pattern GANAK-LICENSES.txt --dir "$RUNNER_TEMP/counter-sources"
           mkdir -p web/public/engines/sources
           cp "$RUNNER_TEMP/counter-sources/"*.tar.* web/public/engines/sources/
           cp "$RUNNER_TEMP/counter-sources/GANAK-LICENSES.txt" web/public/engines/
+          if [ -n "$GPMC_RUN" ]; then
+            test '${{ github.ref }}' != refs/heads/main
+            gh run view "$GPMC_RUN" --json conclusion --jq .conclusion | grep -x success
+            gh run download "$GPMC_RUN" --name gpmc-wasm --dir "$RUNNER_TEMP/candidate-gpmc"
+            cp "$RUNNER_TEMP/candidate-gpmc/gpmc.js" "$RUNNER_TEMP/candidate-gpmc/gpmc.wasm" web/public/engines/
+            cp "$RUNNER_TEMP/candidate-gpmc/sources/gpmc-port-source.tar.gz" web/public/engines/sources/
+            python3 scripts/candidate-port-provenance.py "$GPMC_RUN"
+          fi
           python3 scripts/check-port-assets.py
       - name: Build from source
         working-directory: web
