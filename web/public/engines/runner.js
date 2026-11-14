@@ -5,12 +5,14 @@ self.onmessage = async ({data}) => {
   if (!['gpmc','ganak'].includes(data.engine) || typeof data.cnf !== 'string') {
     self.postMessage({error:'Invalid counter request.'}); return;
   }
-  importScripts('./output.js');
+  const version=new URL(self.location.href).searchParams.get('v')||'20261114-clock-stack-v2';
+  const asset=name=>{const url=new URL(name,self.location.href);url.searchParams.set('v',version);return url.href};
+  importScripts(asset('output.js'));
   const output=self.createCounterOutput();
   const start=performance.now();
   self.Module={
     noInitialRun:true,
-    locateFile:name=>new URL(name,self.location.href).href,
+    locateFile:name=>asset(name),
     print:line=>output.append('out',line),
     printErr:line=>output.append('err',line),
     onAbort:reason=>self.postMessage({error:`Counter aborted: ${reason}. ${output.stderr()} ${output.stdout().slice(-1500)} [WASM heap ${typeof HEAPU8!=="undefined"?HEAPU8.buffer.byteLength:"unknown"} bytes]`}),
@@ -31,6 +33,6 @@ self.onmessage = async ({data}) => {
       } catch(e) { self.postMessage({error:String(e),stdout:output.stdout(),stderr:output.stderr()}); }
     }
   };
-  try { importScripts(`./${data.engine}.js`); }
+  try { importScripts(asset(`${data.engine}.js`)); }
   catch(e) { self.postMessage({error:String(e)}); }
 };

@@ -64,6 +64,7 @@ jobs:
         working-directory: web
         run: |
           node tests/output.cjs
+          node tests/host.cjs
           node --check tests/counters.cjs
           node --check tests/paper-bench.cjs
           python3 ../scripts/tests/test_benchmark_report.py

@@ -29,7 +29,7 @@ const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
   await new Promise(r=>server.listen(0,'127.0.0.1',r));
   const base=`http://127.0.0.1:${server.address().port}${prefix}`;
   browser=await chromium.launch({args:['--js-flags=--max-old-space-size=2048']});
-  const page=await browser.newPage();await page.goto(base);
+  let page=await browser.newPage();await page.goto(base);
   const filename=fs.readdirSync(path.join(dist,'assets')).find(n=>/^solver\.worker-.*\.js$/.test(n));
   assert(filename,'Compiled solver worker is missing');
   const workerUrl=new URL('assets/'+filename,base).href;
@@ -49,15 +49,21 @@ const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
     let trials=1;
     for(let trial=0;trial<trials;trial++) {
      const request={circuit1:a.toString(),circuit2:b.toString(),mode,counter,precision:128,max_precision:128,max_nodes:200000};
-     const response=await page.evaluate(({workerUrl,base,request})=>new Promise(resolve=>{
-      const start=performance.now();const worker=new Worker(workerUrl,{type:'module'});
-      let finished=false;
-      const done=data=>{if(finished)return;finished=true;clearTimeout(timer);worker.terminate();resolve({...data,wall_ms:performance.now()-start})};
-      const timer=setTimeout(()=>done({status:'TIMEOUT'}),200_000);
-      worker.onmessage=({data})=>done(data.error?{status:'ERROR',error:data.error}:{diagnostics:data.diagnostics,status:data.report?.frobenius_distance?'BOUND':data.report?.verdict==='unknown'?'UNKNOWN':'INCONCLUSIVE',report:data.report});
-      worker.onerror=e=>done({status:'ERROR',error:e.message});
-      worker.postMessage({request,diagnostics:true,engineRoot:new URL('engines/',base).href});
-     }),{workerUrl,base,request});
+     let response;
+     try {
+      response=await page.evaluate(async ({workerUrl,base,request})=>{
+       const {createWorkerHost}=await import(new URL('engines/host.js',base).href);
+       const start=performance.now(),worker=new Worker(workerUrl,{type:'module'});
+       const host=createWorkerHost(worker,new URL('engines/',base).href,200000);
+       worker.postMessage({request,diagnostics:true});
+       try {const data=await host.result;return {diagnostics:data.diagnostics,status:data.report?.frobenius_distance?'BOUND':data.report?.verdict==='unknown'?'UNKNOWN':'INCONCLUSIVE',report:data.report,wall_ms:performance.now()-start}}
+       catch(e){return {status:e.code==='TIMEOUT'?'TIMEOUT':'ERROR',error:String(e),wall_ms:performance.now()-start}}
+      },{workerUrl,base,request});
+     } catch(e) {
+      response={status:'BROWSER_CRASH',error:String(e),wall_ms:null};
+      await browser.close().catch(()=>{});browser=await chromium.launch({args:['--js-flags=--max-old-space-size=2048']});
+      page=await browser.newPage();await page.goto(base);
+     }
      const diag=response.diagnostics;delete response.diagnostics;
      if(trial===0 && counter==='gpmc' && diag && response.wall_ms<30000 && process.env.PATHSUM_NATIVE_GPMC) {
       const dir=fs.mkdtempSync(path.join(os.tmpdir(),'pathsum-native-counter-'));
@@ -76,7 +82,7 @@ const sha=s=>crypto.createHash('sha256').update(s).digest('hex');
      }
      const row={id:c.id,family:c.family,mode,counter,trial,...response};rows.push(row);
      fs.appendFileSync(path.join(out,'rows.jsonl'),JSON.stringify(row)+'\n');
-     console.log(`${c.id} ${mode}/${counter} #${trial}: ${row.status} ${(row.wall_ms/1000).toFixed(3)}s ${row.report?.frobenius_distance?.upper||row.error||''}`);
+     console.log(`${c.id} ${mode}/${counter} #${trial}: ${row.status} ${row.wall_ms===null?'unknown':(row.wall_ms/1000).toFixed(3)}s ${row.report?.frobenius_distance?.upper||row.error||''}`);
      if(trial===0 && row.status==='BOUND' && row.wall_ms<2000)trials=5;
     }
    }

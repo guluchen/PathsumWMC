@@ -1,7 +1,20 @@
 import init, {check_equivalence, prepare_external, finish_external} from './pkg/pathsum_wasm.js'
 
 const ready=init()
+let sequence=0
+const pending=new Map<number,{resolve:(data:any)=>void,reject:(error:Error)=>void}>()
+function count(engine:string,cnf:string):Promise<any> {
+  return new Promise((resolve,reject)=>{
+    const id=++sequence;pending.set(id,{resolve,reject})
+    self.postMessage({count_request:{id,engine,cnf}})
+  })
+}
 self.onmessage=async ({data})=>{
+  if(data.count_result) {
+    const response=data.count_result,waiter=pending.get(response.id)
+    if(waiter){pending.delete(response.id);response.error?waiter.reject(new Error(response.error)):waiter.resolve(response)}
+    return
+  }
   try {
     await ready
     if(data.init) { self.postMessage({ready:true}); return }
@@ -19,12 +32,7 @@ self.onmessage=async ({data})=>{
       const outputs:string[]=[]
       const result={elapsed_ms:0,load_ms:0,heap_bytes:0}
       for(const cnf of job.cnfs) {
-      const part=await new Promise<any>((resolve,reject)=>{
-        const worker=new Worker(new URL('runner.js',data.engineRoot))
-        worker.onerror=(e)=>{worker.terminate();reject(new Error(e.message))}
-        worker.onmessage=({data:response})=>{if(response.progress)return;worker.terminate(); response.error?reject(new Error(response.error)):resolve(response)}
-        worker.postMessage({engine:job.engine,cnf})
-      })
+      const part=await count(job.engine,cnf)
       outputs.push(part.stdout);result.elapsed_ms+=part.elapsed_ms;result.load_ms+=part.load_ms
       result.heap_bytes=Math.max(result.heap_bytes,part.heap_bytes||0)
       }
