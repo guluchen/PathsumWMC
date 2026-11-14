@@ -26,11 +26,13 @@ function eq(a,b) {const [an,ad]=rational(a),[bn,bd]=rational(b);return an*bd===b
   const page=await browser.newPage();await page.goto(base);
   const results=[];
   for(const engine of ['gpmc','ganak']) for(const c of cases) {
+   console.log(`Checking ${engine}/${c.id}`);
    const result=await page.evaluate(({engine,cnf})=>new Promise((resolve,reject)=>{
     const worker=new Worker(new URL('engines/runner.js',location.href));
-    const t=setTimeout(()=>{worker.terminate();reject(new Error('Counter timeout'))},15000);
+    let progress=null;
+    const t=setTimeout(()=>{worker.terminate();reject(new Error('Counter timeout '+JSON.stringify(progress)))},15000);
     worker.onerror=e=>{clearTimeout(t);worker.terminate();reject(new Error(e.message))};
-    worker.onmessage=({data})=>{clearTimeout(t);worker.terminate();resolve(data)};
+    worker.onmessage=({data})=>{if(data.progress){progress=data;return}clearTimeout(t);worker.terminate();resolve(data)};
     worker.postMessage({engine,cnf});
    }),{engine,cnf:c[engine]});
    assert(!result.error,`${engine}/${c.id}: ${JSON.stringify(result)}`);

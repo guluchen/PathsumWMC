@@ -5,6 +5,8 @@ Run on a build host, not a timing host. All revisions come from run 42495537837.
 import hashlib,json,os,pathlib,shutil,subprocess,tarfile,urllib.request
 root=pathlib.Path(__file__).resolve().parents[1]
 out=root/'web/public/engines'
+if (out/'sources/ganak-corresponding-source.tar.gz').exists() and (out/'GANAK-LICENSES.txt').exists():
+ print('Using pinned corresponding-source cache');raise SystemExit(0)
 base=pathlib.Path(os.environ.get('RUNNER_TEMP','/tmp'))/'pathsum-ganak-corresponding'
 base.mkdir(exist_ok=True)
 pins={

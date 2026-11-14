@@ -8,6 +8,7 @@ self.onmessage = async ({data}) => {
   const append=(which,line)=>{
     if (stdout.length+stderr.length > 4_000_000) throw new Error('Counter log exceeds 4 MB.');
     if(which==='out') stdout+=line+'\n'; else stderr+=line+'\n';
+    self.postMessage({progress:true,phase:'output',tail:(stdout+stderr).slice(-1500)});
   };
   const start=performance.now();
   self.Module={
@@ -18,6 +19,7 @@ self.onmessage = async ({data}) => {
     onAbort:reason=>self.postMessage({error:`Counter aborted: ${reason}`}),
     onRuntimeInitialized:()=>{
       const loaded=performance.now();
+      self.postMessage({progress:true,phase:'runtime-ready',engine:data.engine});
       try {
         Module.FS.writeFile('/input.cnf',data.cnf);
         const args=data.engine==='gpmc'

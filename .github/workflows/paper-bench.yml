@@ -1,0 +1,57 @@
+name: Paper benchmark WASM
+on:
+  workflow_dispatch:
+    inputs:
+      build_run:
+        description: Successful Validate and publish run containing the tested Pages artifact
+        required: true
+permissions:
+  contents: read
+  actions: read
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: PhysicsQoo/QuPRS
+          ref: 60bcb250da4eb992f0b5f6727a5b6e57db8f0a84
+          path: paper-inputs
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Retrieve frozen tested WASM site
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run view '${{ inputs.build_run }}' --json conclusion --jq '.conclusion' | grep -x success
+          gh run download '${{ inputs.build_run }}' --name github-pages --dir "$RUNNER_TEMP/pages"
+          mkdir -p "$RUNNER_TEMP/site"
+          tar xf "$RUNNER_TEMP/pages/artifact.tar" -C "$RUNNER_TEMP/site"
+      - name: Install browser harness
+        run: |
+          npm install --prefix "$RUNNER_TEMP/qa" --no-save playwright@1.65.1
+          "$RUNNER_TEMP/qa/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Serial pinned paper-artifact screen
+        env:
+          PATHSUM_PLAYWRIGHT_MODULE: ${{ runner.temp }}/qa/node_modules/playwright
+          PATHSUM_DIST: ${{ runner.temp }}/site
+          PATHSUM_PAPER_ROOT: ${{ github.workspace }}/paper-inputs
+          PATHSUM_SHARD: ${{ matrix.shard }}
+          PATHSUM_SHARDS: 12
+          PATHSUM_BENCH_OUT: ${{ runner.temp }}/results
+          PATHSUM_BUILD_RUN: ${{ inputs.build_run }}
+        run: |
+          core=$(python3 -c 'import os;print(min(os.sched_getaffinity(0)))')
+          taskset -c "$core" node web/tests/paper-bench.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: paper-benchmark-${{ matrix.shard }}
+          path: ${{ runner.temp }}/results

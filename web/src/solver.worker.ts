@@ -19,7 +19,7 @@ self.onmessage=async ({data})=>{
       const result=await new Promise<any>((resolve,reject)=>{
         const worker=new Worker(new URL('runner.js',data.engineRoot))
         worker.onerror=(e)=>{worker.terminate();reject(new Error(e.message))}
-        worker.onmessage=({data:response})=>{worker.terminate(); response.error?reject(new Error(response.error)):resolve(response)}
+        worker.onmessage=({data:response})=>{if(response.progress)return;worker.terminate(); response.error?reject(new Error(response.error)):resolve(response)}
         worker.postMessage(job)
       })
       const report=JSON.parse(finish_external(JSON.stringify(request),result.stdout,Math.ceil(result.elapsed_ms)))

@@ -14,7 +14,8 @@ use crate::{ball::ComplexBall, encode::Encoded, error::EqError, wmc::weight_ball
 pub(crate) fn cnf(enc: &Encoded, prec: u32, engine: &str) -> (String, BigRational) {
     let one = BigRational::one();
     let two = BigRational::from_integer(2.into());
-    let mut growth = one.clone();
+    let mut errors = Vec::new();
+    let mut total_error = BigRational::zero();
     let mut text = format!("c t wmc\np cnf {} {}\n",enc.nvars,enc.clauses.len());
     for var in 1..=enc.nvars {
         let (re,im) = match &enc.angles[var as usize] {
@@ -23,7 +24,8 @@ pub(crate) fn cnf(enc: &Encoded, prec: u32, engine: &str) -> (String, BigRationa
                 let (rl,rh)=w.re.rational_bounds();
                 let (il,ih)=w.im.rational_bounds();
                 let eps=(&rh-&rl+&ih-&il)/&two;
-                growth *= &one+eps;
+                total_error += &eps;
+                errors.push(eps);
                 ((rl+rh)/&two,(il+ih)/&two)
             },
             None => (one.clone(),BigRational::zero()),
@@ -39,13 +41,16 @@ pub(crate) fn cnf(enc: &Encoded, prec: u32, engine: &str) -> (String, BigRationa
         for l in c { text.push_str(&format!("{l} ")); }
         text.push_str("0\n");
     }
-    let radius=(growth-one)*BigInt::one().shl_bits(enc.inputs+enc.path_vars);
+    // For sum(eps)<1, product(1+eps)-1 <= sum(eps)/(1-sum(eps)).
+    // This avoids enormous rational denominators on large circuits.
+    let error=if total_error<one {
+        &total_error/(&one-&total_error)
+    } else {
+        errors.into_iter().fold(one.clone(),|p,e|p*(&one+e))-one
+    };
+    let radius=error*(BigInt::one() << (enc.inputs+enc.path_vars) as usize);
     (text,radius)
 }
-// Keep shifts explicitly bounded by the circuit encoder's u16 variable domain.
-trait ShiftBits { fn shl_bits(self,n:u32)->Self; }
-impl ShiftBits for BigInt { fn shl_bits(self,n:u32)->Self { self << n as usize } }
-
 pub(crate) fn count(text:&str)->Result<(BigRational,BigRational),EqError> {
     let mut values=text.lines().filter_map(|s|s.trim().strip_prefix("c s exact arb frac "));
     let value=values.next().ok_or_else(||EqError("The counter did not return an exact rational count.".into()))?;
@@ -105,4 +110,39 @@ mod tests {
             let (_,r2)=cnf(&enc,128,"ganak"); assert!(r2<=r);
         }
     }
+    #[derive(Clone)]
+    struct Q(BigRational,BigRational);
+    impl crate::wmc::Ring for Q {
+        fn zero()->Self {Self(BigRational::zero(),BigRational::zero())}
+        fn one()->Self {Self(BigRational::one(),BigRational::zero())}
+        fn add(&self,b:&Self)->Self {Self(&self.0+&b.0,&self.1+&b.1)}
+        fn mul(&self,b:&Self)->Self {Self(&self.0*&b.0-&self.1*&b.1,&self.0*&b.1+&self.1*&b.0)}
+    }
+    #[test] fn certified_error_bound_contains_high_precision_reference() {
+        use crate::wmc::Ring;
+        for src in ["p(1/7) q[0];", "h q[0]; p(1/7) q[0]; h q[0];", "h q[0]; t q[0]; cx q[0],q[1]; ry(1/6) q[1];"] {
+            let a=crate::parse_qasm(&format!("OPENQASM 2.0; qreg q[2]; {src}")).unwrap();
+            let b=crate::parse_qasm("OPENQASM 2.0; qreg q[2];").unwrap();
+            let ps=crate::PathSum::compose(&a,&b,false).unwrap();
+            let enc=crate::encode::encode(&ps).unwrap();
+            let (_,r)=cnf(&enc,64,"gpmc");
+            let mut p=crate::wmc::Problem {nvars:enc.nvars,clauses:enc.clauses.clone(),w0:vec![Q::one();enc.nvars as usize+1],w1:vec![Q::one();enc.nvars as usize+1]};
+            for (v,a) in enc.angles.iter().enumerate().skip(1) {
+                if let Some(a)=a {
+                    let w=weight_ball(a,64);
+                    let (l,h)=w.re.rational_bounds();let re=(l+h)/BigInt::from(2);
+                    let (l,h)=w.im.rational_bounds();let im=(l+h)/BigInt::from(2);
+                    p.w1[v]=Q(re,im);
+                }
+            }
+            let mid=crate::wmc::enumerate(&p,1_000_000).unwrap();
+            let enclosure=ball(&mid.0,&mid.1,&r,64);
+            let reference=crate::wmc::enumerate(&crate::wmc::problem_ball(&enc,256),1_000_000).unwrap();
+            for (outer,inner) in [(&enclosure.re,&reference.re),(&enclosure.im,&reference.im)] {
+                let (l,h)=outer.rational_bounds();let (rl,rh)=inner.rational_bounds();
+                assert!(l<=rl && h>=rh,"insufficient weight-error enclosure");
+            }
+        }
+    }
+
 }

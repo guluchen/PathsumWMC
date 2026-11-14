@@ -51,6 +51,12 @@ jobs:
           cache-dependency-path: web/package-lock.json
       - name: Install wasm-bindgen
         run: cargo install wasm-bindgen-cli --locked --version 0.2.100
+      - uses: actions/cache@v4
+        with:
+          path: |
+            web/public/engines/sources/ganak-corresponding-source.tar.gz
+            web/public/engines/GANAK-LICENSES.txt
+          key: ganak-corresponding-f262be5-v1
       - name: Counter corresponding sources
         env:
           GH_TOKEN: ${{ github.token }}
@@ -73,6 +79,11 @@ jobs:
           "$RUNNER_TEMP/pathsum-qa/node_modules/.bin/playwright" install --with-deps chromium
           PATHSUM_PLAYWRIGHT_MODULE="$RUNNER_TEMP/pathsum-qa/node_modules/playwright" node tests/smoke.cjs
           PATHSUM_PLAYWRIGHT_MODULE="$RUNNER_TEMP/pathsum-qa/node_modules/playwright" node tests/counters.cjs
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: failed-browser-site
+          path: web/dist
       - uses: actions/upload-artifact@v4
         if: always()
         with:
