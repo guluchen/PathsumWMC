@@ -55,13 +55,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh run download 43582929968 --repo guluchen/PathsumWMC --name gpmc-wasm --dir "$RUNNER_TEMP/gpmc-port"
-          gh run download 43582929968 --repo guluchen/PathsumWMC --name ganak-static-wasm --dir "$RUNNER_TEMP/ganak-port"
+          gh release download counter-wasm-20261114 --repo guluchen/PathsumWMC --pattern gpmc-port-source.tar.gz --pattern ganak-static-port-source.tar.gz --pattern gmp-6.3.0.tar.xz --pattern GANAK-LICENSES.txt --dir "$RUNNER_TEMP/counter-sources"
           mkdir -p web/public/engines/sources
-          cp "$RUNNER_TEMP/gpmc-port/sources/"* web/public/engines/sources/
-          cp "$RUNNER_TEMP/ganak-port/sources/ganak-static-port-source.tar.gz" web/public/engines/sources/
-          cp "$RUNNER_TEMP/ganak-port/GANAK-LICENSES.txt" web/public/engines/
-          python3 scripts/finalize-port-sources.py
+          cp "$RUNNER_TEMP/counter-sources/"*.tar.gz "$RUNNER_TEMP/counter-sources/"*.tar.xz web/public/engines/sources/
+          cp "$RUNNER_TEMP/counter-sources/GANAK-LICENSES.txt" web/public/engines/
+          python3 scripts/check-port-assets.py
       - name: Build from source
         working-directory: web
         run: |

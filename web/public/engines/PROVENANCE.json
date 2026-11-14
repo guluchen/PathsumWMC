@@ -13,7 +13,12 @@
       "gpmc.js": "93d0191e68c2c7db3dc716cac591947cbf272049db8038bc088af5d14d9cb28b",
       "gpmc.wasm": "3ed9c3044824006283c30c6259963720c29f7b592d3f3acb0e8595b61f82847c"
     },
-    "emscripten": "4.0.23"
+    "emscripten": "4.0.23",
+    "release": "https://github.com/guluchen/PathsumWMC/releases/tag/counter-wasm-20261114",
+    "source_sha256": {
+      "sources/gpmc-port-source.tar.gz": "c8ab5df7d1545c59ae646d9811fa6ecb039f0489f740f62a60f97c568b1f4174",
+      "sources/gmp-6.3.0.tar.xz": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
+    }
   },
   "ganak": {
     "repository": "https://github.com/meelgroup/ganak",
@@ -33,6 +38,10 @@
       "Remove Arjun Emscripten shared-library override; link all dependencies statically.",
       "Link GMP C++ explicitly.",
       "Bound each WASM memory to 512 MiB."
-    ]
+    ],
+    "release": "https://github.com/guluchen/PathsumWMC/releases/tag/counter-wasm-20261114",
+    "source_sha256": {
+      "sources/ganak-static-port-source.tar.gz": "11f2822986f82d7d74a1911b9bd75c2199cbf2fc6d7d403525f19f3f6f06ac4e"
+    }
   }
 }
