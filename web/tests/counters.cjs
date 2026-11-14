@@ -35,6 +35,7 @@ function eq(a,b) {const [an,ad]=rational(a),[bn,bd]=rational(b);return an*bd===b
     worker.onmessage=({data})=>{if(data.progress){progress=data;return}clearTimeout(t);worker.terminate();resolve(data)};
     worker.postMessage({engine,cnf});
    }),{engine,cnf:c[engine]});
+   assert(!result.stderr?.includes('unsupported syscall: __syscall_getrusage'),`${engine}: missing browser resource clock`);
    assert(!result.error,`${engine}/${c.id}: ${JSON.stringify(result)}`);
    const m=result.stdout.match(/^c s exact arb frac (.+)$/m);assert(m,JSON.stringify(result));
    const token=m[1].replace(/\s/g,'');

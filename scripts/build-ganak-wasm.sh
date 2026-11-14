@@ -32,18 +32,32 @@ if [ ! -f "$PREFIX/lib/libflint.a" ]; then
  sed -i 's/#if (defined(__unix__) \&\& !defined(__CYGWIN__)) || defined(__APPLE__)/#if (defined(__unix__) \&\& !defined(__CYGWIN__) \&\& !defined(__EMSCRIPTEN__)) || defined(__APPLE__)/' flint-3.4.0/src/profiler.h
  (cd flint-3.4.0 && emconfigure ./configure --host=wasm32 --disable-assembly --disable-shared --with-gmp="$PREFIX" --with-mpfr="$PREFIX" --prefix="$PREFIX" CFLAGS='-O2 -fPIC' && emmake make -j"$(nproc)" && emmake make install)
 fi
-python3 - "$SRC" <<'PY'
+python3 - "$SRC" "$ROOT" <<'PY'
 from pathlib import Path
 import sys
 root=Path(sys.argv[1])
+project=Path(sys.argv[2])
+import shutil
 # Arjun's Emscripten option overrides BUILD_SHARED_LIBS=OFF. Remove only
 # that override; retain the actual upstream preprocessing/counting algorithms.
 for p in root.rglob('CMakeLists.txt'):
  s=p.read_text().replace('set(BUILD_SHARED_LIBS ON)','set(BUILD_SHARED_LIBS OFF)')
  p.write_text(s)
+shutil.copy(project/'ports/runtime/BrowserTime.cc',root/'project/src/BrowserTime.cc')
+p=root/'project/CMakeLists.txt'
+p.write_text(p.read_text()+'\ntarget_sources(ganak-bin PRIVATE src/BrowserTime.cc)\ntarget_link_options(ganak-bin PRIVATE \"-sSTACK_SIZE=16777216\" \"-sINITIAL_MEMORY=33554432\" \"-sSTACK_OVERFLOW_CHECK=2\")\n')
 PY
 COMMON=(-DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBUILD_SHARED_LIBS=OFF -DSTATIC_BINARY=ON -DENABLE_TESTING=OFF -DNOZLIB=ON -DCMAKE_INSTALL_PREFIX="$PREFIX" -DCMAKE_PREFIX_PATH="$PREFIX" -DCMAKE_C_FLAGS="-O2 -I$PREFIX/include" -DCMAKE_CXX_FLAGS="-O2 -I$PREFIX/include" -DCMAKE_CXX_STANDARD_LIBRARIES="-lgmpxx -lgmp" -DCMAKE_EXE_LINKER_FLAGS="-L$PREFIX/lib -sALLOW_MEMORY_GROWTH=1 -sMAXIMUM_MEMORY=536870912 -sEXIT_RUNTIME=1")
 DEPS=()
+REUSED=0
+if [ -f "$PREFIX/lib/libarjun.a" ] && [ -f "$PREFIX/lib/libapproxmc.a" ]; then
+ if emcmake cmake -S project -B project/build "${COMMON[@]}" && cmake --build project/build --target ganak-bin -j"$(nproc)"; then
+  REUSED=1
+ else
+  rm -rf project/build
+ fi
+fi
+if [ "$REUSED" = 0 ]; then
 for name in cadical cadiback cryptominisat treedecomp sbva arjun approxmc project; do
  emcmake cmake -S "$name" -B "$name/build" "${COMMON[@]}" "${DEPS[@]}"
  cmake --build "$name/build" -j"$(nproc)"
@@ -54,6 +68,7 @@ for name in cadical cadiback cryptominisat treedecomp sbva arjun approxmc projec
   *) DEPS+=("-D${name}_DIR=$SRC/$name/build");;
  esac
 done
+fi
 cp project/build/ganak.js project/build/ganak.wasm "$OUT/"
 # Include the patched tree, exact commands and all upstream source/archives.
 mkdir -p "$SRC/PathsumWMC-build"

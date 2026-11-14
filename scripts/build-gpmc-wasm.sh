@@ -29,13 +29,17 @@ for pattern in ('*.cc','*.h'):
 shutil.copy(root/'ports/gpmc/ComplexMPFR.h',src/'c-mpfr/ComplexMPFR.h')
 (src/'c-mpfr/ComplexMPFR.cc').write_text('#include "c-mpfr/ComplexMPFR.h"\n')
 shutil.copy(root/'ports/gpmc/Main.cc',src/'core/Main.cc')
+shutil.copy(root/'ports/runtime/BrowserTime.cc',src/'utils/BrowserTime.cc')
 p=src/'CMakeLists.txt'
 s=p.read_text().replace('gpmc flowcutter z mpfr gmp gmpxx','gpmc flowcutter gmpxx gmp')
 s+='\nset_target_properties(gpmc-bin PROPERTIES SUFFIX ".js")\n'
+s+='\nif(CMAKE_SYSTEM_NAME STREQUAL \"Emscripten\")\n  target_sources(gpmc-bin PRIVATE utils/BrowserTime.cc)\nendif()\n'
 p.write_text(s)
 PY
-emcmake cmake -S gpmc -B gpmc-build -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-I$BUILD/prefix/include -std=c++14 -sUSE_ZLIB=1" -DCMAKE_EXE_LINKER_FLAGS="-L$BUILD/prefix/lib -sUSE_ZLIB=1 -sALLOW_MEMORY_GROWTH=1 -sMAXIMUM_MEMORY=536870912 -sENVIRONMENT=worker -sEXPORTED_RUNTIME_METHODS=FS,callMain -sEXIT_RUNTIME=1"
+emcmake cmake -S gpmc -B gpmc-build -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-I$BUILD/prefix/include -std=c++14 -sUSE_ZLIB=1" -DCMAKE_EXE_LINKER_FLAGS="-L$BUILD/prefix/lib -sUSE_ZLIB=1 -sALLOW_MEMORY_GROWTH=1 -sMAXIMUM_MEMORY=536870912 -sINITIAL_MEMORY=33554432 -sSTACK_SIZE=16777216 -sSTACK_OVERFLOW_CHECK=2 -sENVIRONMENT=worker -sEXPORTED_RUNTIME_METHODS=FS,callMain -sEXIT_RUNTIME=1"
 cmake --build gpmc-build -j2
+em++ "$ROOT/ports/runtime/clock-probe.cc" "$ROOT/ports/runtime/BrowserTime.cc" -O2 -sENVIRONMENT=node -sEXIT_RUNTIME=1 -o "$BUILD/clock-probe.js"
+node "$BUILD/clock-probe.js"
 cp gpmc-build/gpmc.js gpmc-build/gpmc.wasm "$OUT/"
 cp gmp-6.3.0.tar.xz "$OUT/sources/"
 mkdir -p source-bundle
