@@ -115,7 +115,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y libmpfr6
-          python3 -m pip install -r benchmarks/quprs-compare/requirements.txt
+          python3 -m pip install -r frozen/python-environment.txt
           chmod +x frozen/native-* frozen/original-gpmc
           test "$(git -C original-quprs rev-parse HEAD)" = "$(cat frozen/original-revision.txt)"
           mkdir -p original-quprs/src/QuPRS/utils/wmc_tools
