@@ -8,6 +8,8 @@ const dist=path.resolve(process.env.PATHSUM_DIST),prefix='/PathsumWMC/';
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.wasm':'application/wasm'};
 const out=process.env.PATHSUM_BENCH_OUT;fs.mkdirSync(out,{recursive:true});
 const smoke=process.env.PATHSUM_COMPARE_SMOKE==='1';
+const pilot=process.env.PATHSUM_COMPARE_PILOT==='true';
+const pilotPlan=require('../../benchmarks/quprs-compare/performance-pilot.json');
 const shard=Number(process.env.PATHSUM_SHARD||0),shards=Number(process.env.PATHSUM_SHARDS||24);
 const limit=200000;
 const server=http.createServer((req,res)=>{
@@ -55,7 +57,7 @@ function subprocess(command,args,request,isQuprs){
   const binaries=[process.env.PATHSUM_NATIVE_FRONTEND,process.env.PATHSUM_NATIVE_GPMC,process.env.PATHSUM_ORIGINAL_GPMC];
   const metadata={revision:process.env.GITHUB_SHA,artifact_run:process.env.PATHSUM_BUILD_RUN,original_revision:manifest.revision,
    original_profile:'Unmodified Python API, backend=python, safe_mode=false; separate Difference default and Proportional profiles; source/transpiled direction unchanged.',
-   shard,shards,smoke,cpu:os.cpus()[0].model,browser:browser.version(),
+   shard,shards,smoke,pilot,pilot_plan:pilot?pilotPlan:null,cpu:os.cpus()[0].model,browser:browser.version(),
    hashes:Object.fromEntries([...binaries,...['engines/gpmc.wasm',...fs.readdirSync(path.join(dist,'assets')).filter(n=>n.endsWith('.wasm')).map(n=>'assets/'+n)].map(n=>path.join(dist,n))].map(n=>[n,sha(fs.readFileSync(n))])),
    policy:'Serial on one pinned CPU. Native/original: 4 GiB AS, 16 MiB stack; WASM: 512 MiB/module. 200 s whole-process/worker request cap. Post-import API and whole-process times separate. Five repeats only when the first completed cell takes <2 s whole-process/request; otherwise one screening trial. No unresolved-time imputation; different numerical guarantees.'};
   fs.writeFileSync(path.join(out,'metadata.json'),JSON.stringify(metadata,null,2));
@@ -64,9 +66,10 @@ function subprocess(command,args,request,isQuprs){
    {id:'smoke/Tself',family:'MQTBench',a:qasm('t q[0];'),b:qasm('t q[0];')},
    {id:'smoke/near_phase',family:'MQTBench',a:qasm('u1(0.000001) q[0]; x q[0]; x q[0];'),b:qasm('x q[0]; x q[0];')}]:manifest.cases;
   for(let idx=0;idx<cases.length;idx++){
-   if(!smoke&&idx%shards!==shard)continue;const c=cases[idx];let a=c.a,b=c.b;
+   if(!smoke&&idx%shards!==shard)continue;const c=cases[idx];
+   if(!smoke&&pilot&&!pilotPlan.case_ids.includes(c.id))continue;let a=c.a,b=c.b;
    if(!smoke){a=fs.readFileSync(path.join(process.env.PATHSUM_PAPER_ROOT,c.source),'utf8');b=fs.readFileSync(path.join(process.env.PATHSUM_PAPER_ROOT,c.transpiled),'utf8');assert.equal(sha(a),c.sha256.source);assert.equal(sha(b),c.sha256.transpiled)}
-   for(const mode of c.family==='Feynman'?['reduction']:['hybrid','wmc']){
+   for(const mode of c.family==='Feynman'?['reduction']:pilot?['hybrid']:['hybrid','wmc']){
     const systems=['quprs-default','quprs-proportional','ours-native','ours-wasm'];
     const rotated=systems.slice(idx%4).concat(systems.slice(0,idx%4));
     for(const system of rotated){

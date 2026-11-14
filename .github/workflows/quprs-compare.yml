@@ -6,6 +6,10 @@ on:
         description: Frozen validated Pages build
         default: '43591913232'
         required: true
+      pilot:
+        description: Preselected 12-case Hybrid/reduction diagnostic screen
+        type: boolean
+        default: false
       smoke_only:
         description: Stop after preparing binaries and paired smoke validation
         type: boolean
@@ -128,6 +132,7 @@ jobs:
           PATHSUM_DIST: ${{ github.workspace }}/frozen/site
           PATHSUM_PAPER_ROOT: ${{ github.workspace }}/original-quprs
           PATHSUM_SHARD: ${{ matrix.shard }}
+          PATHSUM_COMPARE_PILOT: ${{ inputs.pilot }}
           PATHSUM_SHARDS: 24
           PATHSUM_BENCH_OUT: ${{ runner.temp }}/comparison
           PATHSUM_BUILD_RUN: ${{ inputs.build_run }}

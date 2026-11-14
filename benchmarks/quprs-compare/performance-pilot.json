@@ -1,0 +1,20 @@
+{
+  "scope": "Preselected diagnostic performance pilot, not a whole-suite win claim. Startup, arithmetic-heavy, capacity and reduction-miss cases from the prior full screen.",
+  "case_ids": [
+    "MQTBench/ghz_nativegates_ibm_qiskit_opt0_32",
+    "MQTBench/graphstate_nativegates_ibm_qiskit_opt0_32",
+    "MQTBench/grover-noancilla_nativegates_ibm_qiskit_opt0_5",
+    "MQTBench/qft_nativegates_ibm_qiskit_opt0_16",
+    "MQTBench/qft_nativegates_ibm_qiskit_opt0_24",
+    "MQTBench/qnn_nativegates_ibm_qiskit_opt0_8",
+    "MQTBench/qpeinexact_nativegates_ibm_qiskit_opt0_24",
+    "MQTBench/vqe_nativegates_ibm_qiskit_opt0_8",
+    "MQTBench/wstate_nativegates_ibm_qiskit_opt0_32",
+    "Feynman/gf2^8_mult",
+    "Feynman/hwb6",
+    "Feynman/qcla_adder_10"
+  ],
+  "mode_policy": "Hybrid for MQTBench, reduction-only for Feynman",
+  "time_limit_seconds": 200,
+  "expected_cells": 48
+}
