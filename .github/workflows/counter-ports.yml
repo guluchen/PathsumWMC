@@ -1,7 +1,7 @@
 name: Build counter ports
 on:
   push:
-    paths: ['ports/**', 'scripts/build-gpmc-wasm.sh', '.github/workflows/counter-ports.yml']
+    paths: ['ports/**', 'scripts/build-gpmc-wasm.sh', 'scripts/build-ganak-wasm.sh', '.github/workflows/counter-ports.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -27,4 +27,22 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: gpmc-wasm
+          path: web/public/engines
+
+  ganak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: '4.0.23'
+      - uses: actions/cache@v4
+        with:
+          path: .port-build/prefix
+          key: gmp-6.3.0-emsdk-4.0.23-v1
+      - run: bash scripts/build-ganak-wasm.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ganak-static-wasm
           path: web/public/engines
