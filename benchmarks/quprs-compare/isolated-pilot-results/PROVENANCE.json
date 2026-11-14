@@ -1,0 +1,17 @@
+{
+  "comparison_run": 43625065429,
+  "comparison_source": "067364b",
+  "frozen_validation_run": 43613464526,
+  "functional_source": [
+    "d563342",
+    "670b985"
+  ],
+  "original_QuPRS": "60bcb250da4eb992f0b5f6727a5b6e57db8f0a84 (paper-era Python)",
+  "timing_protocol": "isolated-chromium-v2",
+  "cases": 12,
+  "cells": 48,
+  "trials": 160,
+  "same_fixed_panel": "performance-pilot.json",
+  "different_numerical_guarantees": true,
+  "superseded_pilot_timing_run": 43614116593
+}
