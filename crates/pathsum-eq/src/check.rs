@@ -616,8 +616,8 @@ pub fn prepare_external(req:&CheckRequest)->Result<serde_json::Value,EqError> {
     }
     if mode==Mode::Reduction { return Ok(serde_json::json!({"report":unknown_report(&left,&right,&ps,before,after)})); }
     let enc=encode::encode(&ps)?;
-    let (cnf,_)=crate::external::cnf(&enc,prec,&req.counter);
-    Ok(serde_json::json!({"cnf":cnf,"precision":prec,"engine":req.counter}))
+    let (cnfs,_)=crate::external::cnf(&enc,prec,&req.counter);
+    Ok(serde_json::json!({"cnfs":cnfs,"precision":prec,"engine":req.counter}))
 }
 fn external_setup(req:&CheckRequest)->Result<(Circuit,Circuit,PathSum,u32,u32,u32),EqError> {
     if req.counter!="gpmc" && req.counter!="ganak" { return Err(EqError("Expected GPMC or GANAK.".into())); }
@@ -638,11 +638,16 @@ pub fn finish_external(req:&CheckRequest,stdout:&str,elapsed_ms:u64)->Result<Rep
     let (left,right,ps,before,after,prec)=external_setup(req)?;
     if left.qubits!=right.qubits { return Ok(dimension_report(&left,&right)); }
     let enc=encode::encode(&ps)?;
-    let (_,radius)=crate::external::cnf(&enc,prec,&req.counter);
-    let (re,im)=crate::external::count(stdout)?;
-    let value=if radius.is_zero() {
-        AmpValue::Exact(ExactAmp {re0:re,re1:num_rational::BigRational::zero(),im0:im,im1:num_rational::BigRational::zero()})
-    } else { AmpValue::Ball(crate::external::ball(&re,&im,&radius,prec)) };
+    let (jobs,radius)=crate::external::cnf(&enc,prec,&req.counter);
+    let outputs:Vec<String>=serde_json::from_str(stdout).map_err(|_|EqError("Invalid counter result envelope.".into()))?;
+    if outputs.len()!=jobs.len() {return Err(EqError("Incomplete algebraic counter jobs.".into()))}
+    let values:Vec<_>=outputs.iter().map(|s|crate::external::count(s)).collect::<Result<_,_>>()?;
+    let mid=ExactAmp {re0:values[0].0.clone(),im0:values[0].1.clone(),re1:values.get(1).map(|v|v.0.clone()).unwrap_or_default(),im1:values.get(1).map(|v|v.1.clone()).unwrap_or_default()};
+    let value=if radius.is_zero() {AmpValue::Exact(mid)} else {
+        let b=mid.to_ball(prec);
+        let (rl,rh)=b.re.rational_bounds();let (il,ih)=b.im.rational_bounds();
+        AmpValue::Ball(ComplexBall {re:RealBall::span_rationals(&(rl-&radius),&(rh+&radius),prec),im:RealBall::span_rationals(&(il-&radius),&(ih+&radius),prec)})
+    };
     let j=finalize(&ps,value,prec);
     // An exact counter result that cannot intersect the physically possible
     // normalized trace is an adapter/counter failure, not a valid distance.
@@ -655,6 +660,6 @@ pub fn finish_external(req:&CheckRequest,stdout:&str,elapsed_ms:u64)->Result<Rep
         path_variables_before:before,path_variables_after:after,monomials:ps.phase.terms.len() as u32,
         variables:enc.nvars,clauses:enc.clauses.len() as u32,frobenius_distance:j.frobenius_distance,
         precision_bits:prec,reduction_steps:ps.steps,counters:vec![counter],
-        notes:vec!["The selected WebAssembly counter computed the exact complex-rational midpoint sum. Ball arithmetic encloses all phase-weight approximation error using a telescoping product bound; no floating-point acceptance band is used.".into()],
+        notes:vec!["The selected WebAssembly counter computed exact complex-rational midpoint sums; a parity/carry extension preserves pi/4 weights exactly in Q(i,sqrt(2)). Ball arithmetic encloses all phase-weight approximation error using a telescoping product bound; no floating-point acceptance band is used.".into()],
     })
 }

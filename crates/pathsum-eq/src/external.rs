@@ -11,46 +11,59 @@ use num_rational::BigRational;
 use num_traits::{One, Zero};
 use crate::{ball::ComplexBall, encode::Encoded, error::EqError, wmc::weight_ball};
 
-pub(crate) fn cnf(enc: &Encoded, prec: u32, engine: &str) -> (String, BigRational) {
+pub(crate) fn cnf(enc: &Encoded, prec: u32, engine: &str) -> (Vec<String>, BigRational) {
     let one = BigRational::one();
     let two = BigRational::from_integer(2.into());
     let mut errors = Vec::new();
     let mut total_error = BigRational::zero();
-    let mut text = format!("c t wmc\np cnf {} {}\n",enc.nvars,enc.clauses.len());
+    let mut weights=vec![(one.clone(),BigRational::zero());enc.nvars as usize+1];
+    let mut odd=Vec::new();
     for var in 1..=enc.nvars {
-        let (re,im) = match &enc.angles[var as usize] {
-            Some(angle) => {
-                let w = weight_ball(angle,prec);
-                let (rl,rh)=w.re.rational_bounds();
-                let (il,ih)=w.im.rational_bounds();
+        if let Some(angle)=&enc.angles[var as usize] {
+            if let Some(k)=angle.quarter_index() {
+                let w=crate::ExactAmp::exp_i_pi_quarters(&k);
+                if !w.re1.is_zero() || !w.im1.is_zero() {
+                    weights[var as usize]=(w.re1,w.im1);odd.push(var as i32);
+                } else {weights[var as usize]=(w.re0,w.im0)}
+            } else {
+                let w=weight_ball(angle,prec);
+                let (rl,rh)=w.re.rational_bounds();let (il,ih)=w.im.rational_bounds();
                 let eps=(&rh-&rl+&ih-&il)/&two;
-                total_error += &eps;
-                errors.push(eps);
-                ((rl+rh)/&two,(il+ih)/&two)
-            },
-            None => (one.clone(),BigRational::zero()),
-        };
-        if engine=="gpmc" {
-            text.push_str(&format!("c p weight {var} {re} {im} 0\nc p weight -{var} 1 0 0\n"));
-        } else {
-            let sign=if im < BigRational::zero() {""} else {"+"};
-            text.push_str(&format!("c p weight {var} {re}{sign}{im}i 0\nc p weight -{var} 1+0i 0\n"));
+                total_error+=&eps;errors.push(eps);
+                weights[var as usize]=((rl+rh)/&two,(il+ih)/&two);
+            }
         }
     }
-    for c in &enc.clauses {
-        for l in c { text.push_str(&format!("{l} ")); }
-        text.push_str("0\n");
+    let mut clauses=enc.clauses.clone();
+    // Each odd pi/4 weight is alpha*sqrt(2). A deterministic parity/carry
+    // chain factors sqrt(2)^k into 2^floor(k/2) and one final sqrt(2).
+    // Two rational counts recover the exact Q(i,sqrt(2)) midpoint sum.
+    let mut parity=odd.first().copied();
+    for &v in odd.iter().skip(1) {
+        let p=parity.unwrap();
+        let carry=weights.len() as i32;weights.push((two.clone(),BigRational::zero()));
+        clauses.extend([vec![-carry,p],vec![-carry,v],vec![carry,-p,-v]]);
+        let next=weights.len() as i32;weights.push((one.clone(),BigRational::zero()));
+        clauses.extend([vec![-p,-v,-next],vec![-p,v,next],vec![p,-v,next],vec![p,v,-next]]);
+        parity=Some(next);
     }
-    // For sum(eps)<1, product(1+eps)-1 <= sum(eps)/(1-sum(eps)).
-    // This avoids enormous rational denominators on large circuits.
-    let error=if total_error<one {
-        &total_error/(&one-&total_error)
-    } else {
-        errors.into_iter().fold(one.clone(),|p,e|p*(&one+e))-one
-    };
+    let nvars=weights.len()-1;
+    let mut body=String::new();
+    for (var,(re,im)) in weights.iter().enumerate().skip(1) {
+        if engine=="gpmc" {body.push_str(&format!("c p weight {var} {re} {im} 0\nc p weight -{var} 1 0 0\n"))}
+        else {let sign=if im<&BigRational::zero() {""} else {"+"};body.push_str(&format!("c p weight {var} {re}{sign}{im}i 0\nc p weight -{var} 1+0i 0\n"))}
+    }
+    for c in &clauses {for l in c {body.push_str(&format!("{l} "));}body.push_str("0\n")}
+    let jobs=if let Some(p)=parity {
+        [false,true].into_iter().map(|odd|format!("c t wmc\np cnf {nvars} {}\n{body}{} 0\n",clauses.len()+1,if odd {p} else {-p})).collect()
+    } else {vec![format!("c t wmc\np cnf {nvars} {}\n{body}",clauses.len())]};
+    // product(1+eps)-1 <= sum(eps)/(1-sum(eps)), when sum(eps)<1.
+    let error=if total_error<one {&total_error/(&one-&total_error)}
+        else {errors.into_iter().fold(one.clone(),|p,e|p*(&one+e))-one};
     let radius=error*(BigInt::one() << (enc.inputs+enc.path_vars) as usize);
-    (text,radius)
+    (jobs,radius)
 }
+
 pub(crate) fn count(text:&str)->Result<(BigRational,BigRational),EqError> {
     let mut values=text.lines().filter_map(|s|s.trim().strip_prefix("c s exact arb frac "));
     let value=values.next().ok_or_else(||EqError("The counter did not return an exact rational count.".into()))?;
@@ -120,7 +133,7 @@ mod tests {
     }
     #[test] fn certified_error_bound_contains_high_precision_reference() {
         use crate::wmc::Ring;
-        for src in ["p(1/7) q[0];", "h q[0]; p(1/7) q[0]; h q[0];", "h q[0]; t q[0]; cx q[0],q[1]; ry(1/6) q[1];"] {
+        for src in ["p(1/7) q[0];", "h q[0]; p(1/7) q[0]; h q[0];", "h q[0]; s q[0]; cx q[0],q[1]; ry(1/6) q[1];"] {
             let a=crate::parse_qasm(&format!("OPENQASM 2.0; qreg q[2]; {src}")).unwrap();
             let b=crate::parse_qasm("OPENQASM 2.0; qreg q[2];").unwrap();
             let ps=crate::PathSum::compose(&a,&b,false).unwrap();
@@ -142,6 +155,33 @@ mod tests {
                 let (l,h)=outer.rational_bounds();let (rl,rh)=inner.rational_bounds();
                 assert!(l<=rl && h>=rh,"insufficient weight-error enclosure");
             }
+        }
+    }
+
+    fn enumerate_job(text:&str)->Q {
+        use crate::wmc::Ring;
+        let mut p=crate::wmc::Problem {nvars:0,clauses:Vec::new(),w0:Vec::new(),w1:Vec::new()};
+        for line in text.lines() {
+            let t:Vec<_>=line.split_whitespace().collect();
+            if t.first()==Some(&"p") {p.nvars=t[2].parse().unwrap();p.w0=vec![Q::one();p.nvars as usize+1];p.w1=p.w0.clone()}
+            else if t.starts_with(&["c","p","weight"]) {
+                let v:i32=t[3].parse().unwrap();let w=Q(rational(t[4]).unwrap(),rational(t[5]).unwrap());
+                if v>0 {p.w1[v as usize]=w} else {p.w0[(-v) as usize]=w}
+            } else if t.first()!=Some(&"c") {p.clauses.push(t[..t.len()-1].iter().map(|x|x.parse().unwrap()).collect())}
+        }
+        crate::wmc::dpll(&p,10_000_000).unwrap()
+    }
+    #[test] fn exact_sqrt2_extension_ladder() {
+        for n in 0..=5 {
+            let a=crate::parse_qasm(&format!("OPENQASM 2.0; qreg q[1]; {}", "h q[0]; t q[0];".repeat(n))).unwrap();
+            let b=crate::parse_qasm("OPENQASM 2.0; qreg q[1];").unwrap();
+            let ps=crate::PathSum::compose(&a,&b,false).unwrap();
+            let enc=crate::encode::encode(&ps).unwrap();
+            let (jobs,r)=cnf(&enc,64,"gpmc");assert!(r.is_zero());
+            let c:Vec<_>=jobs.iter().map(|s|enumerate_job(s)).collect();
+            let actual=crate::ExactAmp {re0:c[0].0.clone(),im0:c[0].1.clone(),re1:c.get(1).map(|z|z.0.clone()).unwrap_or_default(),im1:c.get(1).map(|z|z.1.clone()).unwrap_or_default()};
+            let expected=crate::wmc::dpll(&crate::wmc::problem_exact(&enc).unwrap(),10_000_000).unwrap();
+            assert_eq!(actual,expected,"sqrt2 reconstruction failed at ladder {n}");
         }
     }
 
